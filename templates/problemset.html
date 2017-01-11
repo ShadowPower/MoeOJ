@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Moe Online Judge</title>
+    <link href="/static/css/uikit.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+    <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/static/js/uikit.js"></script>
+</head>
+<body>
+<div class="background" id="background">
+</div>
+<nav class="uk-navbar-container uk-margin-bottom uk-light uk-navbar-transparent" uk-navbar>
+    <div class="uk-navbar-left">
+        <ul class="uk-navbar-nav">
+            <li class="uk-active"><a href="problemset/">
+                <div>
+                    问题
+                    <div class="uk-navbar-subtitle">
+                        Problem Set
+                    </div>
+                </div>
+            </a></li>
+            <li><a href="status/">
+                <div>
+                    状态
+                    <div class="uk-navbar-subtitle">
+                        Status
+                    </div>
+                </div>
+            </a></li>
+            <li><a href="rank/">
+                <div>
+                    排名
+                    <div class="uk-navbar-subtitle">
+                        Rank
+                    </div>
+                </div>
+            </a></li>
+            <li><a href="contest/">
+                <div>
+                    比赛
+                    <div class="uk-navbar-subtitle">
+                        Contest
+                    </div>
+                </div>
+            </a></li>
+        </ul>
+    </div>
+
+    <div class="uk-navbar-center">
+        <ul class="uk-navbar-nav">
+            <li class="uk-active"><a href="/" style="font-size: 30px;">Moe Online Judge</a></li>
+        </ul>
+    </div>
+
+    <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav">
+            <li class="uk-active"><a href="#">登录</a></li>
+            <li class="uk-active"><a href="#">注册</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="uk-container">
+    <div class="uk-grid-small" uk-grid>
+        <div class="uk-width-4-5@m uk-width-1-1@s">
+            <div>
+                <div class="uk-card uk-card-default uk-card-small uk-card-body">
+                    <img class="poster-girl" src="/static/img/corner.png">
+                    <div class="uk-overflow-auto">
+                        <h2 class="uk-display-inline-block">题目列表</h2>
+                        <div class="uk-align-right">
+                            <ul class="uk-pagination" uk-margin>
+                                <li><a href="#"><span uk-pagination-previous></span></a></li>
+                                <li><a href="#">1</a></li>
+                                <li class="uk-disabled"><span>...</span></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">6</a></li>
+                                <li class="uk-active"><span>7</span></li>
+                                <li><a href="#">8</a></li>
+                                <li><a href="#">9</a></li>
+                                <li><a href="#">10</a></li>
+                                <li class="uk-disabled"><span>...</span></li>
+                                <li><a href="#">20</a></li>
+                                <li><a href="#"><span uk-pagination-next></span></a></li>
+                            </ul>
+                        </div>
+
+                        <table class="uk-table uk-table-small">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>题目</th>
+                                    <th>难度</th>
+                                    <th>通过率</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>A+B Problem</td>
+                                    <td>简单</td>
+                                    <td>30%</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>分解质因数</td>
+                                    <td>中等</td>
+                                    <td>100%</td>
+                                </tr>
+                                <tr>
+                                    <td>11111</td>
+                                    <td>Rectangular Polygons</td>
+                                    <td>困难</td>
+                                    <td>50%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="uk-width-1-5@m uk-width-1-1@s">
+            <div class="uk-grid-small uk-child-width-1-1@l" uk-grid>
+                <div>
+                    <div class="uk-card uk-card-default uk-card-small uk-card-body">
+                        <h3 class="uk-panel-title">搜索</h3>
+                        <form class="uk-form-horizontal">
+                            <input class="uk-input uk-margin-small-bottom" id="form-h-text" type="text" placeholder="想找什么喵？">
+                            <br />
+                            <button class="uk-button uk-button-danger uk-width-1-1" type="submit">我要找这只东西！</button>
+                        </form>
+                    </div>
+                </div>
+                <div>
+                    <div class="uk-card uk-card-default uk-card-small uk-card-body">
+                        <h3 class="uk-panel-title">排行</h3>
+                        2jjy<br />
+                        Chris<br />
+                        BLumia<br />
+                        ShadowPower<br />
+                    </div>
+                </div>
+                <div>
+                    <div class="uk-card uk-card-default uk-card-small uk-card-body">
+                        <h3 class="uk-panel-title">标签</h3>
+                        排序<br />
+                        查找<br />
+                        二叉树<br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="uk-margin-medium uk-light">
+        <div class="uk-text-meta uk-text-right uk-align-right uk-margin-remove-bottom">
+            Powered by MoeOJ.<br/>
+            Copyright 2017 © ShadowPower.
+        </div>
+    </footer>
+</div>
+<script src="/static/js/oj.js"></script>
+</body>
+</html>

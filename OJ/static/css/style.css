@@ -1,0 +1,37 @@
+html, h1, h2, h3, h4, h5, h6 {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif !important;
+}
+
+.uk-navbar-nav > li > a {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif !important;
+    font-size: 18px;
+}
+
+.navbar-background{
+    background: linear-gradient(to bottom, rgba(40,165,245,1) 0%, rgba(40,165,245,0) 100%) !important;
+}
+
+.background {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: fixed;
+    z-index: -1;
+    background: url("../svg/background.svg") 50% 50% no-repeat,linear-gradient(to left top, #28a5f5, #1e87f0) 0 0 no-repeat;
+}
+
+.background.dusk {
+    background: url("../svg/background.svg") 50% 50% no-repeat,linear-gradient(to left top, #fe8661, #c43076) 0 0 no-repeat;
+}
+
+.background.night {
+    background: url("../svg/background.svg") 50% 50% no-repeat,linear-gradient(to left top, #251f63, #0b0313) 0 0 no-repeat;
+}
+
+.poster-girl {
+    position: absolute;
+    top: 0;
+    left: -123px;
+}
