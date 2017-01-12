@@ -20,7 +20,5 @@ from OJ import views as oj_views
 urlpatterns = [
     url(r'^$', oj_views.index),
     url(r'^problemset/$', oj_views.problemset),
-    url(r'^add/$', oj_views.add),
-    url(r'^add2/(\d+)/(\d+)/$', oj_views.add2),
     url(r'^admin/', admin.site.urls),
 ]

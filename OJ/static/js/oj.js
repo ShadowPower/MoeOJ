@@ -10,13 +10,9 @@ var oj = (function () {
         if (hours >= 19 || hours < 7)
             background.setAttribute('class', 'background night');
         else if (hours >= 7 && hours < 17)
-            background.setAttribute('class', 'background');
+            background.setAttribute('class', 'background day');
         else
             background.setAttribute('class', 'background dusk');
-    }
-
-    window.onload = function () {
-        changeBackgroundByTime();
     }
 
     // 导出函数

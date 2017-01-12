@@ -1,0 +1,36 @@
+{% set navigation_bar = [
+    ('/problemset/', 'problemset', '问题', 'Problem Set'),
+    ('/status/', 'status', '状态', 'Status'),
+    ('/rank/', 'rank', '排名', 'Rank'),
+    ('/contest/', 'contest', '比赛', 'Contest'),
+] -%}
+
+<nav class="uk-navbar-container uk-navbar-transparent uk-margin-bottom uk-light" uk-navbar>
+    <div class="uk-navbar-left">
+        <ul class="uk-navbar-nav">
+            {% for href, id, caption, sub_caption in navigation_bar %}
+            <li {% if id == active_page %} class="uk-active"{% endif %}><a href="{{ href }}">
+                <div>
+                    {{ caption }}
+                    <div class="uk-navbar-subtitle">
+                        {{ sub_caption }}
+                    </div>
+                </div>
+            </a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="uk-navbar-center">
+        <ul class="uk-navbar-nav">
+            <li class="uk-active"><a href="/" style="font-size: 30px;">Moe Online Judge</a></li>
+        </ul>
+    </div>
+
+    <div class="uk-navbar-right">
+        <ul class="uk-navbar-nav">
+            <li class="uk-active"><a href="/login/">登录</a></li>
+            <li class="uk-active"><a href="/register/">注册</a></li>
+        </ul>
+    </div>
+</nav>

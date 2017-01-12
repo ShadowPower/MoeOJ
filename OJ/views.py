@@ -1,19 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from OJ.helper import Helper
 
 # Create your views here.
 def index(request):
-    return render(request, "index.html")
+    return render(request, "index.html", {'background_class': Helper().get_background_class()})
 
 def problemset(request):
-    return render(request, "problemset.html")
-
-def add(request):
-    a = request.GET['a']
-    b = request.GET['b']
-    c = int(a)+int(b)
-    return HttpResponse(str(c))
-
-def add2(request, a, b):
-    c = int(a) + int(b)
-    return HttpResponse(str(c))
+    return render(request, "problemset.html", {'background_class': Helper().get_background_class()})

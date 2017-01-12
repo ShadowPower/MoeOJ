@@ -19,6 +19,9 @@ html, h1, h2, h3, h4, h5, h6 {
     overflow: hidden;
     position: fixed;
     z-index: -1;
+}
+
+.background.day {
     background: url("../svg/background.svg") 50% 50% no-repeat,linear-gradient(to left top, #28a5f5, #1e87f0) 0 0 no-repeat;
 }
 

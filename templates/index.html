@@ -10,59 +10,9 @@
     <script src="/static/js/uikit.js"></script>
 </head>
 <body>
-<div class="background" id="background">
+<div class="background {{ background_class }}" id="background">
 </div>
-<nav class="uk-navbar-container uk-navbar-transparent uk-margin-bottom uk-light" uk-navbar>
-    <div class="uk-navbar-left">
-        <ul class="uk-navbar-nav">
-            <li><a href="problemset/">
-                <div>
-                    问题
-                    <div class="uk-navbar-subtitle">
-                        Problem Set
-                    </div>
-                </div>
-            </a></li>
-            <li><a href="status/">
-                <div>
-                    状态
-                    <div class="uk-navbar-subtitle">
-                        Status
-                    </div>
-                </div>
-            </a></li>
-            <li><a href="rank/">
-                <div>
-                    排名
-                    <div class="uk-navbar-subtitle">
-                        Rank
-                    </div>
-                </div>
-            </a></li>
-            <li><a href="contest/">
-                <div>
-                    比赛
-                    <div class="uk-navbar-subtitle">
-                        Contest
-                    </div>
-                </div>
-            </a></li>
-        </ul>
-    </div>
-
-    <div class="uk-navbar-center">
-        <ul class="uk-navbar-nav">
-            <li class="uk-active"><a href="/" style="font-size: 30px;">Moe Online Judge</a></li>
-        </ul>
-    </div>
-
-    <div class="uk-navbar-right">
-        <ul class="uk-navbar-nav">
-            <li class="uk-active"><a href="#">登录</a></li>
-            <li class="uk-active"><a href="#">注册</a></li>
-        </ul>
-    </div>
-</nav>
+{% include 'navbar.html' %}
 
 <div class="uk-container">
     <p class="uk-margin-medium uk-text-lead uk-light">
