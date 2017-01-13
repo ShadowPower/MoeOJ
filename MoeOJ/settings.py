@@ -53,6 +53,13 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'MoeOJ.urls'
 
+CONTEXT_PROCESSORS = [
+    'django.template.context_processors.debug',
+    'django.template.context_processors.request',
+    'django.contrib.auth.context_processors.auth',
+    'django.contrib.messages.context_processors.messages',
+]
+
 TEMPLATES = [
     {
         'BACKEND': 'django_jinja.backend.Jinja2',
@@ -61,6 +68,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'match_extension': '.html',
+            'context_processors': CONTEXT_PROCESSORS,
             "extensions": [
                 "jinja2.ext.do",
                 "jinja2.ext.loopcontrols",
@@ -89,12 +97,7 @@ TEMPLATES = [
         ,
         'APP_DIRS': True,
         'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
+            'context_processors': CONTEXT_PROCESSORS,
         },
     },
 ]
