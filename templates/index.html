@@ -1,20 +1,6 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
-    <title>Moe Online Judge</title>
-    <link href="/static/css/uikit.css" rel="stylesheet" type="text/css">
-    <link href="/static/css/style.css" rel="stylesheet" type="text/css">
-    <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
-    <script src="/static/js/uikit.js"></script>
-</head>
-<body>
-<div class="background {{ background_class }}" id="background">
-</div>
-{% include 'navbar.html' %}
-
-<div class="uk-container">
+{% extends 'base.html' %}
+{% block title %}Moe Online Judge{% endblock %}
+{% block content %}
     <p class="uk-margin-medium uk-text-lead uk-light">
         欢迎来到Moe Online Judge~<br>
         注意：尚未完工
@@ -51,14 +37,4 @@
             </div>
         </div>
     </div>
-
-    <footer class="uk-margin-medium uk-light">
-        <div class="uk-text-meta uk-text-right uk-align-right uk-margin-remove-bottom">
-            Powered by MoeOJ.<br/>
-            Copyright 2017 © ShadowPower.
-        </div>
-    </footer>
-</div>
-<script src="/static/js/oj.js"></script>
-</body>
-</html>
+{% endblock %}

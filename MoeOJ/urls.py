@@ -20,5 +20,6 @@ from OJ import views as oj_views
 urlpatterns = [
     url(r'^$', oj_views.index),
     url(r'^problemset/$', oj_views.problemset),
+    url(r'^status/$', oj_views.status),
     url(r'^admin/', admin.site.urls),
 ]

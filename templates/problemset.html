@@ -1,22 +1,7 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
-    <title>Moe Online Judge</title>
-    <link href="/static/css/uikit.css" rel="stylesheet" type="text/css">
-    <link href="/static/css/style.css" rel="stylesheet" type="text/css">
-    <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
-    <script src="/static/js/uikit.js"></script>
-</head>
-<body>
-<div class="background {{ background_class }}" id="background">
-</div>
-
+{% extends 'base.html' %}
 {% set active_page = 'problemset' %}
-{% include 'navbar.html' %}
-
-<div class="uk-container">
+{% block title %}题目列表{% endblock %}
+{% block content %}
     <div class="uk-grid-small" uk-grid>
         <div class="uk-width-4-5@m uk-width-1-1@s">
             <div>
@@ -77,7 +62,6 @@
             </div>
         </div>
 
-
         <div class="uk-width-1-5@m uk-width-1-1@s">
             <div class="uk-grid-small uk-child-width-1-1@l" uk-grid>
                 <div>
@@ -110,14 +94,4 @@
             </div>
         </div>
     </div>
-
-    <footer class="uk-margin-medium uk-light">
-        <div class="uk-text-meta uk-text-right uk-align-right uk-margin-remove-bottom">
-            Powered by MoeOJ.<br/>
-            Copyright 2017 © ShadowPower.
-        </div>
-    </footer>
-</div>
-<script src="/static/js/oj.js"></script>
-</body>
-</html>
+{% endblock %}

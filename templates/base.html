@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
+    <title>{% block title %}{% endblock %}</title>
+    <link href="/static/css/uikit.css" rel="stylesheet" type="text/css">
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css">
+    <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/static/js/uikit.js"></script>
+    {% endblock %}
+</head>
+<body>
+<div class="background {{ background_class }}" id="background">
+</div>
+{% set active_page = active_page -%}{# 这句是关键 #}
+{% include 'navbar.html' %}
+<div class="uk-container">
+    {% block content %}
+    {% endblock %}
+    <footer class="uk-margin-medium uk-light">
+        <div class="uk-text-meta uk-text-right uk-align-right uk-margin-remove-bottom">
+            Powered by <a href="https://github.com/ShadowPower/MoeOJ/">MoeOJ</a>.<br/>
+            Copyright 2017 © ShadowPower.
+        </div>
+    </footer>
+</div>
+<script src="/static/js/oj.js"></script>
+{% block end_of_body %}
+{% endblock %}
+</body>
+</html>

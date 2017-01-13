@@ -7,3 +7,6 @@ def index(request):
 
 def problemset(request):
     return render(request, "problemset.html", {'background_class': Helper().get_background_class()})
+
+def status(request):
+    return render(request, "status.html", {'background_class': Helper().get_background_class()})
