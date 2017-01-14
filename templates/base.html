@@ -3,12 +3,15 @@
 <head>
     {% block head %}
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+    <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
     <title>{% block title %}{% endblock %}</title>
     <link href="/static/css/uikit.css" rel="stylesheet" type="text/css">
     <link href="/static/css/style.css" rel="stylesheet" type="text/css">
-    <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
     <script src="/static/js/uikit.min.js"></script>
+    <script src="//cdn.bootcss.com/prefixfree/1.0.7/prefixfree.min.js"></script>
     {% endblock %}
 </head>
 <body>
