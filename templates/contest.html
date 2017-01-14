@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% set active_page = 'contest' %}
+{% block title %}比赛列表{% endblock %}
+{% block content %}
+    <div class="uk-card uk-card-default uk-card-small uk-card-body">
+        <img class="poster-girl" src="/static/img/corner.png">
+        <div class="fix-the-fucking-float">
+            <h2 class="uk-display-inline-block uk-margin-remove-bottom">比赛列表</h2>
+            <div class="uk-align-right uk-margin-remove-bottom">
+                {% include 'pagination.html' %}
+            </div>
+        </div>
+        <div class="uk-overflow-auto">
+            <table class="uk-table uk-table-small">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>比赛名称</th>
+                        <th>开始时间</th>
+                        <th>结束时间</th>
+                        <th>类型</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1234</td>
+                        <td noWrap>2017年海南大学ACM招新赛</td>
+                        <td noWrap>2017/10/12 18:30:00</td>
+                        <td noWrap>2017/10/12 22:30:00</td>
+                        <td class="uk-text-success">公开</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

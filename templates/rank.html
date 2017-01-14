@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% set active_page = 'rank' %}
+{% block title %}排名{% endblock %}
+{% block content %}
+    <div class="uk-card uk-card-default uk-card-small uk-card-body">
+        <img class="poster-girl" src="/static/img/corner.png">
+        <div class="fix-the-fucking-float">
+            <h2 class="uk-display-inline-block uk-margin-remove-bottom">排行榜</h2>
+            <div class="uk-align-right uk-margin-remove-bottom">
+                {% include 'pagination.html' %}
+            </div>
+        </div>
+        <div class="uk-overflow-auto">
+            <table class="uk-table uk-table-small">
+                <thead>
+                    <tr>
+                        <th>名次</th>
+                        <th>用户</th>
+                        <th>签名</th>
+                        <th>AC数</th>
+                        <th>提交数</th>
+                        <th>通过率</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>88888</td>
+                        <td noWrap>穿上女装才能AC所有题</td>
+                        <td noWrap>骚年，你的小裙子落在我这了</td>
+                        <td>123</td>
+                        <td>1000</td>
+                        <td>12.3%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

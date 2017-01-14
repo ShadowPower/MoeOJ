@@ -2,7 +2,8 @@ import datetime
 
 
 class Helper:
-    def get_background_class(self):
+    @staticmethod
+    def get_background_class():
         hours = datetime.datetime.now().hour
         if hours >= 19 or hours < 7:
             return 'night'

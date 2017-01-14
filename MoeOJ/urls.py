@@ -21,5 +21,7 @@ urlpatterns = [
     url(r'^$', oj_views.index),
     url(r'^problemset/$', oj_views.problemset),
     url(r'^status/$', oj_views.status),
+    url(r'^rank/$', oj_views.rank),
+    url(r'^contest/$', oj_views.contest),
     url(r'^admin/', admin.site.urls),
 ]
