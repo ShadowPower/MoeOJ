@@ -23,5 +23,6 @@ urlpatterns = [
     url(r'^status/$', oj_views.status),
     url(r'^rank/$', oj_views.rank),
     url(r'^contest/$', oj_views.contest),
+    url(r'^register/$', oj_views.register),
     url(r'^admin/', admin.site.urls),
 ]
