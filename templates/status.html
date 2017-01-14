@@ -4,57 +4,43 @@
 {% block content %}
     <div class="uk-card uk-card-default uk-card-small uk-card-body">
         <img class="poster-girl" src="/static/img/corner.png">
-        <div class="uk-overflow-auto">
-            <h2 class="uk-display-inline-block uk-margin-remove-bottom">提交状态</h2>
-            <div class="uk-align-right uk-margin-remove-bottom">
-                <ul class="uk-pagination" uk-margin>
-                    <li><a href="#"><span uk-pagination-previous></span></a></li>
-                    <div class="uk-pagination uk-visible@m">
-                        <li><a href="#">1</a></li>
-                        <li class="uk-disabled"><span>...</span></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">6</a></li>
-                    </div>
-                    <li class="uk-active"><span>7</span></li>
-                    <div class="uk-pagination uk-visible@m">
-                        <li><a href="#">8</a></li>
-                        <li><a href="#">9</a></li>
-                        <li><a href="#">10</a></li>
-                        <li class="uk-disabled"><span>...</span></li>
-                        <li><a href="#">20</a></li>
-                    </div>
-                    <li><a href="#"><span uk-pagination-next></span></a></li>
-                </ul>
+        <div>
+            <div class="fix-the-fucking-float">
+                <h2 class="uk-display-inline-block uk-margin-remove-bottom">提交状态</h2>
+                <div class="uk-align-right uk-margin-remove-bottom">
+                    {% include 'pagination.html' %}
+                </div>
             </div>
-            <table class="uk-table uk-table-small">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>用户</th>
-                        <th>题号</th>
-                        <th>语言</th>
-                        <th>耗时</th>
-                        <th>内存</th>
-                        <th>结果</th>
-                        <th>长度</th>
-                        <th>提交时间</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1234567</td>
-                        <td noWrap>穿上女装才能AC所有题</td>
-                        <td>1234</td>
-                        <td>C++</td>
-                        <td>1234ms</td>
-                        <td>12345KB</tdnoWrap>
-                        <td class="uk-text-success" noWrap>正确答案</td>
-                        <td>4124B</td>
-                        <td noWrap>2017/01/13 12:43:54</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-small">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>用户</th>
+                            <th>题号</th>
+                            <th>语言</th>
+                            <th>耗时</th>
+                            <th>内存</th>
+                            <th>结果</th>
+                            <th>长度</th>
+                            <th>提交时间</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1234567</td>
+                            <td noWrap>穿上女装才能AC所有题</td>
+                            <td>1234</td>
+                            <td>C++</td>
+                            <td>1234ms</td>
+                            <td>12345KB</tdnoWrap>
+                            <td class="uk-text-success" noWrap>正确答案</td>
+                            <td>4124B</td>
+                            <td noWrap>2017/01/13 12:43:54</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 {% endblock %}

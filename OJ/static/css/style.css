@@ -38,3 +38,9 @@ html, h1, h2, h3, h4, h5, h6 {
     top: 0;
     left: -122px;
 }
+
+.fix-the-fucking-float:after {
+    content: "";
+    display: block;
+    clear: both;
+}

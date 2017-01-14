@@ -7,60 +7,45 @@
             <div>
                 <div class="uk-card uk-card-default uk-card-small uk-card-body">
                     <img class="poster-girl" src="/static/img/corner.png">
-                    <div class="uk-overflow-auto">
-                        <h2 class="uk-display-inline-block uk-margin-remove-bottom">题目列表</h2>
-                        <div class="uk-align-right uk-margin-remove-bottom">
-                            <ul class="uk-pagination" uk-margin>
-                                <li><a href="#"><span uk-pagination-previous></span></a></li>
-                                <div class="uk-pagination uk-visible@m">
-                                    <li><a href="#">1</a></li>
-                                    <li class="uk-disabled"><span>...</span></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li><a href="#">6</a></li>
-                                </div>
-                                <li class="uk-active"><span>7</span></li>
-                                <div class="uk-pagination uk-visible@m">
-                                    <li><a href="#">8</a></li>
-                                    <li><a href="#">9</a></li>
-                                    <li><a href="#">10</a></li>
-                                    <li class="uk-disabled"><span>...</span></li>
-                                    <li><a href="#">20</a></li>
-                                </div>
-                                <li><a href="#"><span uk-pagination-next></span></a></li>
-                            </ul>
+                    <div>
+                        <div class="fix-the-fucking-float">
+                            <h2 class="uk-display-inline-block uk-margin-remove-bottom">题目列表</h2>
+                            <div class="uk-align-right uk-margin-remove-bottom">
+                                {% include 'pagination.html' %}
+                            </div>
                         </div>
-
-                        <table class="uk-table uk-table-small">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>题目</th>
-                                    <th>难度</th>
-                                    <th>通过率</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>A+B Problem</td>
-                                    <td>简单</td>
-                                    <td>30%</td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>分解质因数</td>
-                                    <td>中等</td>
-                                    <td>100%</td>
-                                </tr>
-                                <tr>
-                                    <td>11111</td>
-                                    <td>Rectangular Polygons</td>
-                                    <td>困难</td>
-                                    <td>50%</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="uk-overflow-auto">
+                            <table class="uk-table uk-table-small">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>题目</th>
+                                        <th>难度</th>
+                                        <th>通过率</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>A+B Problem</td>
+                                        <td>简单</td>
+                                        <td>30%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>分解质因数</td>
+                                        <td>中等</td>
+                                        <td>100%</td>
+                                    </tr>
+                                    <tr>
+                                        <td>11111</td>
+                                        <td>Rectangular Polygons</td>
+                                        <td>困难</td>
+                                        <td>50%</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
