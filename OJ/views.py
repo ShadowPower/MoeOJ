@@ -19,3 +19,6 @@ def contest(request):
 
 def register(request):
     return render(request, "register.html", {'background_class': Helper.get_background_class()})
+
+def login(request):
+    return render(request, "login.html", {'background_class': Helper.get_background_class()})
