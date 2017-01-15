@@ -1,5 +1,12 @@
 var oj = (function () {
-    InstantClick.init(50);
+
+    InstantClick.on('change', function(isInitialLoad) {
+      if (isInitialLoad === false) {
+
+      }
+    });
+
+    InstantClick.init('50');
 
     // 导出函数
     return {
