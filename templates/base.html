@@ -17,8 +17,10 @@
 {% set active_page = active_page -%}{# 这句是关键 #}
 {% include 'navbar.html' %}
 <div class="uk-container {{ container_class }}">
-    {% block content %}
-    {% endblock %}
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
     <footer class="uk-margin-medium uk-light">
         <div class="uk-text-meta uk-text-right uk-align-right uk-margin-remove-bottom">
             Powered by <a href="https://github.com/ShadowPower/MoeOJ/">MoeOJ</a>.<br/>
@@ -27,6 +29,7 @@
     </footer>
 </div>
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery.pjax/1.9.6/jquery.pjax.min.js"></script>
 <script src="/static/js/uikit.min.js" data-no-instant></script>
 <script src="//cdn.bootcss.com/prefixfree/1.0.7/prefixfree.min.js"></script>
 <script src="/static/js/oj.js" data-no-instant></script>
