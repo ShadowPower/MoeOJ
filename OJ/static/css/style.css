@@ -7,6 +7,10 @@ html, h1, h2, h3, h4, h5, h6 {
     font-size: 18px;
 }
 
+.uk-navbar-dropdown-nav > li > a {
+    font-size: 18px;
+}
+
 .navbar-background{
     background: linear-gradient(to bottom, rgba(40,165,245,1) 0%, rgba(40,165,245,0) 100%) !important;
 }
