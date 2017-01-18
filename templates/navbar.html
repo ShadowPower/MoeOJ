@@ -5,8 +5,8 @@
     ('/contest/', 'contest', '比赛', 'Contest'),
 ] -%}
 
-<nav class="uk-navbar uk-navbar-container uk-navbar-transparent uk-margin-bottom uk-light" uk-navbar>
-    <div class="uk-navbar-left">
+<nav class="uk-navbar uk-navbar-container uk-navbar-transparent uk-margin-bottom uk-light" uk-navbar="mode: click">
+    <div class="uk-navbar-left uk-visible@m">
         <ul class="uk-navbar-nav">
             {% for href, id, caption, sub_caption in navigation_bar %}
             <li {% if id == active_page %} class="uk-active"{% endif %}><a href="{{ href }}">
@@ -27,10 +27,30 @@
         </ul>
     </div>
 
-    <div class="uk-navbar-right">
+    <div class="uk-navbar-right uk-visible@m">
         <ul class="uk-navbar-nav">
             <li class="uk-active"><a href="/login/">登录</a></li>
             <li class="uk-active"><a href="/register/">注册</a></li>
+        </ul>
+    </div>
+
+    <div class="uk-navbar-right uk-hidden@m">
+        <ul class="uk-navbar-nav">
+            <li>
+                <a class="uk-navbar-toggle" uk-navbar-toggle-icon href=""></a>
+                <div class="uk-navbar-dropdown">
+                    <ul class="uk-nav uk-navbar-dropdown-nav">
+                        {% for href, id, caption, sub_caption in navigation_bar %}
+                        <li {% if id == active_page %} class="uk-active"{% endif %}>
+                            <a href="{{ href }}">{{ caption }}</a>
+                        </li>
+                        {% endfor %}
+                        <li class="uk-nav-divider"></li>
+                        <li class="uk-active"><a href="/login/">登录</a></li>
+                        <li class="uk-active"><a href="/register/">注册</a></li>
+                    </ul>
+                </div>
+            </li>
         </ul>
     </div>
 </nav>
