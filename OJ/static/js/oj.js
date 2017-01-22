@@ -7,16 +7,17 @@ var oj = (function () {
     $(document).on('pjax:complete', function() {
         //pjax链接加载完成后隐藏加载动画；
         console.log('载入完成');
-    });
 
-    // 分页
-    $('#change-pagination').on('click', function (e) {
-        e.preventDefault();
-        $(this).blur();
-        UIkit.modal.prompt('请输入页码 (7/20):', '').then(function(page) {
-            console.log('跳转到:', page)
+        // 分页
+        $('#change-pagination').on('click', function (e) {
+            e.preventDefault();
+            $(this).blur();
+            UIkit.modal.prompt('请输入页码 (7/20):', '').then(function(page) {
+                console.log('跳转到:', page)
+            });
         });
     });
+
 
     // 导出函数
     return {
