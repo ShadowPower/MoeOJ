@@ -18,12 +18,12 @@ from django.contrib import admin
 from OJ import views as oj_views
 
 urlpatterns = [
-    url(r'^$', oj_views.index),
-    url(r'^problemset/$', oj_views.problemset),
-    url(r'^status/$', oj_views.status),
-    url(r'^rank/$', oj_views.rank),
-    url(r'^contest/$', oj_views.contest),
-    url(r'^register/$', oj_views.register),
-    url(r'^login/$', oj_views.login),
-    url(r'^admin/', admin.site.urls),
+    url(r'^$', oj_views.index, name='index'),
+    url(r'^problemset/$', oj_views.problemset, name='problemset'),
+    url(r'^status/$', oj_views.status, name='status'),
+    url(r'^rank/$', oj_views.rank, name='rank'),
+    url(r'^contest/$', oj_views.contest, name='contest'),
+    url(r'^register/$', oj_views.register, name='register'),
+    url(r'^login/$', oj_views.login, name='login'),
+    url(r'^admin/', admin.site.urls, name='admin'),
 ]

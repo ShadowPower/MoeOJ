@@ -15,7 +15,7 @@ def rank(request):
     return render(request, "rank.html", {'background_class': Helper.get_background_class()})
 
 def contest(request):
-    return render(request, "contest.html", {'background_class': Helper.get_background_class()})
+    return render(request, "contest/contest.html", {'background_class': Helper.get_background_class()})
 
 def register(request):
     return render(request, "register.html", {'background_class': Helper.get_background_class()})

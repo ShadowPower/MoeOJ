@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% set active_page = 'contest' %}
+{% block title %}{{ contest_title }} - 概览{% endblock %}
+{% block content %}
+    <div class="uk-card uk-card-default uk-card-small uk-card-body">
+        <img class="poster-girl" src="/static/img/corner.png">
+        <div class="fix-the-fucking-float">
+            <h2 class="uk-display-inline-block uk-margin-remove-bottom">{{ contest_title }} - 概览</h2>
+            <div class="uk-align-right uk-margin-remove-bottom">
+                {% include 'pagination.html' %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
