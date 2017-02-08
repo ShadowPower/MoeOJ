@@ -22,3 +22,11 @@ def register(request):
 
 def login(request):
     return render(request, "login.html", {'background_class': Helper.get_background_class()})
+
+# contest
+def contest_overview(request, contest_id):
+    contest_title = "比赛标题"
+    return render(request, "contest/contest-overview.html", {
+        'background_class': Helper.get_background_class(),
+        'contest_title': contest_title
+    })

@@ -4,11 +4,47 @@
 {% block content %}
     <div class="uk-card uk-card-default uk-card-small uk-card-body">
         <img class="poster-girl" src="/static/img/corner.png">
-        <div class="fix-the-fucking-float">
-            <h2 class="uk-display-inline-block uk-margin-remove-bottom">{{ contest_title }} - 概览</h2>
-            <div class="uk-align-right uk-margin-remove-bottom">
-                {% include 'pagination.html' %}
-            </div>
+        <div class="fix-float-bug">
+            <h2 class="uk-display-inline-block uk-margin-remove-bottom">{{ contest_title }}</h2>
+            <ul class="uk-float-right uk-margin-remove" uk-tab>
+                <li class="uk-active"><a href="#">概览</a></li>
+                <li><a href="#">题目</a></li>
+                <li><a href="#">状态</a></li>
+                <li><a href="#">排名</a></li>
+                <li><a href="#">统计</a></li>
+            </ul>
+        </div>
+        <p class="uk-display-inline-block uk-float-left">
+            <span class="uk-visible@m">开始时间：</span>
+            <span class="uk-text-primary">2017/2/8 18:00</span>
+        </p>
+        <p class="uk-display-inline-block uk-float-right">
+            <span class="uk-visible@m">结束时间：</span>
+            <span class="uk-text-primary">2017/2/8 20:00</span>
+        </p>
+        <progress id="progressbar" class="uk-progress" value="0" max="1000"></progress>
+        <div id="overview-text">
+
         </div>
     </div>
+{% endblock %}
+{% block end_of_body %}
+    <script src="//cdn.bootcss.com/showdown/1.6.2/showdown.min.js"></script>
+    <script>
+        $(document).on('pjax:complete', function() {
+            jQuery(function () {
+                var animate = setInterval(function () {
+                    window.progressbar && (progressbar.value += 30);
+                    if (!window.progressbar || progressbar.value >= progressbar.max) {
+                        clearInterval(animate);
+                    }
+                }, 100);
+            });
+
+            var converter = new showdown.Converter();
+            var text = "###欢迎参加XXX大赛\n本次大赛准备了丰厚的奖品  \n第一名可免费使用一年校园网\n\n祝大家比赛愉快~喵~\n\n<del>第二名可以免费用两年！</del>  \n![头像](https://avatars1.githubusercontent.com/u/7625230?s=100)";
+            var overviewText = document.getElementById("overview-text");
+            overviewText.innerHTML = converter.makeHtml(text);
+        });
+    </script>
 {% endblock %}

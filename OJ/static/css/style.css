@@ -43,7 +43,7 @@ html, h1, h2, h3, h4, h5, h6 {
     left: -122px;
 }
 
-.fix-the-fucking-float:after {
+.fix-float-bug:after {
     content: "";
     display: block;
     clear: both;
