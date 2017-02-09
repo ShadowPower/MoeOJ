@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from OJ.helper import Helper
+from markdown import markdown
 
 # Create your views here.
 def index(request):
@@ -26,7 +27,9 @@ def login(request):
 # contest
 def contest_overview(request, contest_id):
     contest_title = "比赛标题"
+    overview_text = "###欢迎参加XXX大赛\n本次大赛准备了丰厚的奖品  \n第一名可免费使用一年校园网\n\n祝大家比赛愉快~喵~\n\n<del>第二名可以免费用两年！</del>  \n![头像](https://avatars1.githubusercontent.com/u/7625230?s=100)"
     return render(request, "contest/contest-overview.html", {
         'background_class': Helper.get_background_class(),
-        'contest_title': contest_title
+        'contest_title': contest_title,
+        'overview_text': markdown(overview_text)
     })

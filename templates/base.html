@@ -14,19 +14,16 @@
 <body>
 <div class="background {{ background_class }}" id="background">
 </div>
-<div id="content">
-    {% set active_page = active_page -%}{# 这句是关键 #}
-    {% include 'navbar.html' %}
-    <div class="uk-container {{ container_class }}">
-        {% block content %}
-        {% endblock %}
-    </div>
+{% set active_page = active_page -%}{# 这句是关键 #}
+{% include 'navbar.html' %}
+<div class="uk-container {{ container_class }}">
+    {% block content %}
+    {% endblock %}
 </div>
 <div class="uk-container">
     {% include 'footer.html' %}
 </div>
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
-<script src="//cdn.bootcss.com/jquery.pjax/1.9.6/jquery.pjax.min.js"></script>
 <script src="/static/js/uikit.min.js"></script>
 <script src="//cdn.bootcss.com/prefixfree/1.0.7/prefixfree.min.js"></script>
 <script src="/static/js/oj.js"></script>
