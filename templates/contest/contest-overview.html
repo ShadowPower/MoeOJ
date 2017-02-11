@@ -1,43 +1,8 @@
-{% extends 'base.html' %}
-{% set active_page = 'contest' %}
-{% block title %}{{ contest_title }} - 概览{% endblock %}
-{% block content %}
-    <div class="uk-card uk-card-default uk-card-small uk-card-body">
-        <img class="poster-girl" src="/static/img/corner.png">
-        <div class="fix-float-bug">
-            <h2 class="uk-display-inline-block uk-margin-remove-bottom">{{ contest_title }}</h2>
-            <ul class="uk-float-right uk-margin-remove" uk-tab>
-                <li class="uk-active"><a href="#">概览</a></li>
-                <li><a href="#">题目</a></li>
-                <li><a href="#">状态</a></li>
-                <li><a href="#">排名</a></li>
-                <li><a href="#">统计</a></li>
-            </ul>
-        </div>
-        <p class="uk-display-inline-block uk-float-left">
-            <span class="uk-visible@m">开始时间：</span>
-            <span class="uk-text-primary">2017/2/8 18:00</span>
-        </p>
-        <p class="uk-display-inline-block uk-float-right">
-            <span class="uk-visible@m">结束时间：</span>
-            <span class="uk-text-primary">2017/2/8 20:00</span>
-        </p>
-        <progress id="progressbar" class="uk-progress" value="0" max="1000"></progress>
-        <div id="overview-text">
-            {{ overview_text|safe }}
-        </div>
+{% extends 'contest/contest-base.html' %}
+{% set page_title = '概览' %} {# 用于显示页面标题 #}
+{% set page_name = 'overview' %} {# 用于高亮当前选项卡 #}
+{% block contest_content %}
+    <div id="overview-text">
+        {{ overview_text|safe }}
     </div>
-{% endblock %}
-{% block end_of_body %}
-    <script>
-        //以后将调用oj.js中的导出函数
-        jQuery(function () {
-            var animate = setInterval(function () {
-                window.progressbar && (progressbar.value += 30);
-                if (!window.progressbar || progressbar.value >= progressbar.max) {
-                    clearInterval(animate);
-                }
-            }, 100);
-        });
-    </script>
 {% endblock %}

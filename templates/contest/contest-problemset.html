@@ -1,0 +1,33 @@
+{% extends 'contest/contest-base.html' %}
+{% set page_title = '题目' %}
+{% set page_name = 'problemset' %}
+{% block contest_content %}
+    <div class="uk-overflow-auto">
+        <table class="uk-table uk-table-small">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>题目</th>
+                    <th>解答人数</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>A+B Problem</td>
+                    <td>12</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>分解质因数</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>11111</td>
+                    <td>Rectangular Polygons</td>
+                    <td>3</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
