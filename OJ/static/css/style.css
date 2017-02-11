@@ -2,6 +2,11 @@ html, h1, h2, h3, h4, h5, h6 {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif !important;
 }
 
+html {
+    position: relative;
+    min-height: 100%;
+}
+
 .uk-navbar-nav > li > a {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif !important;
     font-size: 18px;
@@ -52,3 +57,29 @@ html, h1, h2, h3, h4, h5, h6 {
 .max-width-480 {
     max-width: 480px;
 }
+
+/* 以下是footer样式 */
+
+body {
+    margin-bottom: 90px;
+}
+
+.footer {
+	position: absolute;
+	bottom: 0;
+	background-color: rgba(25, 25, 25, 0.5);
+	min-width: 100%;
+	width: auto;
+	color: rgb(255, 153, 172);
+	padding-top:15px;
+	height: 58px;
+    display: block;
+}
+
+.footer-right {
+    font-size: 14px;
+    float: right;
+    text-align: right;
+}
+
+/* 以上是footer样式 */
