@@ -10,19 +10,19 @@
             <h2 class="uk-display-inline-block uk-margin-remove-bottom">{{ contest_title }}</h2>
             <ul class="uk-tab uk-float-right uk-margin-remove">
                 <li {% if page_name == 'overview' %} class="uk-active"{% endif %}>
-                    <a href="../../overview/{{ contest_id }}/">概览</a>
+                    <a href="{{ url("contest_overview", contest_id) }}">概览</a>
                 </li>
                 <li {% if page_name == 'problemset' %} class="uk-active"{% endif %}>
-                    <a href="../../problemset/{{ contest_id }}/">题目</a>
+                    <a href="{{ url("contest_problemset", contest_id) }}">题目</a>
                 </li>
                 <li {% if page_name == 'status' %} class="uk-active"{% endif %}>
-                    <a href="../../status/{{ contest_id }}/">状态</a>
+                    <a href="{{ url("contest_status", contest_id) }}">状态</a>
                 </li>
                 <li {% if page_name == 'ranklist' %} class="uk-active"{% endif %}>
-                    <a href="../../ranklist/{{ contest_id }}/">排名</a>
+                    <a href="{{ url("contest_ranklist", contest_id) }}">排名</a>
                 </li>
                 <li {% if page_name == 'statistics' %} class="uk-active"{% endif %}>
-                    <a href="../../statistics/{{ contest_id }}/">统计</a>
+                    <a href="{{ url("contest_statistics", contest_id) }}">统计</a>
                 </li>
             </ul>
         </div>

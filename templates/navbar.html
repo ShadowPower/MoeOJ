@@ -1,8 +1,8 @@
 {% set navigation_bar = [
-    ('/problemset/', 'problemset', '问题', 'Problem Set'),
-    ('/status/', 'status', '状态', 'Status'),
-    ('/rank/', 'rank', '排名', 'Rank'),
-    ('/contest/', 'contest', '比赛', 'Contest'),
+    (url("problemset"), 'problemset', '问题', 'Problem Set'),
+    (url("status"), 'status', '状态', 'Status'),
+    (url("rank"), 'rank', '排名', 'Rank'),
+    (url("contest"), 'contest', '比赛', 'Contest'),
 ] -%}
 
 <nav class="uk-navbar uk-navbar-container uk-navbar-transparent uk-margin-bottom uk-light" uk-navbar="mode: click">
@@ -29,8 +29,8 @@
 
     <div class="uk-navbar-right uk-visible@m">
         <ul class="uk-navbar-nav">
-            <li class="uk-active"><a href="/login/">登录</a></li>
-            <li class="uk-active"><a href="/register/">注册</a></li>
+            <li class="uk-active"><a href="{{ url("login") }}">登录</a></li>
+            <li class="uk-active"><a href="{{ url("register") }}">注册</a></li>
         </ul>
     </div>
 
@@ -46,8 +46,8 @@
                         </li>
                         {% endfor %}
                         <li class="uk-nav-divider"></li>
-                        <li class="uk-active"><a href="/login/">登录</a></li>
-                        <li class="uk-active"><a href="/register/">注册</a></li>
+                        <li class="uk-active"><a href="{{ url("login") }}">登录</a></li>
+                        <li class="uk-active"><a href="{{ url("register") }}">注册</a></li>
                     </ul>
                 </div>
             </li>
