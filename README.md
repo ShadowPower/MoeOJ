@@ -5,7 +5,8 @@
 > Django  
 > UiKit  
 > MySQL   
-> Vue（暂时不用）  
+> ~~Vue~~
+> Angular
 
 ## 特色功能（计划）：
 
