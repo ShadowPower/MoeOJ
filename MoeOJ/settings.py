@@ -58,6 +58,7 @@ CONTEXT_PROCESSORS = [
     'django.template.context_processors.request',
     'django.contrib.auth.context_processors.auth',
     'django.contrib.messages.context_processors.messages',
+    "MoeOJ.context_processor.day_night_change",
 ]
 
 TEMPLATES = [

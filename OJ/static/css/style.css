@@ -91,3 +91,13 @@ body {
 }
 
 /* 以上是footer样式 */
+
+.sample {
+    background: #ffe6f4 !important;
+    border: 1px solid #ffc2d9;
+    padding: 10px;
+}
+
+.badge-align {
+    transform: translateY(-2px);
+}
