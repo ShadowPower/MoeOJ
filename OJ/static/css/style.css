@@ -77,9 +77,17 @@ body {
 }
 
 .footer-right {
+    display: block;
     font-size: 14px;
     float: right;
     text-align: right;
+}
+
+.footer-left {
+    display: block;
+    font-size: 14px;
+    float: left;
+    text-align: left;
 }
 
 /* 以上是footer样式 */
