@@ -1,4 +1,5 @@
 import datetime
+import time
 
 
 class Helper:
@@ -11,3 +12,7 @@ class Helper:
             return 'day'
         else:
             return 'dusk'
+
+    @staticmethod
+    def get_datetime_str():
+        return time.strftime('%Y/%m/%d %H:%M:%S',time.localtime(time.time()))
