@@ -2,32 +2,69 @@
 {% set active_page = 'problemset' %}
 {% block title %}题目详情{% endblock %}
 {% block content %}
-    <div class="uk-card uk-card-default uk-card-small uk-card-body">
-        <img class="poster-girl" src="/static/img/corner.png">
-        <div class="fix-float-bug">
-            <h2 class="uk-display-inline-block uk-margin-remove-bottom">{{ problem_title }}</h2>
+    <div class="uk-grid uk-grid-small uk-child-width-1-1@s" uk-grid>
+        <div>
+            <div class="uk-card uk-card-default uk-card-small uk-card-body">
+                <img class="poster-girl" src="/static/img/corner.png">
+                <div class="fix-float-bug uk-margin-medium-bottom">
+                    <h2 class="uk-display-inline-block uk-margin-remove-bottom">{{ problem_title }}</h2>
+                    <div class="uk-float-right uk-margin-remove">
+                        <p>
+                            时间限制：<span class="uk-badge badge-align">1秒</span>
+                            内存限制：<span class="uk-badge badge-align">32MB</span>
+                        </p>
+                    </div>
+                </div>
+                <h3 class="uk-margin-small-top">题目描述</h3>
+                正文
+                <hr>
+                <h3 class="uk-margin-small-top">输入</h3>
+                正文
+                <hr>
+                <h3 class="uk-margin-small-top">输出</h3>
+                正文
+                <hr>
+                <h3 class="uk-margin-small-top">样例输入</h3>
+                <div class="sample">
+                    正文
+                </div>
+                <hr>
+                <h3 class="uk-margin-small-top">样例输出</h3>
+                <div class="sample">
+                    正文
+                </div>
+            </div>
         </div>
-        <p>
-            时间限制：<span class="uk-badge badge-align">1秒</span>
-            内存限制：<span class="uk-badge badge-align">32MB</span>
-        </p>
-        <h3 class="uk-margin-small-top">题目描述</h3>
-        正文
-        <hr>
-        <h3 class="uk-margin-small-top">输入</h3>
-        正文
-        <hr>
-        <h3 class="uk-margin-small-top">输出</h3>
-        正文
-        <hr>
-        <h3 class="uk-margin-small-top">样例输入</h3>
-        <div class="sample">
-            正文
-        </div>
-        <hr>
-        <h3 class="uk-margin-small-top">样例输出</h3>
-        <div class="sample">
-            正文
+        <div>
+            <div class="uk-card uk-card-default uk-card-small uk-card-body">
+                <h2 class="uk-display-inline-block uk-margin-medium-bottom">提交代码</h2>
+                <div id="editor" style="height: 500px;">#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int explosion = 0;
+    // 发动技能
+    cout << "吾名惠惠"
+         << "红魔族第一的魔法师"
+         << "兼爆裂魔法的操纵者"
+         << "好好见识我的力量吧"
+         << endl;
+
+    return explosion;
+}</div>
+            </div>
         </div>
     </div>
+{% endblock %}
+{% block end_of_body %}
+<script src="//cdn.bootcss.com/ace/1.2.6/ace.js" type="text/javascript" charset="utf-8"></script>
+<script src="//cdn.bootcss.com/ace/1.2.6/mode-c_cpp.js"></script>
+<script>
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/textmate");
+    editor.getSession().setMode("ace/mode/c_cpp");
+    editor.getSession().setTabSize(4);
+    editor.getSession().setUseSoftTabs(true);
+    document.getElementById('editor').style.fontSize='14px';
+</script>
 {% endblock %}
