@@ -24,7 +24,9 @@ def login(request):
     return render(request, "login.html")
 
 def problem(request, problem_id):
-    return render(request, "problem/problem.html")
+    return render(request, "problem/problem.html", {
+       "problem_title": "问题标题"
+    });
 
 # contest
 def contest_overview(request, contest_id):
