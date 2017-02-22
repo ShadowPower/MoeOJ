@@ -70,6 +70,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'match_extension': '.html',
+            'match_regex': r'^(?!admin/).*',
             'context_processors': CONTEXT_PROCESSORS,
             "extensions": [
                 "jinja2.ext.do",
