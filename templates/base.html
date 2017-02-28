@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    {% block head %}
+  {% block head %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
     <meta name="renderer" content="webkit">
@@ -9,7 +9,7 @@
     <title>{% block title %}{% endblock %}</title>
     <link href="/static/css/uikit.min.css" rel="stylesheet" type="text/css">
     <link href="/static/css/style.css" rel="stylesheet" type="text/css">
-    {% endblock %}
+  {% endblock %}
 </head>
 <body>
 <div class="background {{ background_class }}" id="background">
@@ -17,8 +17,8 @@
 {% set active_page = active_page -%}{# 这句是关键 #}
 {% include 'navbar.html' %}
 <div class="uk-container {{ container_class }}">
-    {% block content %}
-    {% endblock %}
+  {% block content %}
+  {% endblock %}
 </div>
 {% include 'footer.html' %}
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
