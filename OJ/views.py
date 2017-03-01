@@ -18,10 +18,10 @@ def contest(request):
     return render(request, "contest/contest.html")
 
 def register(request):
-    return render(request, "register.html")
+    return render(request, "user/register.html")
 
 def login(request):
-    return render(request, "login.html")
+    return render(request, "user/login.html")
 
 def problem(request, problem_id):
     return render(request, "problem/problem.html", {
@@ -64,4 +64,18 @@ def contest_status(request, contest_id):
     return render(request, "contest/contest-status.html", {
         'contest_id': contest_id,
         'contest_title': contest_title,
+    })
+
+def modify_user_info(request):
+    username = "喵"
+    email = "moe@example.com"
+    school = "琪露诺的完美算术教室"
+    student_id = 20171233214567
+    gender = "futa"
+    return render(request, "user/modify-user-info.html", {
+        'username': username,
+        'email': email,
+        'school': school,
+        'student_id': student_id,
+        'gender': gender
     })

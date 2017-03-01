@@ -31,5 +31,6 @@ urlpatterns = [
     url(r'^contest/status/(\d+)/$', oj_views.contest_status, name='contest_status'),
     url(r'^register/$', oj_views.register, name='register'),
     url(r'^login/$', oj_views.login, name='login'),
+    url(r'^modify-user-info/$', oj_views.modify_user_info, name='modify-user-info'),
     url(r'^admin/', admin.site.urls, name='admin'),
 ]
