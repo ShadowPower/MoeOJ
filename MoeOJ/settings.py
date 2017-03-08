@@ -59,7 +59,8 @@ CONTEXT_PROCESSORS = [
     'django.contrib.auth.context_processors.auth',
     'django.contrib.messages.context_processors.messages',
     'MoeOJ.context_processor.day_night_change',
-    'MoeOJ.context_processor.server_time'
+    'MoeOJ.context_processor.server_time',
+    'MoeOJ.context_processor.public_parameter'
 ]
 
 TEMPLATES = [
@@ -156,3 +157,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+AUTH_USER_MODEL = 'OJ.User'
+
+OJ_TITLE = 'Moe Online Judge'

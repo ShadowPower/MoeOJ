@@ -1,3 +1,212 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser
+from django.utils.timezone import now
 
-# Create your models here.
+# 用户权限
+REGULAR_USER = 0
+ADMIN = 1
+SUPER_ADMIN = 2
+
+# 比赛状态
+CONTEST_NOT_START = 0
+CONTEST_UNDERWAY = 1
+CONTEST_ENDED = 2
+
+# 比赛类型
+PUBLIC_CONTEST = 0
+PRIVATE_CONTEST = 1
+
+# 运行结果
+AC = 0    # Accepted
+CE = 1    # Complie Error
+WA = 2    # Wrong Answer
+RE = 3    # Runtime Error
+TLE = 4   # Time Limit Exceeded
+OLE = 5   # Output Limit Exceeded
+MLE = 6   # Memory Limit Exceeded
+RF = 7    # Restricted Function
+PE = 8    # Presentation Error
+
+# 用户表
+class User(AbstractBaseUser):
+    USERNAME_FIELD = 'email'
+    # 用户名
+    username = models.CharField(max_length=30, unique=True)
+    # 用户邮箱
+    email = models.EmailField(max_length=30, unique=True)
+    # 用户类型
+    user_type = models.IntegerField(default=0)
+    # 学校
+    school = models.CharField(max_length=20, null=True)
+    # 学号
+    student_id = models.CharField(max_length=26, null=True)
+    # 性别
+    gender = models.CharField(max_length=5, default='boy')
+    # 是否生效
+    is_active = models.BooleanField(default=False)
+    # 邮箱验证Token
+    email_token = models.CharField(max_length=64, null=True)
+    # 注册时间
+    create_time = models.DateTimeField(auto_now_add=True, null=True)
+
+# 公告表
+class Notice(models.Model):
+    # 标题
+    title = models.CharField(max_length=30)
+    # 作者
+    author = models.ForeignKey(User)
+    # 日期时间
+    date = models.DateTimeField(auto_now_add=True)
+    # 正文
+    body = models.TextField(null=True)
+
+# 题目标签表
+class ProblemTag(models.Model):
+    name = models.CharField(max_length=30)
+
+# 题目抽象表
+class AbstractProblem(models.Model):
+    # 题目标题
+    title = models.CharField(max_length=200)
+    # 题目描述
+    description = models.TextField(null=True)
+    # 输入说明
+    input_desc = models.TextField(null=True)
+    # 输出说明
+    output_desc = models.TextField(null=True)
+    # 样例输入
+    sample_input = models.TextField(null=True)
+    # 样例输出
+    sample_output = models.TextField(null=True)
+    # 是否特判
+    spj = models.BooleanField(default=False)
+    # 特判代码
+    spj_code = models.TextField(null=True)
+    # 补充说明
+    supplemental = models.TextField(null=True)
+    # 题目创建者
+    created_by = models.ForeignKey(User)
+    # 添加时间
+    create_date = models.DateTimeField(auto_now_add=True, null=True)
+    # 时间限制
+    time_limit = models.IntegerField()
+    # 内存限制
+    memory_limit = models.IntegerField()
+    # 是否启用
+    is_enable = models.BooleanField(default=True)
+    # 总AC数
+    accepted = models.IntegerField(default=0, null=True)
+    # 总提交数
+    submit =  models.IntegerField(default=0, null=True)
+
+    class Meta:
+        abstract = True
+
+# 题目表
+class Problem(AbstractProblem):
+    # 题目来源
+    source = models.CharField(max_length=30, null=True)
+    # 题目标签
+    tags = models.ManyToManyField(ProblemTag)
+    # 题目难度 ( 0 ~ n )
+    difficulty = models.IntegerField()
+
+# 比赛表
+class Contest(models.Model):
+    # 比赛标题
+    title = models.CharField(max_length= 255)
+    # 描述
+    description = models.TextField()
+    # 开始时间
+    start_time = models.DateTimeField()
+    # 结束时间
+    end_time = models.DateTimeField()
+    # 创建时间
+    create_time = models.DateTimeField(auto_now_add=True)
+    # 是否实时排名
+    real_time_rank = models.BooleanField()
+    # 比赛密码
+    password = models.CharField(max_length=30, blank=True, null=True)
+    # 比赛类型（公开、私有）
+    contest_type = models.IntegerField(default=PUBLIC_CONTEST)
+    # 创建者
+    created_by = models.ForeignKey(User)
+    # 是否可见
+    visible = models.BooleanField(default=True)
+
+    @property
+    def status(self):
+        if self.start_time > now():
+            # 没有开始 返回1
+            return CONTEST_NOT_START
+        elif self.end_time < now():
+            # 已经结束 返回-1
+            return CONTEST_ENDED
+        else:
+            # 正在进行 返回0
+            return CONTEST_UNDERWAY
+
+# 比赛题目表
+class ContestProblem(AbstractProblem):
+    # 题目所属比赛
+    contest = models.ForeignKey(Contest)
+    # 题目序号，用于排序，例如：A B C D E
+    index = models.CharField(max_length=30)
+    # 是否已经公开
+    is_public = models.BooleanField(default=False)
+
+# 比赛排名表
+class ContestRank(models.Model):
+    # 用户
+    user = models.ForeignKey(User)
+    # 比赛
+    contest = models.ForeignKey(Contest)
+    # 总提交
+    submit = models.IntegerField(default=0)
+    # 总AC
+    accepted = models.IntegerField(default=0)
+    # 总耗时
+    total_time = models.IntegerField(default=0)
+
+# 提交记录抽象表
+class AbstractSolution(models.Model):
+    # 用户
+    user = models.ForeignKey(User, db_index=True)
+    # 使用时间（秒）
+    time = models.IntegerField(default=0)
+    # 使用内存
+    memory = models.IntegerField(default=0)
+    # 提交时间
+    submit_date = models.DateTimeField(auto_now_add=True)
+    # 开始判题时间
+    judge_time = models.DateTimeField(null=True)
+    # 评判结果
+    result = models.SmallIntegerField(null=True)
+    # 用户IP
+    ip = models.CharField(max_length=46, null=True)
+    # 代码
+    code = models.TextField()
+    # 判题结果，例如编译错误信息，运行错误信息
+    info = models.TextField()
+
+    class Meta:
+        abstract = True
+
+# 提交记录
+class Solution(AbstractSolution):
+    # 对应提交问题
+    problem = models.ForeignKey(Problem, db_index=True)
+
+# 比赛提交记录
+class ContestSolution(AbstractSolution):
+    # 对应比赛
+    contest = models.ForeignKey(Contest, db_index=True)
+    # 对应比赛问题
+    problem = models.ForeignKey(ContestProblem, db_index=True)
+
+# 评论
+class Comment(models.Model):
+    author = models.ForeignKey(User)
+    problem = models.ForeignKey(Problem)
+    date = models.DateTimeField(auto_now_add=True)
+    body = models.TextField(null=True)
