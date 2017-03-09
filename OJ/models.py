@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager)
 from django.utils.timezone import now
 
 # 用户权限
@@ -27,13 +27,38 @@ MLE = 6   # Memory Limit Exceeded
 RF = 7    # Restricted Function
 PE = 8    # Presentation Error
 
+class UserManager(BaseUserManager):
+    def create_user(self, name, email, password=None, school=None, student_id=None, gender='boy'):
+        if not email:
+            raise ValueError('Users must have an email address')
+
+        user = self.model(
+            username = name,
+            email = UserManager.normalize_email(email),
+            school = school,
+            student_id = student_id,
+            gender = gender
+        )
+
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_super_user(self, name, email, password=None, school=None, student_id=None, gender='boy'):
+        user = self.create_user(name, email, password, school, student_id, gender)
+        user.user_type = SUPER_ADMIN
+        user.save(using=self._db)
+        return user
+
 # 用户表
 class User(AbstractBaseUser):
     USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+    objects = UserManager()
     # 用户名
-    username = models.CharField(max_length=30, unique=True)
+    username = models.CharField(max_length=30)
     # 用户邮箱
-    email = models.EmailField(max_length=30, unique=True)
+    email = models.EmailField(max_length=50, unique=True)
     # 用户类型
     user_type = models.IntegerField(default=0)
     # 学校
@@ -42,12 +67,38 @@ class User(AbstractBaseUser):
     student_id = models.CharField(max_length=26, null=True)
     # 性别
     gender = models.CharField(max_length=5, default='boy')
-    # 是否生效
-    is_active = models.BooleanField(default=False)
     # 邮箱验证Token
     email_token = models.CharField(max_length=64, null=True)
     # 注册时间
-    create_time = models.DateTimeField(auto_now_add=True, null=True)
+    create_at = models.DateTimeField(auto_now_add=True, null=True)
+    # 密码
+
+    def __unicode__(self):
+        return self.username
+
+    def get_full_name(self):
+        return self.email
+
+    def get_short_name(self):
+        return self.username
+
+    def has_perm(self, perm, obj=None):
+        if self.user_type == SUPER_ADMIN:
+            return True
+        if self.user_type == ADMIN and perm == 'admin':
+            return True
+        return False
+
+    def has_module_perms(self, app_label):
+        return True
+
+    @property
+    def is_staff(self):
+        if self.user_type == SUPER_ADMIN:
+            return True
+        else:
+            return False
+
 
 # 公告表
 class Notice(models.Model):

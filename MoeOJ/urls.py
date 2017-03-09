@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+
+import OJ.form_views
 from OJ import views as oj_views
+from OJ import form_views as oj_form_views
 
 urlpatterns = [
     url(r'^$', oj_views.index, name='index'),
@@ -30,7 +33,10 @@ urlpatterns = [
     url(r'^contest/statistics/(\d+)/$', oj_views.contest_statistics, name='contest_statistics'),
     url(r'^contest/status/(\d+)/$', oj_views.contest_status, name='contest_status'),
     url(r'^register/$', oj_views.register, name='register'),
+    url(r'^register-post/$', oj_form_views.register_post, name='register-post'),
     url(r'^login/$', oj_views.login, name='login'),
+    url(r'^login-post/$', oj_form_views.login_post, name='login-post'),
+    url(r'^logout/$', oj_form_views.logout_get, name='logout'),
     url(r'^modify-user-info/$', oj_views.modify_user_info, name='modify-user-info'),
     url(r'^admin/', admin.site.urls, name='admin'),
 ]

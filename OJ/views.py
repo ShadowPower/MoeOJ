@@ -1,5 +1,8 @@
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+
 from markdown import markdown
+
 
 # Create your views here.
 def index(request):
@@ -66,12 +69,13 @@ def contest_status(request, contest_id):
         'contest_title': contest_title,
     })
 
+@login_required(redirect_field_name='login', login_url=None)
 def modify_user_info(request):
-    username = "喵"
-    email = "moe@example.com"
-    school = "琪露诺的完美算术教室"
-    student_id = 20171233214567
-    gender = "futa"
+    username = request.user.username
+    email = request.user.email
+    school = request.user.school
+    student_id = request.user.student_id
+    gender = request.user.gender
     return render(request, "user/modify-user-info.html", {
         'username': username,
         'email': email,
@@ -79,3 +83,4 @@ def modify_user_info(request):
         'student_id': student_id,
         'gender': gender
     })
+
