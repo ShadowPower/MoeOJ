@@ -70,7 +70,7 @@ class User(AbstractBaseUser):
     # 邮箱验证Token
     email_token = models.CharField(max_length=64, null=True)
     # 注册时间
-    create_at = models.DateTimeField(auto_now_add=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
     # 密码
 
     def __unicode__(self):
@@ -107,7 +107,7 @@ class Notice(models.Model):
     # 作者
     author = models.ForeignKey(User)
     # 日期时间
-    date = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     # 正文
     body = models.TextField(null=True)
 

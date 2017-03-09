@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from OJ.models import *
 
 from markdown import markdown
 
 
 # Create your views here.
 def index(request):
-    return render(request, "index.html")
+    notices = Notice.objects.all().order_by("-created_at")
+    return render(request, "index.html", {'notices': notices})
 
 def problemset(request):
     return render(request, "problem/problemset.html")

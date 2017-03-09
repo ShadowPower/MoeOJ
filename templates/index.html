@@ -6,34 +6,14 @@
     注意：尚未完工
   </p>
   <div class="uk-grid uk-child-width-1-1@l uk-child-width-1-1@m uk-child-width-1-1@s uk-grid-small" uk-grid>
+    {% for notice in notices %}
     <div>
-      <div class="uk-card uk-card-default uk-card-body">
-        <h3 class="uk-panel-title uk-margin-remove">MoeOJ上线了！！！</h3>
-        <p class="uk-text-meta uk-margin-remove-top uk-margin-small-bottom">喵喵 2017/1/11 12:34</p>
-        MoeOJ正式上线啦！<br />
-        太好了
+      <div class="uk-card uk-card-default uk-card-small uk-card-body">
+        <h3 class="uk-panel-title uk-margin-remove">{{ notice.title }}</h3>
+        <p class="uk-text-meta uk-margin-remove-top uk-margin-small-bottom">{{ notice.author.username }} {{ notice.created_at|localtime|date("Y/m/d H:i") }}</p>
+        {{ notice.body }}
       </div>
     </div>
-    <div>
-      <div class="uk-card uk-card-default uk-card-body">
-        <h3 class="uk-panel-title uk-margin-remove">测试</h3>
-        <p class="uk-text-meta uk-margin-remove-top uk-margin-small-bottom">喵喵 2017/12/22 23:45</p>
-        第一行<br />
-        <del>第二行</del>
-      </div>
-    </div>
-    <div>
-      <div class="uk-card uk-card-default uk-card-body">
-        <h3 class="uk-panel-title uk-margin-remove">这是一个标题看起来比较长的测试</h3>
-        <p class="uk-text-meta uk-margin-remove-top uk-margin-small-bottom">世界上最萌的管理员 2017/12/31 14:32</p>
-        <p>
-          第一段<br />
-          第一段第二行
-        </p>
-        <p>
-          第二段
-        </p>
-      </div>
-    </div>
+    {% endfor %}
   </div>
 {% endblock %}
