@@ -23,22 +23,39 @@
 
   <div class="uk-navbar-center">
     <ul class="uk-navbar-nav">
-      <li class="uk-active"><a href="{{ url("index") }}" style="font-size: 30px;">{{ oj_title }}</a></li>
+      <li class="uk-active">
+        <a class="uk-text-capitalize" href="{{ url("index") }}" style="font-size: 30px;">{{ oj_title }}</a>
+      </li>
     </ul>
   </div>
 
   <div class="uk-navbar-right uk-visible@m">
     <ul class="uk-navbar-nav">
       {% if not request.user.is_authenticated() %}
-        <li class="uk-active"><a href="{{ url("login") }}">登录</a></li>
-        <li class="uk-active"><a href="{{ url("register") }}">注册</a></li>
+        <li class="uk-active"><a href="{{ url("login") }}">
+          <div>
+            登录
+            <div class="uk-navbar-subtitle">
+              Login
+            </div>
+          </div></a></li>
+        <li class="uk-active"><a href="{{ url("register") }}">
+          <div>
+            注册
+            <div class="uk-navbar-subtitle">
+              Register
+            </div>
+          </div></a></li>
       {% else %}
-        <li class="uk-active"><a href="#">{{ request.user.username }}</a>
+        <li class="uk-active"><a href="#">
+          {{ request.user.username }}
+        </a>
           <div class="uk-navbar-dropdown">
             <ul class="uk-nav uk-navbar-dropdown-nav">
+              <li class="uk-nav-header">用户中心</li>
               <li class="uk-active"><a href="{{ url("modify-user-info") }}">修改用户信息</a></li>
               <li class="uk-nav-divider"></li>
-              <li class="uk-active"><a href="{{ url("logout") }}">注销</a></li>
+              <li class="uk-active"><a href="{{ url("logout") }}?from={{ request.get_full_path() }}">注销</a></li>
             </ul>
           </div>
         </li>
@@ -49,17 +66,24 @@
   <div class="uk-navbar-right uk-hidden@m">
     <ul class="uk-navbar-nav">
       <li>
-        <a class="uk-navbar-toggle" uk-navbar-toggle-icon href=""></a>
+        <a class="uk-navbar-toggle" uk-navbar-toggle-icon></a>
         <div class="uk-navbar-dropdown">
           <ul class="uk-nav uk-navbar-dropdown-nav">
+            <li class="uk-nav-header">功能</li>
             {% for href, id, caption, sub_caption in navigation_bar %}
               <li {% if id == active_page %} class="uk-active"{% endif %}>
                 <a href="{{ href }}">{{ caption }}</a>
               </li>
             {% endfor %}
             <li class="uk-nav-divider"></li>
-            <li class="uk-active"><a href="{{ url("login") }}">登录</a></li>
-            <li class="uk-active"><a href="{{ url("register") }}">注册</a></li>
+            {% if not request.user.is_authenticated() %}
+              <li class="uk-active"><a href="{{ url("login") }}">登录</a></li>
+              <li class="uk-active"><a href="{{ url("register") }}">注册</a></li>
+            {% else %}
+              <li class="uk-nav-header">账号管理</li>
+              <li class="uk-active"><a href="{{ url("modify-user-info") }}">修改用户信息</a></li>
+              <li class="uk-active"><a href="{{ url("logout") }}?from={{ request.get_full_path }}">注销</a></li>
+            {% endif %}
           </ul>
         </div>
       </li>

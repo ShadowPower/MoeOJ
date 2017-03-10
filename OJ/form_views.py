@@ -58,4 +58,7 @@ def login_post(request):
 # 注销
 def logout_get(request):
     logout(request)
-    return HttpResponseRedirect(reverse('index'))
+    if request.GET.get('from', False):
+        return HttpResponseRedirect(request.GET['from'])
+    else:
+        return HttpResponseRedirect(reverse('index'))

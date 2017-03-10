@@ -164,4 +164,6 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'OJ.User'
 
-OJ_TITLE = 'Moe Online Judge'
+OJ_TITLE = 'Moe OJ'
+
+LOGIN_URL = '/login/'
