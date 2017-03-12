@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% set active_page = 'problemset' %}
+{% set active_tab = active_tab -%}
+{% block title %}{{ problem_title }}{% endblock %}
+{% block content %}
+  <div class="uk-grid uk-grid-small uk-child-width-1-1@s" uk-grid>
+    <div>
+      <div class="uk-card uk-card-default uk-card-small uk-card-body">
+        <img class="poster-girl" src="/static/img/corner.png">
+        <div class="fix-float-bug">
+          <div class="uk-display-inline-block">
+            <h2 class="uk-margin-small-bottom">{{ problem_title }}</h2>
+            <div class="uk-margin-remove">
+              <p class="uk-margin-remove">
+                时间限制：<span class="uk-badge badge-align">1秒</span>
+                内存限制：<span class="uk-badge badge-align">32MB</span>
+              </p>
+            </div>
+          </div>
+          <!-- 第一层flex实现按行排列，第二层flex实现右对齐，嵌套一个div改为行元素以自适应内容宽度 -->
+          <div class="uk-float-right uk-flex uk-flex-column">
+            <div class="uk-flex uk-flex-right">
+              <div class="uk-display-inline">
+                <ul class="uk-tab">
+                  <li {% if active_tab == 'description' %}class="uk-active"{% endif %}>
+                    <a href="{{ url('problem', problem_id) }}">题目描述</a>
+                  </li>
+                  <li {% if active_tab == 'status' %}class="uk-active"{% endif %}>
+                    <a href="{{ url('problem-status', problem_id) }}">提交状态</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            {% block problem_pagination %}
+            {% endblock %}
+          </div>
+        </div>
+        <hr>
+        {% block problem_content %}
+        {% endblock %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

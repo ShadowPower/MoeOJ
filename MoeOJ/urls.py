@@ -23,6 +23,7 @@ from OJ import form_views as oj_form_views
 urlpatterns = [
     url(r'^$', oj_views.index, name='index'),
     url(r'^problem/(\d+)/$', oj_views.problem, name='problem'),
+    url(r'^problem-status/(\d+)/$', oj_views.problem_status, name='problem-status'),
     url(r'^problemset/$', oj_views.problemset, name='problemset'),
     url(r'^status/$', oj_views.status, name='status'),
     url(r'^rank/$', oj_views.rank, name='rank'),

@@ -29,9 +29,16 @@ def login(request):
     return render(request, "user/login.html")
 
 def problem(request, problem_id):
-    return render(request, "problem/problem.html", {
-       "problem_title": "问题标题"
-    });
+    return render(request, "problem/problem-description.html", {
+        'problem_title': "问题标题",
+        'problem_id': int(problem_id)
+    })
+
+def problem_status(request, problem_id):
+    return render(request, "problem/problem-status.html", {
+        'problem_title': "问题标题",
+        'problem_id': int(problem_id)
+    })
 
 # contest
 def contest_overview(request, contest_id):

@@ -1,0 +1,89 @@
+{% extends 'problem/problem-base.html' %}
+{% set active_tab = 'status' %}
+{% block problem_pagination %}
+  {% include 'pagination.html' %}
+{% endblock %}
+{% block problem_content %}
+<div class="uk-grid uk-grid-small" uk-grid>
+  <div class="uk-width-1-5@m uk-width-1-1@s">
+    <div class="uk-overflow-auto">
+      <table class="uk-table uk-table-small">
+        <tbody>
+        <tr>
+          <td class="uk-text-left">提交次数</td>
+          <td class="uk-text-right uk-text-primary">12345</td>
+        </tr>
+        <tr>
+          <td class="uk-text-left">提交人数</td>
+          <td class="uk-text-right uk-text-primary">12345</td>
+        </tr>
+        <tr>
+          <td class="uk-text-left">通过人数</td>
+          <td class="uk-text-right uk-text-primary">12345</td>
+        </tr>
+        <tr>
+          <td class="uk-text-left">正确答案</td>
+          <td class="uk-text-right uk-text-primary">12345</td>
+        </tr>
+        <tr>
+          <td class="uk-text-left">格式错误</td>
+          <td class="uk-text-right uk-text-primary">12345</td>
+        </tr>
+        <tr>
+          <td class="uk-text-left">错误答案</td>
+          <td class="uk-text-right uk-text-primary">12345</td>
+        </tr>
+        <tr>
+          <td class="uk-text-left">时间超限</td>
+          <td class="uk-text-right uk-text-primary">12345</td>
+        </tr>
+        <tr>
+          <td class="uk-text-left">内存超限</td>
+          <td class="uk-text-right uk-text-primary">12345</td>
+        </tr>
+        <tr>
+          <td class="uk-text-left">输出超限</td>
+          <td class="uk-text-right uk-text-primary">12345</td>
+        </tr>
+        <tr>
+          <td class="uk-text-left">运行错误</td>
+          <td class="uk-text-right uk-text-primary">12345</td>
+        </tr>
+        <tr>
+          <td class="uk-text-left">编译错误</td>
+          <td class="uk-text-right uk-text-primary">12345</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="uk-width-4-5@m uk-width-1-1@s">
+    <div class="uk-overflow-auto">
+      <table class="uk-table uk-table-small">
+        <thead>
+        <tr>
+          <th>#</th>
+          <th>编号</th>
+          <th>内存</th>
+          <th>耗时</th>
+          <th>用户</th>
+          <th>语言</th>
+          <th>时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>1</td>
+          <td>65536</td>
+          <td>4096KB</td>
+          <td>1000MS</td>
+          <td>我想不起我的名字啦QAQ</td>
+          <td>Python</td>
+          <td>2017-06-06 15:21:52</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}

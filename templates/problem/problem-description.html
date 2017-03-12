@@ -1,0 +1,67 @@
+{% extends 'problem/problem-base.html' %}
+{% set active_tab = 'description' %}
+{% block problem_content %}
+  正文
+  <h3 class="uk-margin-small-top">输入</h3>
+  正文
+  <h3 class="uk-margin-small-top">输出</h3>
+  正文
+  <h3 class="uk-margin-small-top">样例</h3>
+  <h4 class="uk-margin-small-top">输入</h4>
+  <div class="sample">
+    正文
+  </div>
+  <h4 class="uk-margin-small-top">输出</h4>
+  <div class="sample">
+    正文
+  </div>
+  <h3>补充说明</h3>
+  正文
+  <hr>
+  <!-- 代码编辑器 -->
+  <div style="height: 50px">
+    <div class="uk-float-left">
+      <div uk-form-custom="target: > * > span:first">
+        <select onchange="changeLanguage(this.options[this.options.selectedIndex].value)">
+          <option value="cpp">C++</option>
+          <option value="java">Java</option>
+          <option value="python">Python</option>
+          <option value="c">C</option>
+        </select>
+        <button class="uk-button uk-button-default" type="button" tabindex="-1">
+          <span></span>
+          <span uk-icon="icon: chevron-down"></span>
+        </button>
+      </div>
+    </div>
+    <div class="uk-float-right">
+      <div uk-form-custom>
+        <button class="uk-button uk-button-primary">从编辑器提交</button>
+      </div>
+    </div>
+    <div class="uk-float-right">
+      <div uk-form-custom>
+        <input type="file">
+        <button class="uk-button uk-button-default" type="button" tabindex="-1">从文件提交</button>
+      </div>
+    </div>
+  </div>
+  <div id="editor" style="height: 500px;"></div>
+{% endblock %}
+{% block end_of_body %}
+  <script src="/static/js/ace.js" type="text/javascript" charset="utf-8"></script>
+  <script>
+      var editor = ace.edit("editor");
+      editor.setTheme("ace/theme/textmate");
+      editor.getSession().setMode("ace/mode/c_cpp");
+      editor.getSession().setTabSize(4);
+      editor.getSession().setUseSoftTabs(true);
+      document.getElementById('editor').style.fontSize='14px';
+      function changeLanguage(language) {
+          if (language == "c" || language == "cpp")
+              editor.getSession().setMode("ace/mode/c_cpp");
+          else
+              editor.getSession().setMode("ace/mode/" + language);
+      }
+  </script>
+{% endblock %}

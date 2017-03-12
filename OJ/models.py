@@ -219,8 +219,8 @@ class ContestRank(models.Model):
     # 总耗时
     total_time = models.IntegerField(default=0)
 
-# 提交记录抽象表
-class AbstractSolution(models.Model):
+# 提交记录表
+class Solution(models.Model):
     # 用户
     user = models.ForeignKey(User, db_index=True)
     # 使用时间（秒）
@@ -239,21 +239,11 @@ class AbstractSolution(models.Model):
     code = models.TextField()
     # 判题结果，例如编译错误信息，运行错误信息
     info = models.TextField()
+    # 对应比赛，空值表示非比赛题目
+    contest = models.ForeignKey(Contest, db_index=True, null=True)
+    # 对应问题ID
+    problem = models.IntegerField(db_index=True)
 
-    class Meta:
-        abstract = True
-
-# 提交记录
-class Solution(AbstractSolution):
-    # 对应提交问题
-    problem = models.ForeignKey(Problem, db_index=True)
-
-# 比赛提交记录
-class ContestSolution(AbstractSolution):
-    # 对应比赛
-    contest = models.ForeignKey(Contest, db_index=True)
-    # 对应比赛问题
-    problem = models.ForeignKey(ContestProblem, db_index=True)
 
 # 评论
 class Comment(models.Model):
