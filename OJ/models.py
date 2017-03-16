@@ -148,7 +148,7 @@ class AbstractProblem(models.Model):
     # 总AC数
     accepted = models.IntegerField(default=0, null=True)
     # 总提交数
-    submit =  models.IntegerField(default=0, null=True)
+    submit = models.IntegerField(default=0, null=True)
 
     class Meta:
         abstract = True

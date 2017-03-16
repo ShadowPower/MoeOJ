@@ -1,15 +1,38 @@
+{# 前方省略号起始页码 #}
+{% set start_from = 3 %}
+{% if page.number - 3 > 2 %}
+{% set start_from = page.number - 3 %}
+{% endif %}
+{# 后方省略号起始页码 #}
+{% set end_to = pages - 1 %}
+{% if pages - page.number > 4 %}
+{% set end_to = pages + 4 %}
+{% endif %}
+
 <ul class="uk-pagination uk-margin-remove" uk-margin>
-  <li><a href="#"><span uk-pagination-previous></span></a></li>
-  <li class="uk-visible@m"><a href="#">1</a></li>
+{% if page.has_previous() %}
+  <li><a href="?page={{ page.previous_page_number() }}"><span uk-pagination-previous></span></a></li>
+{% endif %}
+{% if page.number != 1 %}
+  <li class="uk-visible@m"><a href="?page=1">1</a></li>
+{% endif %}
+{% if page.number > 5 %}
   <li class="uk-disabled uk-visible@m"><span>...</span></li>
-  <li class="uk-visible@m"><a href="#">4</a></li>
-  <li class="uk-visible@m"><a href="#">5</a></li>
-  <li class="uk-visible@m"><a href="#">6</a></li>
-  <li class="uk-active"><a id="change-pagination" href="#">7</a></li>
-  <li class="uk-visible@m"><a href="#">8</a></li>
-  <li class="uk-visible@m"><a href="#">9</a></li>
-  <li class="uk-visible@m"><a href="#">10</a></li>
+{% endif %}
+{% for i in range(start_from, page.number) %}
+  <li class="uk-visible@m"><a href="?page={{ i }}">{{ i }}</a></li>
+{% endfor %}
+  <li class="uk-active"><a id="change-pagination" href="#">{{ page.number }}</a></li>
+{% for i in range(page.number + 1 , end_to) %}
+  <li class="uk-visible@m"><a href="?page={{ i }}">{{ i }}</a></li>
+{% endfor %}
+{% if pages - page.number > 4 %}
   <li class="uk-disabled uk-visible@m"><span>...</span></li>
-  <li class="uk-visible@m"><a href="#">20</a></li>
-  <li><a href="#"><span uk-pagination-next></span></a></li>
+{% endif %}
+{% if page.number != pages %}
+  <li class="uk-visible@m"><a href="?page={{ pages }}">{{ pages }}</a></li>
+{% endif %}
+{% if page.has_next() %}
+  <li><a href="?page={{ page.next_page_number() }}"><span uk-pagination-next></span></a></li>
+{% endif %}
 </ul>

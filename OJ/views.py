@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from OJ.models import *
 
 from markdown import markdown
 
+OBJECTS_PER_PAGE = 25
 
 # Create your views here.
 def index(request):
@@ -11,7 +13,17 @@ def index(request):
     return render(request, "index.html", {'notices': notices})
 
 def problemset(request):
-    return render(request, "problem/problemset.html")
+    problem_list = Problem.objects.all()
+    paginator = Paginator(problem_list, OBJECTS_PER_PAGE)
+    page = request.GET.get('page')
+    try:
+        problems = paginator.page(page)
+    except PageNotAnInteger:
+        problems = paginator.page(1)
+    except EmptyPage:
+        problems = paginator.page(paginator.num_pages)
+    pages = paginator.num_pages
+    return render(request, "problem/problemset.html", {"page": problems, "pages": pages})
 
 def status(request):
     return render(request, "status.html")
