@@ -14,25 +14,25 @@
   <li><a href="{{ gets }}page={{ page.previous_page_number() }}"><span uk-pagination-previous></span></a></li>
 {% endif %}
 {% if page.number != 1 %}
-  <li class="uk-visible@m"><a href="{{ gets }}?page=1">1</a></li>
+  <li class="uk-visible@m"><a href="{{ gets }}page=1">1</a></li>
 {% endif %}
 {% if page.number > 5 %}
   <li class="uk-disabled uk-visible@m"><span>...</span></li>
 {% endif %}
 {% for i in range(start_from, page.number) %}
-  <li class="uk-visible@m"><a href="{{ gets }}?page={{ i }}">{{ i }}</a></li>
+  <li class="uk-visible@m"><a href="{{ gets }}page={{ i }}">{{ i }}</a></li>
 {% endfor %}
   <li class="uk-active"><a id="change-pagination" href="#">{{ page.number }}</a></li>
 {% for i in range(page.number + 1 , end_to) %}
-  <li class="uk-visible@m"><a href="{{ gets }}?page={{ i }}">{{ i }}</a></li>
+  <li class="uk-visible@m"><a href="{{ gets }}page={{ i }}">{{ i }}</a></li>
 {% endfor %}
 {% if pages - page.number > 4 %}
   <li class="uk-disabled uk-visible@m"><span>...</span></li>
 {% endif %}
 {% if page.number != pages %}
-  <li class="uk-visible@m"><a href="{{ gets }}?page={{ pages }}">{{ pages }}</a></li>
+  <li class="uk-visible@m"><a href="{{ gets }}page={{ pages }}">{{ pages }}</a></li>
 {% endif %}
 {% if page.has_next() %}
-  <li><a href="{{ gets }}?page={{ page.next_page_number() }}"><span uk-pagination-next></span></a></li>
+  <li><a href="{{ gets }}page={{ page.next_page_number() }}"><span uk-pagination-next></span></a></li>
 {% endif %}
 </ul>
