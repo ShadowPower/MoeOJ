@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from OJ.models import *
+from utils.helper import Helper
 
 from markdown import markdown
 
@@ -13,6 +14,7 @@ def index(request):
     return render(request, "index.html", {'notices': notices})
 
 def problemset(request):
+    gets_url = Helper.get_GETS_except(request, 'page')
     problem_list = Problem.objects.all()
     paginator = Paginator(problem_list, OBJECTS_PER_PAGE)
     page = request.GET.get('page')
@@ -23,7 +25,7 @@ def problemset(request):
     except EmptyPage:
         problems = paginator.page(paginator.num_pages)
     pages = paginator.num_pages
-    return render(request, "problem/problemset.html", {"page": problems, "pages": pages})
+    return render(request, "problem/problemset.html", {"page": problems, "pages": pages, "gets": gets_url})
 
 def status(request):
     return render(request, "status.html")
