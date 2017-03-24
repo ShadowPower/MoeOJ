@@ -26,27 +26,15 @@
                 </tr>
                 </thead>
                 <tbody>
+                {% for problem in page.object_list %}
                 <tr>
-                  <td>1</td>
-                  <td>A+B Problem</td>
-                  <td>MoeOJ</td>
-                  <td>简单</td>
-                  <td>30%</td>
+                  <td>{{ problem.id }}</td>
+                  <td><a href="{{ url("problem", problem.id) }}">{{ problem.title }}</a></td>
+                  <td>{{ problem.source }}</td>
+                  <td>{{ problem.difficulty | difficulty_to_text }}</td>
+                  <td>{{ problem.acrate | round(2, 'common') }} %</td>
                 </tr>
-                <tr>
-                  <td>2</td>
-                  <td>分解质因数</td>
-                  <td>MoeOJ</td>
-                  <td>中等</td>
-                  <td>100%</td>
-                </tr>
-                <tr>
-                  <td>11111</td>
-                  <td>Rectangular Polygons</td>
-                  <td>MoeOJ</td>
-                  <td>困难</td>
-                  <td>50%</td>
-                </tr>
+                {% endfor %}
                 </tbody>
               </table>
             </div>

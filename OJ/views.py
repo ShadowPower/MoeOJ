@@ -25,6 +25,14 @@ def problemset(request):
     except EmptyPage:
         problems = paginator.page(paginator.num_pages)
     pages = paginator.num_pages
+
+    for problem in problems.object_list:
+        # 计算AC比例
+        try:
+            problem.acrate = problem.accepted / problem.submit * 100
+        except ZeroDivisionError:
+            problem.acrate = 0
+
     return render(request, "problem/problemset.html", {"page": problems, "pages": pages, "gets": gets_url})
 
 def status(request):
