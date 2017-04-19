@@ -21,22 +21,28 @@
           <th>耗时</th>
           <th>内存</th>
           <th>结果</th>
-          <th>长度</th>
           <th>提交时间</th>
         </tr>
         </thead>
         <tbody>
+        {% for status in page.object_list %}
         <tr>
-          <td>1234567</td>
-          <td noWrap>穿上女装才能AC所有题</td>
-          <td>1234</td>
-          <td>C++</td>
-          <td>1234ms</td>
-          <td>12345KB</td>
-          <td class="uk-text-success" noWrap>正确答案</td>
-          <td>4124B</td>
-          <td noWrap>2017/01/13 12:43:54</td>
+          <td>{{ status.id }}</td>
+          <td noWrap>{{ status.user.username }}</td>
+          <td>{{ status.problem }}</td>
+          <td>{{ status.language }}</td>
+          <td>
+            {% if status.accepted_time != None %}
+            {{ status.accepted_time }}ms
+            {% else %}
+            --
+            {% endif %}
+          </td>
+          <td>{{ status.memory }}KB</td>
+          <td class="uk-text-success" noWrap>{{ status.result }}</td>
+          <td noWrap>{{ status.submit_date|localtime|date("Y/m/d H:i") }}</td>
         </tr>
+        {% endfor %}
         </tbody>
       </table>
     </div>

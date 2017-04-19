@@ -3,7 +3,8 @@
 {% set container_class = 'max-width-480' %}
 {% block content %}
   <div class="uk-card uk-card-default uk-card-small uk-card-body">
-    <img class="poster-girl" src="/static/img/corner.png">
+    <img class="poster-girl" src="/static/img/ram.png">
+    <img class="poster-girl-right" src="/static/img/rem.png">
     <div>
       <h2 class="uk-text-center uk-margin-remove-bottom">登录</h2>
     </div>
@@ -12,13 +13,13 @@
         <div class="uk-margin">
           <label class="uk-form-label" for="form-stacked-text">邮箱</label>
           <div class="uk-form-controls">
-            <input class="uk-input" id="form-stacked-text" type="text" name="email" placeholder="您的邮箱~" required>
+            <input class="uk-input" id="form-stacked-text" type="text" name="email" placeholder="大佬求联系方式 OuO" required>
           </div>
         </div>
         <div class="uk-margin">
           <label class="uk-form-label" for="form-stacked-text">密码</label>
           <div class="uk-form-controls">
-            <input class="uk-input" id="form-stacked-text" type="password" name="password" placeholder="密码~" required>
+            <input class="uk-input" id="form-stacked-text" type="password" name="password" placeholder="还有密码~" required>
           </div>
         </div>
         {% csrf_token %}

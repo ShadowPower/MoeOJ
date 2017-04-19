@@ -229,16 +229,22 @@ class Solution(models.Model):
     memory = models.IntegerField(default=0)
     # 提交时间
     submit_date = models.DateTimeField(auto_now_add=True)
-    # 开始判题时间
-    judge_time = models.DateTimeField(null=True)
+    # 判题开始时间
+    judge_start_time = models.BigIntegerField(blank=True, null=True)
+    # 判题结束时间
+    judge_end_time = models.BigIntegerField(blank=True, null=True)
+    # 语言 0:C 1:C++ 2:Java 3:Python
+    language = models.IntegerField(default=0)
     # 评判结果
     result = models.SmallIntegerField(null=True)
     # 用户IP
     ip = models.CharField(max_length=46, null=True)
     # 代码
     code = models.TextField()
+    # 判题时间
+    accepted_time = models.IntegerField(blank=True, null=True)
     # 判题结果，例如编译错误信息，运行错误信息
-    info = models.TextField()
+    accepted_info = models.TextField(blank=True, null=True)
     # 对应比赛，空值表示非比赛题目
     contest = models.ForeignKey(Contest, db_index=True, null=True)
     # 对应问题ID

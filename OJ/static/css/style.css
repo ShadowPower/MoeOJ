@@ -48,6 +48,12 @@ html {
     left: -122px;
 }
 
+.poster-girl-right {
+    position: absolute;
+    top: 0;
+    right: -122px;
+}
+
 .fix-float-bug:after {
     content: "";
     display: block;
