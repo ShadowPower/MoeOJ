@@ -29,17 +29,17 @@
         <tr>
           <td>{{ status.id }}</td>
           <td noWrap>{{ status.user.username }}</td>
-          <td>{{ status.problem }}</td>
-          <td>{{ status.language }}</td>
+          <td>{{ status.problem.id }}</td>
+          <td>{{ status.language|language_to_text }}</td>
           <td>
-            {% if status.accepted_time != None %}
-            {{ status.accepted_time }}ms
+            {% if status.time != None %}
+            {{ status.time }}ms
             {% else %}
             --
             {% endif %}
           </td>
           <td>{{ status.memory }}KB</td>
-          <td class="uk-text-success" noWrap>{{ status.result }}</td>
+          <td class="uk-text-success" noWrap>{{ status.result|result_to_text }}</td>
           <td noWrap>{{ status.submit_date|localtime|date("Y/m/d H:i") }}</td>
         </tr>
         {% endfor %}

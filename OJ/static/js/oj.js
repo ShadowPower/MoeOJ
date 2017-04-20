@@ -3,7 +3,7 @@ var oj = (function () {
         $('#change-pagination').on('click', function (e) {
             e.preventDefault();
             $(this).blur();
-            UIkit.modal.prompt('请输入页码 (7/20):', '').then(function(page) {
+            UIkit.modal.prompt('请输入页码:', '').then(function(page) {
                 console.log('跳转到:', page)
             });
         });

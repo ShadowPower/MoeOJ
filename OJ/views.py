@@ -17,9 +17,9 @@ def problemset(request):
     gets_url = Helper.get_GETS_except(request, 'page')
     problem_list = Problem.objects.all()
     paginator = Paginator(problem_list, OBJECTS_PER_PAGE)
-    page = request.GET.get('page')
+    page_number = request.GET.get('page')
     try:
-        problems = paginator.page(page)
+        problems = paginator.page(page_number)
     except PageNotAnInteger:
         problems = paginator.page(1)
     except EmptyPage:
@@ -36,7 +36,18 @@ def problemset(request):
     return render(request, "problem/problemset.html", {"page": problems, "pages": pages, "gets": gets_url})
 
 def status(request):
-    return render(request, "status.html")
+    solution_list = Solution.objects.all()
+    paginator = Paginator(solution_list, OBJECTS_PER_PAGE)
+    page_number = request.GET.get('page')
+    try:
+        solution = paginator.page(page_number)
+    except PageNotAnInteger:
+        solution = paginator.page(1)
+    except EmptyPage:
+        solution = paginator.page(paginator.num_pages)
+    pages = paginator.num_pages
+
+    return render(request, "status.html", {"page": solution, "pages":pages})
 
 def rank(request):
     return render(request, "rank.html")

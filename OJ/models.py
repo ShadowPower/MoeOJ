@@ -18,7 +18,7 @@ PRIVATE_CONTEST = 1
 
 # 运行结果
 AC = 0    # Accepted
-CE = 1    # Complie Error
+CE = 1    # Compile Error
 WA = 2    # Wrong Answer
 RE = 3    # Runtime Error
 TLE = 4   # Time Limit Exceeded
@@ -26,6 +26,12 @@ OLE = 5   # Output Limit Exceeded
 MLE = 6   # Memory Limit Exceeded
 RF = 7    # Restricted Function
 PE = 8    # Presentation Error
+
+# 语言
+LANG_C = 0
+LANG_CPP = 1
+LANG_JAVA = 2
+LANG_PYTHON = 3
 
 class UserManager(BaseUserManager):
     def create_user(self, name, email, password=None, school=None, student_id=None, gender='boy'):
@@ -219,13 +225,13 @@ class ContestRank(models.Model):
     # 总耗时
     total_time = models.IntegerField(default=0)
 
-# 提交记录表
-class Solution(models.Model):
+# 提交记录抽象表
+class AbstractSolution(models.Model):
     # 用户
     user = models.ForeignKey(User, db_index=True)
-    # 使用时间（秒）
+    # 使用时间（毫秒）
     time = models.IntegerField(default=0)
-    # 使用内存
+    # 使用内存（KB）
     memory = models.IntegerField(default=0)
     # 提交时间
     submit_date = models.DateTimeField(auto_now_add=True)
@@ -241,14 +247,23 @@ class Solution(models.Model):
     ip = models.CharField(max_length=46, null=True)
     # 代码
     code = models.TextField()
-    # 判题时间
-    accepted_time = models.IntegerField(blank=True, null=True)
     # 判题结果，例如编译错误信息，运行错误信息
-    accepted_info = models.TextField(blank=True, null=True)
+    info = models.TextField(blank=True, null=True)
+
+    class Meta:
+        abstract = True
+
+# 提交记录表
+class Solution(AbstractSolution):
+    # 对应问题
+    problem = models.ForeignKey(Problem, db_index=True)
+
+# 比赛提交记录表
+class ContestSolution(AbstractSolution):
     # 对应比赛，空值表示非比赛题目
-    contest = models.ForeignKey(Contest, db_index=True, null=True)
-    # 对应问题ID
-    problem = models.IntegerField(db_index=True)
+    contest = models.ForeignKey(Contest, db_index=True)
+    # 对应比赛问题
+    problem = models.ForeignKey(ContestProblem, db_index=True)
 
 
 # 评论

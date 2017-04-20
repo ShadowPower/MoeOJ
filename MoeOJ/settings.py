@@ -76,7 +76,9 @@ TEMPLATES = [
             'filters': {
                 # 在jinja2模板中使用localtime过滤器转换UTC时间到本地时间
                 'localtime': 'django.utils.timezone.template_localtime',
-                'difficulty_to_text': 'MoeOJ.filter.difficulty_to_text'
+                'difficulty_to_text': 'MoeOJ.filter.difficulty_to_text',
+                'language_to_text': 'MoeOJ.filter.language_to_text',
+                'result_to_text': 'MoeOJ.filter.result_to_text'
             },
             "extensions": [
                 "jinja2.ext.do",
