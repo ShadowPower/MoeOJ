@@ -39,7 +39,7 @@
             {% endif %}
           </td>
           <td>{{ status.memory }}KB</td>
-          <td class="uk-text-success" noWrap>{{ status.result|result_to_text }}</td>
+          <td class="{% if status.result == 0 %}uk-text-success{% else %}uk-text-danger{% endif %}" noWrap>{{ status.result|result_to_text }}</td>
           <td noWrap>{{ status.submit_date|localtime|date("Y/m/d H:i") }}</td>
         </tr>
         {% endfor %}
