@@ -64,7 +64,17 @@ def rank(request):
     return render(request, "rank.html", {"page": ranks, "pages":pages, "objects_per_page": OBJECTS_PER_PAGE})
 
 def contest(request):
-    return render(request, "contest/contest.html")
+    contest_list = Contest.objects.all().filter(visible=True)
+    paginator = Paginator(contest_list, OBJECTS_PER_PAGE)
+    page_number = request.GET.get('page')
+    try:
+        contests = paginator.page(page_number)
+    except PageNotAnInteger:
+        contests = paginator.page(1)
+    except EmptyPage:
+        contests = paginator.page(paginator.num_pages)
+    pages = paginator.num_pages
+    return render(request, "contest/contest.html", {"page": contests, "pages":pages})
 
 def register(request):
     return render(request, "user/register.html")

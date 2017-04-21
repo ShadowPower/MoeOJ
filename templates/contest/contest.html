@@ -22,13 +22,24 @@
         </tr>
         </thead>
         <tbody>
+        {% for contest in page %}
         <tr>
-          <td>1234</td>
-          <td noWrap><a href="{{ url("contest_overview", 1) }}">2017年海南大学ACM招新赛</a></td>
-          <td noWrap>2017/10/12 18:30:00</td>
-          <td noWrap>2017/10/12 22:30:00</td>
-          <td class="uk-text-success">公开</td>
+          <td>{{ contest.id }}</td>
+          <td noWrap><a href="{{ url("contest_overview", contest.id) }}">{{ contest.title }}</a></td>
+          <td noWrap>{{ contest.start_time|localtime|date("Y/m/d H:i:s") }}</td>
+          <td noWrap>{{ contest.end_time|localtime|date("Y/m/d H:i:s") }}</td>
+          {% if contest.contest_type == 0 %}
+            {% set type_class = 'uk-text-success' %}
+            {% set type_text = '公开' %}
+          {% else %}
+            {% set type_class = 'uk-text-warning' %}
+            {% set type_text = '非公开' %}
+          {% endif %}
+          <td class="{{ type_class }}">
+            {{ type_text }}
+          </td>
         </tr>
+        {% endfor %}
         </tbody>
       </table>
     </div>
