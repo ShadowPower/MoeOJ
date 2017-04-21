@@ -83,15 +83,15 @@ def login(request):
     return render(request, "user/login.html")
 
 def problem(request, problem_id):
+    problemObject = Problem.objects.get(id=problem_id)
     return render(request, "problem/problem-description.html", {
-        'problem_title': "问题标题",
-        'problem_id': int(problem_id)
+        'problem': problemObject
     })
 
 def problem_status(request, problem_id):
+    problemObject = Problem.objects.get(id=problem_id)
     return render(request, "problem/problem-status.html", {
-        'problem_title': "问题标题",
-        'problem_id': int(problem_id)
+        'problem': problemObject
     })
 
 # contest
