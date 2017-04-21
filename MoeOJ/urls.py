@@ -13,15 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 
-import OJ.form_views
 from OJ import views as oj_views
 from OJ import form_views as oj_form_views
 
-urlpatterns = [
-    url(r'^$', oj_views.index, name='index'),
+oj_urls = [
     url(r'^problem/(\d+)/$', oj_views.problem, name='problem'),
     url(r'^problem-status/(\d+)/$', oj_views.problem_status, name='problem-status'),
     url(r'^problemset/$', oj_views.problemset, name='problemset'),
@@ -34,10 +32,19 @@ urlpatterns = [
     url(r'^contest/statistics/(\d+)/$', oj_views.contest_statistics, name='contest_statistics'),
     url(r'^contest/status/(\d+)/$', oj_views.contest_status, name='contest_status'),
     url(r'^register/$', oj_views.register, name='register'),
-    url(r'^register-post/$', oj_form_views.register_post, name='register-post'),
     url(r'^login/$', oj_views.login, name='login'),
+    url(r'^modify-user-info/$', oj_views.modify_user_info, name='modify-user-info'),
+]
+
+oj_form_urls = [
+    url(r'^register-post/$', oj_form_views.register_post, name='register-post'),
     url(r'^login-post/$', oj_form_views.login_post, name='login-post'),
     url(r'^logout/$', oj_form_views.logout_get, name='logout'),
-    url(r'^modify-user-info/$', oj_views.modify_user_info, name='modify-user-info'),
+]
+
+urlpatterns = [
+    url(r'^$', oj_views.index, name='index'),
+    url(r'', include(oj_urls)),
+    url(r'', include(oj_form_urls)),
     url(r'^admin/', admin.site.urls, name='admin'),
 ]
