@@ -58,10 +58,9 @@
         <div>
           <div class="uk-card uk-card-default uk-card-small uk-card-body">
             <h3 class="uk-panel-title">排行</h3>
-            2jjy<br />
-            Chris<br />
-            BLumia<br />
-            ShadowPower<br />
+            {% for rank in rank_list %}
+            {{ rank.username }}<br />
+            {% endfor %}
           </div>
         </div>
         <div>

@@ -77,7 +77,12 @@ class User(AbstractBaseUser):
     email_token = models.CharField(max_length=64, null=True)
     # 注册时间
     created_at = models.DateTimeField(auto_now_add=True, null=True)
-    # 密码
+    # 总提交数（相同题目不可以重复统计）
+    submission_number = models.IntegerField(default=0)
+    # 总AC数（相同题目不可以重复统计）
+    accepted_problem_number = models.IntegerField(default=0)
+    # 个性签名
+    about = models.TextField(max_length=140, null=True)
 
     def __unicode__(self):
         return self.username

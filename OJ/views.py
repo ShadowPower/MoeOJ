@@ -15,6 +15,7 @@ def index(request):
 
 def problemset(request):
     gets_url = Helper.get_GETS_except(request, 'page')
+    rank_list = User.objects.filter(submission_number__gt=0).order_by("-accepted_problem_number", "-submission_number")[:15]
     problem_list = Problem.objects.all()
     paginator = Paginator(problem_list, OBJECTS_PER_PAGE)
     page_number = request.GET.get('page')
@@ -33,7 +34,7 @@ def problemset(request):
         except ZeroDivisionError:
             problem.acrate = 0
 
-    return render(request, "problem/problemset.html", {"page": problems, "pages": pages, "gets": gets_url})
+    return render(request, "problem/problemset.html", {"page": problems, "pages": pages, "gets": gets_url, "rank_list":rank_list})
 
 def status(request):
     solution_list = Solution.objects.all()
@@ -50,7 +51,17 @@ def status(request):
     return render(request, "status.html", {"page": solution, "pages":pages})
 
 def rank(request):
-    return render(request, "rank.html")
+    rank_list = User.objects.filter(submission_number__gt=0).order_by("-accepted_problem_number", "-submission_number")
+    paginator = Paginator(rank_list, OBJECTS_PER_PAGE)
+    page_number = request.GET.get('page')
+    try:
+        ranks = paginator.page(page_number)
+    except PageNotAnInteger:
+        ranks = paginator.page(1)
+    except EmptyPage:
+        ranks = paginator.page(paginator.num_pages)
+    pages = paginator.num_pages
+    return render(request, "rank.html", {"page": ranks, "pages":pages, "objects_per_page": OBJECTS_PER_PAGE})
 
 def contest(request):
     return render(request, "contest/contest.html")

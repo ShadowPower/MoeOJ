@@ -23,14 +23,23 @@
         </tr>
         </thead>
         <tbody>
+        {% for rank in page %}
         <tr>
-          <td>88888</td>
-          <td noWrap>穿上女装才能AC所有题</td>
-          <td noWrap>骚年，你的小裙子落在我这了</td>
-          <td>123</td>
-          <td>1000</td>
-          <td>12.3%</td>
+          <td noWrap>{{ loop.index + (page.number - 1) * objects_per_page }}</td>
+          <td noWrap>{{ rank.username }}</td>
+          <td>{{ rank.about }}</td>
+          <td noWrap>{{ rank.accepted_problem_number }}</td>
+          <td noWrap>{{ rank.submission_number }}</td>
+          <td noWrap>
+            {% if rank.submission_number > 0 %}
+              {{ (rank.accepted_problem_number * 100 / rank.submission_number) | round(2, 'common') }}
+            {% else %}
+              0
+            {% endif %}
+            %
+          </td>
         </tr>
+        {% endfor %}
         </tbody>
       </table>
     </div>
