@@ -60,6 +60,11 @@ html {
     clear: both;
 }
 
+.fix-right-dropdown-bug {
+    left: inherit!important;
+    right: 0!important;
+}
+
 .max-width-480 {
     max-width: 480px;
 }

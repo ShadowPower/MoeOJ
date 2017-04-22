@@ -12,25 +12,31 @@
         <div class="uk-margin">
           <label class="uk-form-label" for="form-stacked-text">用户名</label>
           <div class="uk-form-controls">
-            <input class="uk-input" id="form-stacked-text" type="text" placeholder="很高兴认识你，你叫什么名字呢？" value="{{ username }}" required>
+            <input class="uk-input" id="form-stacked-text" type="text" placeholder="很高兴认识你，你叫什么名字呢？" value="{{ user.username }}" required>
           </div>
         </div>
         <div class="uk-margin">
           <label class="uk-form-label" for="form-stacked-text">邮箱 <span class="uk-text-meta">这个不能改啦</span></label>
           <div class="uk-form-controls">
-            <input class="uk-input" id="form-stacked-text" type="email" placeholder="不能修改" value="{{ email }}" disabled>
+            <input class="uk-input" id="form-stacked-text" type="email" placeholder="不能修改" value="{{ user.email }}" disabled>
+          </div>
+        </div>
+        <div class="uk-margin">
+          <label class="uk-form-label" for="form-stacked-text">个性签名</label>
+          <div class="uk-form-controls">
+            <input class="uk-input" id="form-stacked-text" type="text" placeholder="写上一些中(dou)二(bi)的话吧~" value="{% if user.about != None %}{{ user.about }}{% endif %}" required>
           </div>
         </div>
         <div class="uk-margin">
           <label class="uk-form-label" for="form-stacked-text">学校</label>
           <div class="uk-form-controls">
-            <input class="uk-input" id="form-stacked-text" type="text" placeholder="你在哪里读书呢？" value="{{ school }}">
+            <input class="uk-input" id="form-stacked-text" type="text" placeholder="你在哪里读书呢？" value="{{ user.school }}">
           </div>
         </div>
         <div class="uk-margin">
           <label class="uk-form-label" for="form-stacked-text">学号</label>
           <div class="uk-form-controls">
-            <input class="uk-input" id="form-stacked-text" type="text" placeholder="知道学号就知道你是谁啦> <" value="{{ student_id }}">
+            <input class="uk-input" id="form-stacked-text" type="text" placeholder="知道学号就知道你是谁啦> <" value="{{ user.student_id }}">
           </div>
         </div>
         <div class="uk-margin">

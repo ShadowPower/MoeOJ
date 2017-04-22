@@ -155,16 +155,8 @@ def contest_status(request, contest_id):
 
 @login_required(redirect_field_name='login', login_url=None)
 def modify_user_info(request):
-    username = request.user.username
-    email = request.user.email
-    school = request.user.school
-    student_id = request.user.student_id
-    gender = request.user.gender
+    user = request.user
     return render(request, "user/modify-user-info.html", {
-        'username': username,
-        'email': email,
-        'school': school,
-        'student_id': student_id,
-        'gender': gender
+        'user': user
     })
 
