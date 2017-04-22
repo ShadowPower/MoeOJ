@@ -60,7 +60,8 @@ CONTEXT_PROCESSORS = [
     'django.contrib.messages.context_processors.messages',
     'MoeOJ.context_processor.day_night_change',
     'MoeOJ.context_processor.server_time',
-    'MoeOJ.context_processor.public_parameter'
+    'MoeOJ.context_processor.public_parameter',
+    'MoeOJ.context_processor.gets_no_page'
 ]
 
 TEMPLATES = [

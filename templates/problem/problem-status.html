@@ -11,47 +11,47 @@
         <tbody>
         <tr>
           <td class="uk-text-left">提交次数</td>
-          <td class="uk-text-right uk-text-primary">12345</td>
+          <td class="uk-text-right uk-text-primary">{{ submit_count }}</td>
         </tr>
         <tr>
           <td class="uk-text-left">提交人数</td>
-          <td class="uk-text-right uk-text-primary">12345</td>
+          <td class="uk-text-right uk-text-primary">{{ problem.submit }}</td>
         </tr>
         <tr>
           <td class="uk-text-left">通过人数</td>
-          <td class="uk-text-right uk-text-primary">12345</td>
+          <td class="uk-text-right uk-text-primary">{{ problem.accepted }}</td>
         </tr>
         <tr>
           <td class="uk-text-left">正确答案</td>
-          <td class="uk-text-right uk-text-primary">12345</td>
+          <td class="uk-text-right uk-text-primary">{{ result_count[0] }}</td>
         </tr>
         <tr>
           <td class="uk-text-left">格式错误</td>
-          <td class="uk-text-right uk-text-primary">12345</td>
+          <td class="uk-text-right uk-text-primary">{{ result_count[8] }}</td>
         </tr>
         <tr>
           <td class="uk-text-left">错误答案</td>
-          <td class="uk-text-right uk-text-primary">12345</td>
+          <td class="uk-text-right uk-text-primary">{{ result_count[2] }}</td>
         </tr>
         <tr>
           <td class="uk-text-left">时间超限</td>
-          <td class="uk-text-right uk-text-primary">12345</td>
+          <td class="uk-text-right uk-text-primary">{{ result_count[4] }}</td>
         </tr>
         <tr>
           <td class="uk-text-left">内存超限</td>
-          <td class="uk-text-right uk-text-primary">12345</td>
+          <td class="uk-text-right uk-text-primary">{{ result_count[6] }}</td>
         </tr>
         <tr>
           <td class="uk-text-left">输出超限</td>
-          <td class="uk-text-right uk-text-primary">12345</td>
+          <td class="uk-text-right uk-text-primary">{{ result_count[5] }}</td>
         </tr>
         <tr>
           <td class="uk-text-left">运行错误</td>
-          <td class="uk-text-right uk-text-primary">12345</td>
+          <td class="uk-text-right uk-text-primary">{{ result_count[3] }}</td>
         </tr>
         <tr>
           <td class="uk-text-left">编译错误</td>
-          <td class="uk-text-right uk-text-primary">12345</td>
+          <td class="uk-text-right uk-text-primary">{{ result_count[1] }}</td>
         </tr>
         </tbody>
       </table>
@@ -63,24 +63,32 @@
         <thead>
         <tr>
           <th>#</th>
-          <th>编号</th>
-          <th>内存</th>
-          <th>耗时</th>
           <th>用户</th>
           <th>语言</th>
+          <th>耗时</th>
+          <th>内存</th>
+          <th>结果</th>
           <th>时间</th>
         </tr>
         </thead>
         <tbody>
+        {% for status in page %}
         <tr>
-          <td>1</td>
-          <td>65536</td>
-          <td>4096KB</td>
-          <td>1000MS</td>
-          <td>我想不起我的名字啦QAQ</td>
-          <td>Python</td>
-          <td>2017-06-06 15:21:52</td>
+          <td>{{ status.id }}</td>
+          <td>{{ status.user.username }}</td>
+          <td>{{ status.language|language_to_text }}</td>
+          <td>
+            {% if status.time != None %}
+            {{ status.time }}ms
+            {% else %}
+            --
+            {% endif %}
+          </td>
+          <td>{{ status.memory }} KB</td>
+          <td class="{% if status.result == 0 %}uk-text-success{% else %}uk-text-danger{% endif %}" noWrap>{{ status.result|result_to_text }}</td>
+          <td>{{ status.submit_date|localtime|date("Y/m/d H:i") }}</td>
         </tr>
+        {% endfor %}
         </tbody>
       </table>
     </div>

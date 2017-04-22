@@ -7,5 +7,5 @@ def language_to_text(language):
     return LANGUAGE_DESC[language]
 
 def result_to_text(result):
-    RESULT_DESC = ['答案正确', '编译错误', '答案错误', '程序崩溃', '运行超时', '无限输出', '内存超限', '函数受限', '格式错误']
+    RESULT_DESC = ['正确答案', '编译错误', '错误答案', '运行错误', '时间超限', '输出超限', '内存超限', '函数受限', '格式错误']
     return RESULT_DESC[result]

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.db.models import Count
 from OJ.models import *
 from utils.helper import Helper
 
@@ -14,7 +15,6 @@ def index(request):
     return render(request, "index.html", {'notices': notices})
 
 def problemset(request):
-    gets_url = Helper.get_GETS_except(request, 'page')
     rank_list = User.objects.filter(submission_number__gt=0).order_by("-accepted_problem_number", "-submission_number")[:15]
     problem_list = Problem.objects.all()
     paginator = Paginator(problem_list, OBJECTS_PER_PAGE)
@@ -34,7 +34,7 @@ def problemset(request):
         except ZeroDivisionError:
             problem.acrate = 0
 
-    return render(request, "problem/problemset.html", {"page": problems, "pages": pages, "gets": gets_url, "rank_list":rank_list})
+    return render(request, "problem/problemset.html", {"page": problems, "pages": pages, "rank_list":rank_list})
 
 def status(request):
     solution_list = Solution.objects.all()
@@ -90,8 +90,29 @@ def problem(request, problem_id):
 
 def problem_status(request, problem_id):
     problemObject = Problem.objects.get(id=problem_id)
+    solution_list = Solution.objects.all().filter(problem_id=problem_id)
+    submit_count = solution_list.count()
+
+    statistics = Solution.objects.values('result').annotate(count=Count('result'))
+    result_count = [0] * 9
+    for i in statistics:
+        result_count[i['result']] = i['count']
+
+    paginator = Paginator(solution_list, OBJECTS_PER_PAGE)
+    page_number = request.GET.get('page')
+    try:
+        solution = paginator.page(page_number)
+    except PageNotAnInteger:
+        solution = paginator.page(1)
+    except EmptyPage:
+        solution = paginator.page(paginator.num_pages)
+    pages = paginator.num_pages
     return render(request, "problem/problem-status.html", {
-        'problem': problemObject
+        'problem': problemObject,
+        'page': solution,
+        'pages': pages,
+        'submit_count': submit_count,
+        'result_count':result_count
     })
 
 # contest

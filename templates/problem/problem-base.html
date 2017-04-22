@@ -13,7 +13,7 @@
             <div class="uk-margin-remove">
               <p class="uk-margin-remove">
                 时间限制：<span class="uk-badge badge-align">{{ problem.time_limit }} 毫秒</span>
-                内存限制：<span class="uk-badge badge-align">{{ problem.time_limit }} KB</span>
+                内存限制：<span class="uk-badge badge-align">{{ problem.memory_limit }} KB</span>
               </p>
             </div>
           </div>
@@ -31,8 +31,10 @@
                 </ul>
               </div>
             </div>
-            {% block problem_pagination %}
-            {% endblock %}
+            <div class="uk-flex uk-flex-right">
+              {% block problem_pagination %}
+              {% endblock %}
+            </div>
           </div>
         </div>
         <hr>

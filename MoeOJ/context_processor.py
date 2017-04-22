@@ -9,3 +9,7 @@ def server_time(request):
 
 def public_parameter(request):
     return {'oj_title': getattr(settings, 'OJ_TITLE', 'Moe Online Judge')}
+
+# gets_no_page是get参数列表排除page后的文本
+def gets_no_page(request):
+    return {'gets_no_page': Helper.get_GETS_except(request, 'page')}
