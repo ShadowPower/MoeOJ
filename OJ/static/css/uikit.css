@@ -3495,7 +3495,6 @@ ul.uk-nav-sub {
  */
 .uk-nav-primary > li > a {
   font-size: 1.5rem;
-  line-height: 1.5;
   color: #999;
 }
 /* Hover + Focus */
@@ -4808,7 +4807,6 @@ ul.uk-nav-sub {
  ========================================================================== */
 [class*='uk-modal-close-'] {
   position: absolute;
-  z-index: 1010;
   top: 10px;
   right: 10px;
   padding: 5px;
@@ -4907,6 +4905,66 @@ ul.uk-nav-sub {
   right: 0;
   left: auto;
 }
+/* Page
+ ========================================================================== */
+/*
+ * 1. Prepare slide-out animation (Used in reveal and push mode)
+ * 2. Prevent horizontal scrollbar when page is slide-out
+ * Note: JS sets a fixed width so the page can slide-out without shinking
+ */
+.uk-offcanvas-page {
+  /* 1 */
+  -webkit-transition: margin-left 0.3s ease-in-out;
+  transition: margin-left 0.3s ease-in-out;
+  /* 2 */
+  overflow-x: hidden;
+}
+/*
+ * Activate slide-out animation
+ */
+.uk-offcanvas-page-animation {
+  margin-left: 270px;
+}
+/* Flip modifier */
+.uk-offcanvas-flip.uk-offcanvas-page-animation {
+  margin-left: -270px;
+}
+/*
+ * Prevent scrollbar on page if overlay is used
+ */
+.uk-offcanvas-page-overlay {
+  overflow: hidden;
+}
+/* Overlay
+ ========================================================================== */
+/*
+ * Overlay the whole page. Needed for the `::before`
+ * Using `100vw` so no modification is needed when off-canvas is flipped
+ */
+.uk-offcanvas-overlay {
+  width: 100vw;
+}
+/*
+ * 1. Mask the whole page
+ * 2. Fade-in transition
+ */
+.uk-offcanvas-overlay::before {
+  /* 1 */
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.1);
+  /* 2 */
+  opacity: 0;
+  -webkit-transition: opacity 0.15s linear;
+  transition: opacity 0.15s linear;
+}
+.uk-offcanvas-overlay.uk-open::before {
+  opacity: 1;
+}
 /* Bar
  ========================================================================== */
 /*
@@ -4933,13 +4991,6 @@ ul.uk-nav-sub {
   -webkit-transform: translateX(-100%);
   transform: translateX(-100%);
 }
-/* Tablet landscape and bigger */
-@media (min-width: 960px) {
-  .uk-offcanvas-bar {
-    width: 350px;
-    padding: 40px 40px;
-  }
-}
 /* Flip modifier */
 .uk-offcanvas-flip .uk-offcanvas-bar {
   left: auto;
@@ -4958,148 +5009,44 @@ ul.uk-nav-sub {
  * Slide Animation (Used in slide and push mode)
  */
 .uk-offcanvas-bar-animation {
-  -webkit-transition: -webkit-transform 0.3s ease-out;
-  transition: transform 0.3s ease-out;
+  -webkit-transition: -webkit-transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
 }
 /*
  * Reveal Animation
- * 1. Set position
- * 2. Clip the bar
+ * 1. Set the bar to target position
+ * 2. Clip the bar with `clip-path` and use `clip` as fallback
  * 3. Animation
- * 4. Reset transform
+ * Note: Future `clip-path` is commented out (it's not working on iOS)
  */
 .uk-offcanvas-reveal {
   /* 1 */
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  /* 2 */
-  width: 0;
-  overflow: hidden;
-  /* 3 */
-  -webkit-transition: width 0.3s ease-out;
-  transition: width 0.3s ease-out;
-}
-.uk-offcanvas-reveal .uk-offcanvas-bar {
-  /* 4 */
   -webkit-transform: translateX(0);
   transform: translateX(0);
+  /* 2 */
+  clip: rect(0, 0, 100vh, 0);
+  /* 3 */
+  -webkit-transition: clip 0.3s ease-in-out;
+  transition: clip 0.3s ease-in-out;
+}
+/* Fix weird scrollbar bug in Chrome if overlay is used */
+.uk-offcanvas-page:not(.uk-offcanvas-flip) .uk-offcanvas-reveal {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 .uk-open > .uk-offcanvas-reveal {
-  width: 270px;
+  clip: rect(0, 270px, 100vh, 0);
 }
-/* Tablet landscape and bigger */
-@media (min-width: 960px) {
-  .uk-open > .uk-offcanvas-reveal {
-    width: 350px;
-  }
-}
-/*
- * Flip modifier
- */
+/* Flip modifier */
 .uk-offcanvas-flip .uk-offcanvas-reveal {
-  right: 0;
-  left: auto;
-}
-/* Close
- * Adopts `uk-close`
- ========================================================================== */
-.uk-offcanvas-close {
-  position: absolute;
-  z-index: 1000;
-  top: 20px;
-  right: 20px;
-  padding: 5px;
-}
-/* Overlay
- ========================================================================== */
-/*
- * Overlay the whole page. Needed for the `::before`
- * 1. Using `100vw` so no modification is needed when off-canvas is flipped
- * 2. Allow for closing with swipe gesture on devices with pointer events.
- */
-.uk-offcanvas-overlay {
   /* 1 */
-  width: 100vw;
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
   /* 2 */
-  touch-action: none;
+  clip: rect(0, 270px, 100vh, 270px);
 }
-/*
- * 1. Mask the whole page
- * 2. Fade-in transition
- */
-.uk-offcanvas-overlay::before {
-  /* 1 */
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: rgba(0, 0, 0, 0.1);
-  /* 2 */
-  opacity: 0;
-  -webkit-transition: opacity 0.15s linear;
-  transition: opacity 0.15s linear;
-}
-.uk-offcanvas-overlay.uk-open::before {
-  opacity: 1;
-}
-/* Container
- ========================================================================== */
-/*
- * Prevent horizontal scrollbar when the content is slide-out
- * Has to be on the `html` element too to make it work on the `body`
- */
-.uk-offcanvas-page,
-.uk-offcanvas-container {
-  overflow-x: hidden;
-}
-/*
- * Prevent all scrollbars if overlay is used
- */
-.uk-offcanvas-container-overlay {
-  overflow: hidden;
-}
-/* Content
- ========================================================================== */
-/*
- * Prepare slide-out animation (Used in reveal and push mode)
- * Using `position: left` instead of `transform` because position `fixed` elements like sticky navbars
- * lose their fixed state and behaves like `absolute` within a transformed container
- * Note: JS sets a fixed width and height so the page can slide-out without shrinking
- * 1. Smooth scrolling
- */
-.uk-offcanvas-container .uk-offcanvas-content {
-  position: relative;
-  left: 0;
-  -webkit-transition: left 0.3s ease-out;
-  transition: left 0.3s ease-out;
-  /* 1 */
-  -webkit-overflow-scrolling: touch;
-}
-/* Disable scrolling if overlay mode */
-.uk-offcanvas-overlay .uk-offcanvas-content {
-  overflow-y: hidden;
-}
-/*
- * Activate slide-out animation
- */
-:not(.uk-offcanvas-flip) > .uk-offcanvas-content-animation {
-  left: 270px;
-}
-.uk-offcanvas-flip > .uk-offcanvas-content-animation {
-  left: -270px;
-}
-/* Tablet landscape and bigger */
-@media (min-width: 960px) {
-  :not(.uk-offcanvas-flip) > .uk-offcanvas-content-animation {
-    left: 350px;
-  }
-  .uk-offcanvas-flip > .uk-offcanvas-content-animation {
-    left: -350px;
-  }
+.uk-offcanvas-flip .uk-open > .uk-offcanvas-reveal {
+  clip: rect(0, 270px, 100vh, 0);
 }
 /* ========================================================================
    Component: Switcher
@@ -7550,38 +7497,6 @@ td.uk-text-break {
   line-height: 1;
   margin-bottom: -2px;
 }
-/* Leader
- ========================================================================== */
-.uk-leader {
-  overflow: hidden;
-}
-/*
- * 1. Place element in text flow
- * 2. Never break into a new line
- * 3. Get a string back with as many repeating characters to fill the container
- * 4. Prevent wrapping. Overflowing characters will be clipped by the container
- */
-.uk-leader-fill::after {
-  /* 1 */
-  display: inline-block;
-  margin-left: 15px;
-  /* 2 */
-  width: 0;
-  /* 3 */
-  content: attr(data-fill);
-  /* 4 */
-  white-space: nowrap;
-}
-/*
- * Hide if media does not match
- */
-.uk-leader-fill.uk-leader-hide::after {
-  display: none;
-}
-/* Pass fill character to JS */
-.var-leader-fill:before {
-  content: '.';
-}
 /* Logo
  ========================================================================== */
 /*
@@ -7785,118 +7700,6 @@ td.uk-text-break {
   -ms-flex-pack: distribute;
   -webkit-justify-content: space-around;
   justify-content: space-around;
-}
-/* Phone landscape and bigger */
-@media (min-width: 640px) {
-  .uk-flex-left\@s {
-    -ms-flex-pack: start;
-    -webkit-justify-content: flex-start;
-    justify-content: flex-start;
-  }
-  .uk-flex-center\@s {
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-  }
-  .uk-flex-right\@s {
-    -ms-flex-pack: end;
-    -webkit-justify-content: flex-end;
-    justify-content: flex-end;
-  }
-  .uk-flex-between\@s {
-    -ms-flex-pack: justify;
-    -webkit-justify-content: space-between;
-    justify-content: space-between;
-  }
-  .uk-flex-around\@s {
-    -ms-flex-pack: distribute;
-    -webkit-justify-content: space-around;
-    justify-content: space-around;
-  }
-}
-/* Tablet landscape and bigger */
-@media (min-width: 960px) {
-  .uk-flex-left\@m {
-    -ms-flex-pack: start;
-    -webkit-justify-content: flex-start;
-    justify-content: flex-start;
-  }
-  .uk-flex-center\@m {
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-  }
-  .uk-flex-right\@m {
-    -ms-flex-pack: end;
-    -webkit-justify-content: flex-end;
-    justify-content: flex-end;
-  }
-  .uk-flex-between\@m {
-    -ms-flex-pack: justify;
-    -webkit-justify-content: space-between;
-    justify-content: space-between;
-  }
-  .uk-flex-around\@m {
-    -ms-flex-pack: distribute;
-    -webkit-justify-content: space-around;
-    justify-content: space-around;
-  }
-}
-/* Desktop and bigger */
-@media (min-width: 1200px) {
-  .uk-flex-left\@l {
-    -ms-flex-pack: start;
-    -webkit-justify-content: flex-start;
-    justify-content: flex-start;
-  }
-  .uk-flex-center\@l {
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-  }
-  .uk-flex-right\@l {
-    -ms-flex-pack: end;
-    -webkit-justify-content: flex-end;
-    justify-content: flex-end;
-  }
-  .uk-flex-between\@l {
-    -ms-flex-pack: justify;
-    -webkit-justify-content: space-between;
-    justify-content: space-between;
-  }
-  .uk-flex-around\@l {
-    -ms-flex-pack: distribute;
-    -webkit-justify-content: space-around;
-    justify-content: space-around;
-  }
-}
-/* Large screen and bigger */
-@media (min-width: 1600px) {
-  .uk-flex-left\@xl {
-    -ms-flex-pack: start;
-    -webkit-justify-content: flex-start;
-    justify-content: flex-start;
-  }
-  .uk-flex-center\@xl {
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-  }
-  .uk-flex-right\@xl {
-    -ms-flex-pack: end;
-    -webkit-justify-content: flex-end;
-    justify-content: flex-end;
-  }
-  .uk-flex-between\@xl {
-    -ms-flex-pack: justify;
-    -webkit-justify-content: space-between;
-    justify-content: space-between;
-  }
-  .uk-flex-around\@xl {
-    -ms-flex-pack: distribute;
-    -webkit-justify-content: space-around;
-    justify-content: space-around;
-  }
 }
 /*
  * Align items in the cross axis of the current line of the flex container
@@ -8271,12 +8074,6 @@ td.uk-text-break {
   margin-left: auto !important;
   margin-right: auto !important;
 }
-.uk-margin-auto-top {
-  margin-top: auto !important;
-}
-.uk-margin-auto-bottom {
-  margin-bottom: auto !important;
-}
 .uk-margin-auto-left {
   margin-left: auto !important;
 }
@@ -8325,12 +8122,6 @@ td.uk-text-break {
 }
 .uk-padding-remove-bottom {
   padding-bottom: 0 !important;
-}
-.uk-padding-remove-left {
-  padding-left: 0 !important;
-}
-.uk-padding-remove-right {
-  padding-right: 0 !important;
 }
 .uk-padding-remove-vertical {
   padding-top: 0 !important;
@@ -8395,8 +8186,7 @@ td.uk-text-break {
 }
 /*
  * Center
- * 1. Fix text wrapping if content is larger than 50% of the container (Not working in Firefox)
- * 2. Fix text wrapping for Firefox
+ * 1. Fix text wrapping if content is larger than 50% of the container
  */
 .uk-position-center {
   top: 50%;
@@ -8405,9 +8195,6 @@ td.uk-text-break {
   transform: translate(-50%, -50%);
   /* 1 */
   display: table;
-  /* 2 */
-  width: -moz-max-content;
-  max-width: 100%;
 }
 /* Vertical */
 .uk-position-center-left,
@@ -8513,9 +8300,8 @@ td.uk-text-break {
 .uk-transition-fade,
 [class*='uk-transition-scale'],
 [class*='uk-transition-slide'] {
-  -webkit-transition: 0.3s ease-out;
-  transition: 0.3s ease-out;
-  -webkit-transition-property: opacity, transform, filter;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-out;
   transition-property: opacity, transform, filter;
 }
 /*
