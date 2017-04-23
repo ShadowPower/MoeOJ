@@ -2,10 +2,11 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count
+
 from OJ.models import *
-from utils.helper import Helper
 
 from markdown import markdown
+import codecs
 
 OBJECTS_PER_PAGE = 25
 
@@ -83,17 +84,18 @@ def login(request):
     return render(request, "user/login.html")
 
 def problem(request, problem_id):
-    problemObject = Problem.objects.get(id=problem_id)
+    problem_object = Problem.objects.get(id=problem_id)
     return render(request, "problem/problem-description.html", {
-        'problem': problemObject
+        'problem': problem_object
     })
 
 def problem_status(request, problem_id):
-    problemObject = Problem.objects.get(id=problem_id)
+    problem_object = Problem.objects.get(id=problem_id)
     solution_list = Solution.objects.all().filter(problem_id=problem_id)
     submit_count = solution_list.count()
 
-    statistics = Solution.objects.values('result').annotate(count=Count('result'))
+    # 取得各结果的统计
+    statistics = Solution.objects.values('result').filter(problem_id=problem_id).annotate(count=Count('result'))
     result_count = [0] * 9
     for i in statistics:
         result_count[i['result']] = i['count']
@@ -108,7 +110,7 @@ def problem_status(request, problem_id):
         solution = paginator.page(paginator.num_pages)
     pages = paginator.num_pages
     return render(request, "problem/problem-status.html", {
-        'problem': problemObject,
+        'problem': problem_object,
         'page': solution,
         'pages': pages,
         'submit_count': submit_count,
@@ -117,11 +119,10 @@ def problem_status(request, problem_id):
 
 # contest
 def contest_overview(request, contest_id):
-    contest_title = "比赛标题"
-    overview_text = "###欢迎参加XXX大赛\n本次大赛准备了丰厚的奖品  \n第一名可免费使用一年校园网\n\n祝大家比赛愉快~喵~\n\n<del>第二名可以免费用两年！</del>  \n![头像](https://avatars1.githubusercontent.com/u/7625230?s=100)"
+    contest_object = Contest.objects.get(id=contest_id)
+    overview_text = codecs.escape_decode(bytes(contest_object.description, "utf-8"))[0].decode("utf-8")
     return render(request, "contest/contest-overview.html", {
-        'contest_id': contest_id,
-        'contest_title': contest_title,
+        'contest': contest_object,
         'overview_text': markdown(overview_text)
     })
 

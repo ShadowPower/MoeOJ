@@ -15,7 +15,7 @@ class Helper:
 
     @staticmethod
     def get_datetime_str():
-        return time.strftime('%Y/%m/%d %H:%M:%S',time.localtime(time.time()))
+        return time.strftime('%Y/%m/%d %H:%M:%S', time.localtime(time.time()))
 
     # 获取排除指定参数的GET请求URL，如果个数超过1，末尾自动加&
     @staticmethod

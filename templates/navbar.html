@@ -55,7 +55,7 @@
             </div>
           </div>
         </a>
-          <div class="uk-navbar-dropdown fix-right-dropdown-bug">
+          <div class="uk-navbar-dropdown fix-right-dropdown-bug uk-margin-remove-top">
             <ul class="uk-nav uk-navbar-dropdown-nav">
               <li class="uk-nav-header">用户中心</li>
               <li class="uk-active"><a href="{{ url("modify-user-info") }}">修改用户信息</a></li>
@@ -72,7 +72,7 @@
     <ul class="uk-navbar-nav">
       <li>
         <a class="uk-navbar-toggle" uk-navbar-toggle-icon></a>
-        <div class="uk-navbar-dropdown fix-right-dropdown-bug">
+        <div class="uk-navbar-dropdown fix-right-dropdown-bug uk-margin-remove-top">
           <ul class="uk-nav uk-navbar-dropdown-nav">
             <li class="uk-nav-header">功能</li>
             {% for href, id, caption, sub_caption in navigation_bar %}

@@ -2,37 +2,37 @@
 {% set active_page = 'contest' %}
 {% set page_title = page_title -%}
 {% set page_name = page_name -%}
-{% block title %}{{ contest_title }} - {{ page_title }}{% endblock %}
+{% block title %}{{ contest.title }} - {{ page_title }}{% endblock %}
 {% block content %}
   <div class="uk-card uk-card-default uk-card-small uk-card-body">
     <img class="poster-girl" src="/static/img/corner.png">
     <div class="fix-float-bug">
-      <h2 class="uk-display-inline-block uk-margin-remove-bottom">{{ contest_title }}</h2>
+      <h2 class="uk-display-inline-block uk-margin-remove-bottom">{{ contest.title }}</h2>
       <ul class="uk-tab uk-float-right uk-margin-remove">
         <li {% if page_name == 'overview' %} class="uk-active"{% endif %}>
-          <a href="{{ url("contest_overview", contest_id) }}">概览</a>
+          <a href="{{ url("contest_overview", contest.id) }}">概览</a>
         </li>
         <li {% if page_name == 'problemset' %} class="uk-active"{% endif %}>
-          <a href="{{ url("contest_problemset", contest_id) }}">题目</a>
+          <a href="{{ url("contest_problemset", contest.id) }}">题目</a>
         </li>
         <li {% if page_name == 'status' %} class="uk-active"{% endif %}>
-          <a href="{{ url("contest_status", contest_id) }}">状态</a>
+          <a href="{{ url("contest_status", contest.id) }}">状态</a>
         </li>
         <li {% if page_name == 'ranklist' %} class="uk-active"{% endif %}>
-          <a href="{{ url("contest_ranklist", contest_id) }}">排名</a>
+          <a href="{{ url("contest_ranklist", contest.id) }}">排名</a>
         </li>
         <li {% if page_name == 'statistics' %} class="uk-active"{% endif %}>
-          <a href="{{ url("contest_statistics", contest_id) }}">统计</a>
+          <a href="{{ url("contest_statistics", contest.id) }}">统计</a>
         </li>
       </ul>
     </div>
     <p class="uk-display-inline-block uk-float-left">
       <span class="uk-visible@m">开始时间：</span>
-      <span class="uk-text-primary">2017/2/8 18:00</span>
+      <span class="uk-text-primary">{{ contest.start_time|localtime|date("Y/m/d H:i:s") }}</span>
     </p>
     <p class="uk-display-inline-block uk-float-right">
       <span class="uk-visible@m">结束时间：</span>
-      <span class="uk-text-primary">2017/2/8 20:00</span>
+      <span class="uk-text-primary">{{ contest.end_time|localtime|date("Y/m/d H:i:s") }}</span>
     </p>
     <progress id="progressbar" class="uk-progress" value="0" max="1000"></progress>
     {% block contest_content %}
@@ -41,14 +41,26 @@
 {% endblock %}
 {% block end_of_body %}
   <script>
-      //以后将调用oj.js中的导出函数
+      var startTime=new Date("{{ contest.start_time|localtime }}").getTime();
+      var endTime=new Date("{{ contest.end_time|localtime }}").getTime();
+
+      // 限制数值在0~1之间
+      var relu = function (value) {
+          return value < 0 ? 0 : value > 1 ? 1 : value;
+      };
+
+      var updateProgressBar = function () {
+          var currentTime = new Date().getTime();
+          var progress = (currentTime-startTime) / (endTime-startTime);
+          window.progressbar && (progressbar.value = progressbar.max * relu(progress));
+          if (!window.progressbar || progressbar.value >= progressbar.max) {
+              clearInterval(animate);
+          }
+      };
+
       jQuery(function () {
-          var animate = setInterval(function () {
-              window.progressbar && (progressbar.value += 30);
-              if (!window.progressbar || progressbar.value >= progressbar.max) {
-                  clearInterval(animate);
-              }
-          }, 100);
+          updateProgressBar();
+          var animate = setInterval(updateProgressBar, 5000);
       });
   </script>
 {% endblock %}
