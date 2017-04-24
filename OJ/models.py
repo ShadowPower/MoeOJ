@@ -212,10 +212,8 @@ class Contest(models.Model):
 class ContestProblem(AbstractProblem):
     # 题目所属比赛
     contest = models.ForeignKey(Contest)
-    # 题目序号，用于排序，例如：A B C D E
-    index = models.CharField(max_length=30)
-    # 是否已经公开
-    is_public = models.BooleanField(default=False)
+    # 题目序号，用于排序，例如：0 1 2 3 4
+    index = models.IntegerField(default=0)
 
 # 比赛排名表
 class ContestRank(models.Model):

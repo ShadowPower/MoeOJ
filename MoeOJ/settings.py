@@ -61,7 +61,7 @@ CONTEXT_PROCESSORS = [
     'MoeOJ.context_processor.day_night_change',
     'MoeOJ.context_processor.server_time',
     'MoeOJ.context_processor.public_parameter',
-    'MoeOJ.context_processor.gets_no_page'
+    'MoeOJ.context_processor.gets_no_page',
 ]
 
 TEMPLATES = [
@@ -79,7 +79,9 @@ TEMPLATES = [
                 'localtime': 'django.utils.timezone.template_localtime',
                 'difficulty_to_text': 'MoeOJ.filter.difficulty_to_text',
                 'language_to_text': 'MoeOJ.filter.language_to_text',
-                'result_to_text': 'MoeOJ.filter.result_to_text'
+                'result_to_text': 'MoeOJ.filter.result_to_text',
+                'num_to_abc': 'MoeOJ.filter.num_to_abc',
+                'abc_to_num': 'MoeOJ.filter.abc_to_num',
             },
             "extensions": [
                 "jinja2.ext.do",

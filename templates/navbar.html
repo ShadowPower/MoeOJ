@@ -58,7 +58,7 @@
           <div class="uk-navbar-dropdown fix-right-dropdown-bug uk-margin-remove-top">
             <ul class="uk-nav uk-navbar-dropdown-nav">
               <li class="uk-nav-header">用户中心</li>
-              <li class="uk-active"><a href="{{ url("modify-user-info") }}">修改用户信息</a></li>
+              <li class="uk-active"><a href="{{ url("modify_user_info") }}">修改用户信息</a></li>
               <li class="uk-nav-divider"></li>
               <li class="uk-active"><a href="{{ url("logout") }}?from={{ request.get_full_path() }}">注销</a></li>
             </ul>
@@ -86,7 +86,7 @@
               <li class="uk-active"><a href="{{ url("register") }}">注册</a></li>
             {% else %}
               <li class="uk-nav-header">账号管理</li>
-              <li class="uk-active"><a href="{{ url("modify-user-info") }}">修改用户信息</a></li>
+              <li class="uk-active"><a href="{{ url("modify_user_info") }}">修改用户信息</a></li>
               <li class="uk-active"><a href="{{ url("logout") }}?from={{ request.get_full_path }}">注销</a></li>
             {% endif %}
           </ul>

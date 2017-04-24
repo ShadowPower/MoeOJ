@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
-{% set active_page = 'problemset' %}
+{% if is_contest %}
+  {% set active_page = 'contest' %}
+{% else %}
+  {% set active_page = 'problemset' %}
+{% endif %}
 {% set active_tab = active_tab -%}
 {% block title %}{{ problem.title }}{% endblock %}
 {% block content %}
@@ -23,10 +27,10 @@
               <div class="uk-display-inline">
                 <ul class="uk-tab">
                   <li {% if active_tab == 'description' %}class="uk-active"{% endif %}>
-                    <a href="{{ url('problem', problem.id) }}">题目描述</a>
+                    <a href="{% if is_contest %}{{ url('contest_problem', problem.id) }}{% else %}{{ url('problem', problem.id) }}{% endif %}">题目描述</a>
                   </li>
                   <li {% if active_tab == 'status' %}class="uk-active"{% endif %}>
-                    <a href="{{ url('problem-status', problem.id) }}">提交状态</a>
+                    <a href="{% if is_contest %}{{ url('contest_problem_status', problem.id) }}{% else %}{{ url('problem_status', problem.id) }}{% endif %}">提交状态</a>
                   </li>
                 </ul>
               </div>

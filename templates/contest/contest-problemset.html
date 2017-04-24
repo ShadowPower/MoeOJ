@@ -13,30 +13,14 @@
       </tr>
       </thead>
       <tbody>
+      {% for problem in problem_list %}
       <tr>
-        <td>√</td>
-        <td>A</td>
-        <td>A+B Problem</td>
-        <td>12/20</td>
+        <td class="uk-text-success">{% if accepted_count[problem.index] > 0 %}√{% endif %}</td>
+        <td>{{ problem.index|num_to_abc }}</td>
+        <td><a href="{{ url("contest_problem", problem.id) }}">{{ problem.title }}</a></td>
+        <td>{{ problem.accepted }} / {{ problem.submit }}</td>
       </tr>
-      <tr>
-        <td></td>
-        <td>B</td>
-        <td>分解质因数</td>
-        <td>6/20</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td>C</td>
-        <td>Rectangular Polygons</td>
-        <td>3/20</td>
-      </tr>
-      <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
+      {% endfor %}
       </tbody>
     </table>
   </div>

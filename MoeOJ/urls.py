@@ -21,19 +21,24 @@ from OJ import form_views as oj_form_views
 
 oj_urls = [
     url(r'^problem/(\d+)/$', oj_views.problem, name='problem'),
-    url(r'^problem-status/(\d+)/$', oj_views.problem_status, name='problem-status'),
+    url(r'^problem-status/(\d+)/$', oj_views.problem_status, name='problem_status'),
     url(r'^problemset/$', oj_views.problemset, name='problemset'),
     url(r'^status/$', oj_views.status, name='status'),
     url(r'^rank/$', oj_views.rank, name='rank'),
-    url(r'^contest/$', oj_views.contest, name='contest'),
-    url(r'^contest/overview/(\d+)/$', oj_views.contest_overview, name='contest_overview'),
-    url(r'^contest/problemset/(\d+)/$', oj_views.contest_problemset, name='contest_problemset'),
-    url(r'^contest/ranklist/(\d+)/$', oj_views.contest_ranklist, name='contest_ranklist'),
-    url(r'^contest/statistics/(\d+)/$', oj_views.contest_statistics, name='contest_statistics'),
-    url(r'^contest/status/(\d+)/$', oj_views.contest_status, name='contest_status'),
     url(r'^register/$', oj_views.register, name='register'),
     url(r'^login/$', oj_views.login, name='login'),
-    url(r'^modify-user-info/$', oj_views.modify_user_info, name='modify-user-info'),
+    url(r'^modify-user-info/$', oj_views.modify_user_info, name='modify_user_info'),
+]
+
+contest_urls = [
+    url(r'^$', oj_views.contest, name='contest'),
+    url(r'^overview/(\d+)/$', oj_views.contest_overview, name='contest_overview'),
+    url(r'^problemset/(\d+)/$', oj_views.contest_problemset, name='contest_problemset'),
+    url(r'^problem/(\d+)/$', oj_views.contest_problem, name='contest_problem'),
+    url(r'^problem-status/(\d+)/$', oj_views.contest_problem_status, name='contest_problem_status'),
+    url(r'^ranklist/(\d+)/$', oj_views.contest_ranklist, name='contest_ranklist'),
+    url(r'^statistics/(\d+)/$', oj_views.contest_statistics, name='contest_statistics'),
+    url(r'^status/(\d+)/$', oj_views.contest_status, name='contest_status'),
 ]
 
 oj_form_urls = [
@@ -46,5 +51,6 @@ urlpatterns = [
     url(r'^$', oj_views.index, name='index'),
     url(r'', include(oj_urls)),
     url(r'', include(oj_form_urls)),
+    url(r'^contest/', include(contest_urls)),
     url(r'^admin/', admin.site.urls, name='admin'),
 ]
