@@ -127,10 +127,15 @@ def contest_overview(request, contest_id):
     })
 
 def contest_problemset(request, contest_id):
-    contest_title = "比赛标题"
+    contest_object = Contest.objects.get(id=contest_id)
+    # 题目列表
+    contest_problem_list = ContestProblem.objects.all().filter(contest_id=contest_id).order_by("index")
+    # AC数量
+    accepted_count = [0] * contest_problem_list.count()
+
     return render(request, "contest/contest-problemset.html", {
-        'contest_id': contest_id,
-        'contest_title': contest_title,
+        'contest': contest_object,
+        'problem_list': contest_problem_list
     })
 
 def contest_ranklist(request, contest_id):
