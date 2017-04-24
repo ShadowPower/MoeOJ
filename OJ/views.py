@@ -17,7 +17,7 @@ def index(request):
 
 def problemset(request):
     rank_list = User.objects.filter(submission_number__gt=0).order_by("-accepted_problem_number", "-submission_number")[:15]
-    problem_list = Problem.objects.all().filter(is_enable=True)
+    problem_list = Problem.objects.filter(is_enable=True)
     paginator = Paginator(problem_list, OBJECTS_PER_PAGE)
     page_number = request.GET.get('page')
     try:
@@ -65,7 +65,7 @@ def rank(request):
     return render(request, "rank.html", {"page": ranks, "pages":pages, "objects_per_page": OBJECTS_PER_PAGE})
 
 def contest(request):
-    contest_list = Contest.objects.all().filter(visible=True)
+    contest_list = Contest.objects.filter(visible=True)
     paginator = Paginator(contest_list, OBJECTS_PER_PAGE)
     page_number = request.GET.get('page')
     try:
@@ -92,7 +92,7 @@ def problem(request, problem_id):
 
 def problem_status(request, problem_id):
     problem_object = Problem.objects.get(id=problem_id)
-    solution_list = Solution.objects.all().filter(problem_id=problem_id)
+    solution_list = Solution.objects.filter(problem_id=problem_id)
     submit_count = solution_list.count()
 
     # 取得各结果的统计
@@ -131,7 +131,7 @@ def contest_overview(request, contest_id):
 def contest_problemset(request, contest_id):
     contest_object = Contest.objects.get(id=contest_id)
     # 题目列表
-    contest_problem_list = ContestProblem.objects.all().filter(contest_id=contest_id, is_enable=True).order_by("index")
+    contest_problem_list = ContestProblem.objects.filter(contest_id=contest_id, is_enable=True).order_by("index")
     # 各题目AC数量
     accepted_count = [0] * contest_problem_list.count()
     # 查询本比赛，本用户的提交记录中所有AC的记录，然后Group By题目id，统计数量（AC次数）
@@ -158,7 +158,7 @@ def contest_problem(request, problem_id):
 
 def contest_problem_status(request, problem_id):
     problem_object = ContestProblem.objects.get(id=problem_id)
-    solution_list = ContestSolution.objects.all().filter(problem_id=problem_id)
+    solution_list = ContestSolution.objects.filter(problem_id=problem_id)
     submit_count = solution_list.count()
 
     # 取得各结果的统计
@@ -186,22 +186,32 @@ def contest_problem_status(request, problem_id):
     })
 
 def contest_ranklist(request, contest_id):
-    contest_title = "比赛标题"
+    contest_object = Contest.objects.get(id=contest_id)
     return render(request, "contest/contest-ranklist.html", {
-        'contest_id': contest_id,
-        'contest_title': contest_title,
+        'contest': contest_object,
     })
 
 def contest_statistics(request, contest_id):
-    contest_title = "比赛标题"
+    contest_object = Contest.objects.get(id=contest_id)
+    # 取得各结果的统计
+    # 取得题目数量
+    problem_count = ContestProblem.objects.filter(contest_id=contest_id).count()
+    # data[题号 p_index][结果类型 result] = 数量
+    data = [[0] * 9] * problem_count
+    # select count(ContestSolution.result) ...... group by Problem.index ContestSolution.result
+    statistics = ContestSolution.objects.filter(contest_id=contest_id).values('problem__index', 'result')\
+        .annotate(count=Count('result'))
+    # 写入二维数组
+    for i in statistics:
+        data[i['problem__index']][i['result']] = i['count']
     return render(request, "contest/contest-statistics.html", {
-        'contest_id': contest_id,
-        'contest_title': contest_title,
+        'contest': contest_object,
+        'data': data
     })
 
 def contest_status(request, contest_id):
     contest_object = Contest.objects.get(id=contest_id)
-    solution_list = ContestSolution.objects.all().filter(contest_id=contest_id)
+    solution_list = ContestSolution.objects.filter(contest_id=contest_id)
     paginator = Paginator(solution_list, OBJECTS_PER_PAGE)
     page_number = request.GET.get('page')
     try:
