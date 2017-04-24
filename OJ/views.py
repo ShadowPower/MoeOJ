@@ -200,10 +200,22 @@ def contest_statistics(request, contest_id):
     })
 
 def contest_status(request, contest_id):
-    contest_title = "比赛标题"
+    contest_object = Contest.objects.get(id=contest_id)
+    solution_list = ContestSolution.objects.all().filter(contest_id=contest_id)
+    paginator = Paginator(solution_list, OBJECTS_PER_PAGE)
+    page_number = request.GET.get('page')
+    try:
+        solution = paginator.page(page_number)
+    except PageNotAnInteger:
+        solution = paginator.page(1)
+    except EmptyPage:
+        solution = paginator.page(paginator.num_pages)
+    pages = paginator.num_pages
+
     return render(request, "contest/contest-status.html", {
-        'contest_id': contest_id,
-        'contest_title': contest_title,
+        'contest': contest_object,
+        'page': solution,
+        'pages': pages
     })
 
 @login_required(redirect_field_name='login', login_url=None)
