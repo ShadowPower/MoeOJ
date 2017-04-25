@@ -42,9 +42,10 @@ contest_urls = [
 ]
 
 oj_form_urls = [
-    url(r'^register-post/$', oj_form_views.register_post, name='register-post'),
-    url(r'^login-post/$', oj_form_views.login_post, name='login-post'),
+    url(r'^register-post/$', oj_form_views.register_post, name='register_post'),
+    url(r'^login-post/$', oj_form_views.login_post, name='login_post'),
     url(r'^logout/$', oj_form_views.logout_get, name='logout'),
+    url(r'^modify-user-info-post/', oj_form_views.modify_user_info_post, name='modify_user_info_post'),
 ]
 
 urlpatterns = [

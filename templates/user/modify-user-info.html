@@ -8,53 +8,53 @@
       <h2 class="uk-text-center uk-margin-remove-bottom">改资料~</h2>
     </div>
     <div>
-      <form class="uk-form-stacked">
+      <form class="uk-form-stacked" action="{{ url("modify_user_info_post") }}" method="post">
         <div class="uk-margin">
           <label class="uk-form-label" for="form-stacked-text">用户名</label>
           <div class="uk-form-controls">
-            <input class="uk-input" id="form-stacked-text" type="text" placeholder="很高兴认识你，你叫什么名字呢？" value="{{ user.username }}" required>
+            <input class="uk-input" id="form-stacked-text" type="text" name="username" placeholder="很高兴认识你，你叫什么名字呢？" value="{{ user.username }}" required>
           </div>
         </div>
         <div class="uk-margin">
           <label class="uk-form-label" for="form-stacked-text">邮箱 <span class="uk-text-meta">这个不能改啦</span></label>
           <div class="uk-form-controls">
-            <input class="uk-input" id="form-stacked-text" type="email" placeholder="不能修改" value="{{ user.email }}" disabled>
+            <input class="uk-input" id="form-stacked-text" type="email" name="email" placeholder="不能修改" value="{{ user.email }}" disabled>
           </div>
         </div>
         <div class="uk-margin">
           <label class="uk-form-label" for="form-stacked-text">个性签名</label>
           <div class="uk-form-controls">
-            <input class="uk-input" id="form-stacked-text" type="text" placeholder="写上一些中(dou)二(bi)的话吧~" value="{% if user.about != None %}{{ user.about }}{% endif %}" required>
+            <input class="uk-input" id="form-stacked-text" type="text" name="about" placeholder="写上一些中(dou)二(bi)的话吧~" value="{% if user.about != None %}{{ user.about }}{% endif %}" required>
           </div>
         </div>
         <div class="uk-margin">
           <label class="uk-form-label" for="form-stacked-text">学校</label>
           <div class="uk-form-controls">
-            <input class="uk-input" id="form-stacked-text" type="text" placeholder="填上你的学校~" value="{{ user.school }}">
+            <input class="uk-input" id="form-stacked-text" type="text" name="school" placeholder="填上你的学校~" value="{{ user.school }}">
           </div>
         </div>
         <div class="uk-margin">
           <label class="uk-form-label" for="form-stacked-text">学号</label>
           <div class="uk-form-controls">
-            <input class="uk-input" id="form-stacked-text" type="text" placeholder="知道学号就知道你是谁啦> <" value="{{ user.student_id }}">
+            <input class="uk-input" id="form-stacked-text" type="text" name="student_id" placeholder="知道学号就知道你是谁啦> <" value="{{ user.student_id }}">
           </div>
         </div>
         <div class="uk-margin">
-          <label class="uk-form-label" for="form-stacked-text">原密码</label>
+          <label class="uk-form-label" for="form-stacked-text">原密码 <span class="uk-text-meta">如需修改密码，请输入原密码</span></label>
           <div class="uk-form-controls">
-            <input class="uk-input" id="form-stacked-text" type="password" placeholder="为了防止路人路过的时候改了密码_(:3 」∠)_">
+            <input class="uk-input" id="form-stacked-text" type="password" name="password" placeholder="为了防止路人路过的时候改了密码_(:3 」∠)_">
           </div>
         </div>
         <div class="uk-margin">
           <label class="uk-form-label" for="form-stacked-text">新密码</label>
           <div class="uk-form-controls">
-            <input class="uk-input" id="form-stacked-text" type="password" placeholder="留空表示不变">
+            <input class="uk-input" id="form-stacked-text" type="password" name="new_password" placeholder="留空表示不变">
           </div>
         </div>
         <div class="uk-margin">
           <label class="uk-form-label" for="form-stacked-text">确认密码</label>
           <div class="uk-form-controls">
-            <input class="uk-input" id="form-stacked-text" type="password" placeholder="要和上面的一样哦~">
+            <input class="uk-input" id="form-stacked-text" type="password" name="confirm" placeholder="要和上面的一样哦~">
           </div>
         </div>
         <div class="uk-margin">
@@ -65,6 +65,7 @@
             <label><input class="uk-radio" id="futaOption" type="radio" name="gender" value="futa"> 其他</label>
           </div>
         </div>
+        {% csrf_token %}
         <div class="uk-margin">
           <button class="uk-button uk-button-primary uk-width-1-1" type="submit">同步</button>
         </div>
@@ -75,7 +76,7 @@
 {% block end_of_body %}
   <script>
       (function () {
-          var gender = "{{ gender }}";
+          var gender = "{{ user.gender }}";
           String.prototype.inArray = function (list) {
               // 如果参数不是数组则转成数组
               list = (list instanceof Array)?list:[].slice.call(arguments);
