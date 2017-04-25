@@ -1,0 +1,1 @@
+VERBOSE_APP_NAME = '在线评测系统'

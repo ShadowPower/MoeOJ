@@ -19,6 +19,7 @@ from django.contrib import admin
 from OJ import views as oj_views
 from OJ import form_views as oj_form_views
 from OJ import admin_views as admin_views
+from OJ.admin import admin_site
 
 oj_urls = [
     url(r'^problem/(\d+)/$', oj_views.problem, name='problem'),
@@ -54,5 +55,5 @@ urlpatterns = [
     url(r'', include(oj_urls)),
     url(r'', include(oj_form_urls)),
     url(r'^contest/', include(contest_urls)),
-    url(r'^admin/', admin.site.urls, name='admin'),
+    url(r'^admin/', admin_site.urls, name='admin'),
 ]

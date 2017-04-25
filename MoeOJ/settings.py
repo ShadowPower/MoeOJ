@@ -72,7 +72,7 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'match_extension': '.html',
-            'match_regex': r'^(?!admin/).*',
+            'match_regex': r'^(?!admin|registration/).*',
             'context_processors': CONTEXT_PROCESSORS,
             'filters': {
                 # 在jinja2模板中使用localtime过滤器转换UTC时间到本地时间
@@ -152,7 +152,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+#LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
 TIME_ZONE = 'Asia/Shanghai'
 

@@ -114,52 +114,59 @@ class User(AbstractBaseUser):
 # 公告表
 class Notice(models.Model):
     # 标题
-    title = models.CharField(max_length=30)
+    title = models.CharField('标题', max_length=30)
     # 作者
-    author = models.ForeignKey(User)
+    author = models.ForeignKey(User, verbose_name='作者')
     # 日期时间
     created_at = models.DateTimeField(auto_now_add=True)
     # 正文
-    body = models.TextField(null=True)
+    body = models.TextField('正文', null=True)
+
+    class Meta:
+        verbose_name = '公告'
+        verbose_name_plural = '公告'
+
+    def __str__(self):
+        return self.title
 
 # 题目标签表
 class ProblemTag(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField('标签', max_length=30)
 
 # 题目抽象表
 class AbstractProblem(models.Model):
     # 题目标题
-    title = models.CharField(max_length=200)
+    title = models.CharField('标题', max_length=200)
     # 题目描述
-    description = models.TextField(null=True)
+    description = models.TextField('题目描述', null=True)
     # 输入说明
-    input_desc = models.TextField(null=True)
+    input_desc = models.TextField('输入描述', null=True)
     # 输出说明
-    output_desc = models.TextField(null=True)
+    output_desc = models.TextField('输出描述', null=True)
     # 样例输入
-    sample_input = models.TextField(null=True)
+    sample_input = models.TextField('样例输入', null=True)
     # 样例输出
-    sample_output = models.TextField(null=True)
+    sample_output = models.TextField('样例输出', null=True)
     # 是否特判
-    spj = models.BooleanField(default=False)
+    spj = models.BooleanField('是否为特判题目', default=False)
     # 特判代码
-    spj_code = models.TextField(null=True)
+    spj_code = models.TextField('特判代码', null=True)
     # 补充说明
-    supplemental = models.TextField(null=True)
+    supplemental = models.TextField('补充说明', null=True)
     # 题目创建者
-    created_by = models.ForeignKey(User)
+    created_by = models.ForeignKey(User, verbose_name='创建者')
     # 添加时间
     create_date = models.DateTimeField(auto_now_add=True, null=True)
     # 时间限制
-    time_limit = models.IntegerField()
+    time_limit = models.IntegerField('时间限制')
     # 内存限制
-    memory_limit = models.IntegerField()
+    memory_limit = models.IntegerField('内存限制')
     # 是否启用
-    is_enable = models.BooleanField(default=True)
+    is_enable = models.BooleanField('在题目列表显示', default=True)
     # 总AC数
-    accepted = models.IntegerField(default=0, null=True)
+    accepted = models.IntegerField('总AC数', default=0, null=True)
     # 总提交数
-    submit = models.IntegerField(default=0, null=True)
+    submit = models.IntegerField('总提交数', default=0, null=True)
 
     class Meta:
         abstract = True
@@ -167,11 +174,16 @@ class AbstractProblem(models.Model):
 # 题目表
 class Problem(AbstractProblem):
     # 题目来源
-    source = models.CharField(max_length=30, null=True)
+    source = models.CharField('来源', max_length=30, null=True)
     # 题目标签
     tags = models.ManyToManyField(ProblemTag)
     # 题目难度 ( 0 ~ n )
-    difficulty = models.IntegerField()
+    difficulty = models.IntegerField('难度')
+
+
+    class Meta:
+        verbose_name = '题目'
+        verbose_name_plural = '题目'
 
 # 比赛表
 class Contest(models.Model):
