@@ -242,7 +242,7 @@ class Problem(AbstractProblem):
     # 题目来源
     source = models.CharField('来源', max_length=30, null=True, blank=True)
     # 题目标签
-    tags = models.ManyToManyField(ProblemTag)
+    tags = models.ManyToManyField(ProblemTag, verbose_name='标签')
     # 题目难度 ( 0 ~ n )
     difficulty = models.IntegerField('难度')
 

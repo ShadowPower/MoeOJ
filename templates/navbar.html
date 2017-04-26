@@ -47,6 +47,16 @@
             </div>
           </div></a></li>
       {% else %}
+        {% if request.user.user_type != 0 %}
+          <li class="uk-active"><a href="/admin">
+            <div>
+              管理
+              <div class="uk-navbar-subtitle">
+                Admin
+              </div>
+            </div>
+          </a></li>
+        {% endif %}
         <li class="uk-active"><a href="#">
           <div>
             {{ request.user.username }}
@@ -88,6 +98,11 @@
               <li class="uk-nav-header">账号管理</li>
               <li class="uk-active"><a href="{{ url("modify_user_info") }}">修改用户信息</a></li>
               <li class="uk-active"><a href="{{ url("logout") }}?from={{ request.get_full_path }}">注销</a></li>
+              {% if request.user.user_type != 0 %}
+                <li class="uk-nav-divider"></li>
+                <li class="uk-nav-header">高级功能</li>
+                <li class="uk-active"><a href="/admin">进入管理后台</a></li>
+              {% endif %}
             {% endif %}
           </ul>
         </div>
