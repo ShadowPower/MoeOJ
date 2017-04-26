@@ -138,6 +138,7 @@ class ContestProblemInline(admin.StackedInline):
 # 比赛
 @admin.register(Contest, site=admin_site)
 class ContestAdmin(admin.ModelAdmin):
+    list_display = ('title', 'start_time', 'end_time', 'real_time_rank', 'contest_type', 'password', 'visible')
     inlines = (ContestProblemInline,)
 
     def save_model(self, request, obj, form, change):
@@ -174,4 +175,4 @@ class ContestSolutionAdmin(admin.ModelAdmin):
 # 评论
 @admin.register(Comment, site=admin_site)
 class CommentAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('author', 'problem', 'date', 'body')
