@@ -126,7 +126,7 @@ class User(AbstractBaseUser):
     # 总AC数（相同题目不可以重复统计）
     accepted_problem_number = models.IntegerField('总AC数', default=0)
     # 个性签名
-    about = models.TextField('个性签名', max_length=140, null=True, blank=True)
+    about = models.TextField('个性签名', default='穿哪件衣服写代码好呢~', max_length=140, null=True, blank=True)
 
     class Meta:
         verbose_name = '用户'
