@@ -159,7 +159,7 @@ class User(AbstractBaseUser):
             return False
 
     def __str__(self):
-        return self.username + ' - ' + self.email
+        return self.username + ' [' + self.email + ']'
 
 
 # 公告表
@@ -218,9 +218,9 @@ class AbstractProblem(models.Model):
     # 添加时间
     create_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     # 时间限制
-    time_limit = models.IntegerField('时间限制')
+    time_limit = models.IntegerField('时间限制（毫秒）')
     # 内存限制
-    memory_limit = models.IntegerField('内存限制')
+    memory_limit = models.IntegerField('内存限制（KB）')
     # 是否启用
     is_enable = models.BooleanField('在题目列表显示', default=True)
     # 总AC数
@@ -338,9 +338,9 @@ class AbstractSolution(models.Model):
     # 提交时间
     submit_date = models.DateTimeField('提交时间', auto_now_add=True)
     # 判题开始时间
-    judge_start_time = models.BigIntegerField('判题开始时间', blank=True, null=True)
+    judge_start_time = models.DateTimeField('判题开始时间', blank=True, null=True)
     # 判题结束时间
-    judge_end_time = models.BigIntegerField('判题结束时间', blank=True, null=True)
+    judge_end_time = models.DateTimeField('判题结束时间', blank=True, null=True)
     # 语言 0:C 1:C++ 2:Java 3:Python
     language = models.IntegerField('语言', default=0, choices=LANGUAGE_CHOICES)
     # 评判结果

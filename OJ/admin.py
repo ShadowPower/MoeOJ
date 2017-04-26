@@ -6,10 +6,17 @@ from OJ.models import *
 
 # 管理后台主页
 class MoeOJAdmin(admin.AdminSite):
-    site_header = getattr(settings, 'OJ_TITLE', 'Moe Online Judge') + ' 设定'
+    site_header = getattr(settings, 'OJ_TITLE', 'Moe Online Judge') + ' 控制面板'
+    site_title = site_header
 
 
 admin_site = MoeOJAdmin()
+
+
+# 重判提交记录
+def rejudge(modeladmin, request, queryset):
+    pass
+rejudge.short_description = '重判所选的 提交'
 
 
 # 用户
@@ -19,6 +26,7 @@ class UserAdmin(admin.ModelAdmin):
               'user_type', 'submission_number', 'accepted_problem_number', 'about')
     readonly_fields = ('created_at', 'email')
     search_fields = ('username', 'email')
+    list_display = ('username', 'email', 'school', 'student_id', 'gender', 'created_at', 'about')
 
     def save_model(self, request, obj, form, change):
         new_password = form.cleaned_data['password']
@@ -62,9 +70,9 @@ class TagAdmin(admin.ModelAdmin):
 # 题目
 @admin.register(Problem, site=admin_site)
 class ProblemAdmin(admin.ModelAdmin):
-    list_display = ('title',)
+    list_display = ('title', 'is_enable', 'source', 'difficulty', 'time_limit', 'memory_limit', 'accepted', 'submit')
     fieldsets = (
-        (None, {
+        ('基本信息', {
             'fields': ('title', 'description', 'supplemental', 'is_enable', 'judge_example', 'source',
                        'tags', 'difficulty')
         }),
@@ -92,13 +100,15 @@ class ProblemAdmin(admin.ModelAdmin):
 # 提交记录
 @admin.register(Solution, site=admin_site)
 class SolutionAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('user', 'time', 'memory', 'submit_date', 'language', 'result', 'ip', 'problem')
+    actions = (rejudge,)
 
 
 # 比赛题目
 class ContestProblemInline(admin.StackedInline):
     model = ContestProblem
     min_num = 0
+    max_num = 256
     extra = 0
     list_display = ('title',)
     fieldsets = (
@@ -151,12 +161,15 @@ class ContestAdmin(admin.ModelAdmin):
 # 比赛排名
 @admin.register(ContestRank, site=admin_site)
 class ContestRankAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('user', 'contest', 'submit', 'accepted', 'total_time')
+
 
 # 比赛提交记录
 @admin.register(ContestSolution, site=admin_site)
 class ContestSolutionAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('user', 'time', 'memory', 'submit_date', 'language', 'result', 'ip', 'contest', 'problem')
+    actions = (rejudge,)
+
 
 # 评论
 @admin.register(Comment, site=admin_site)
