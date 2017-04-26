@@ -46,9 +46,12 @@ def problemset(request):
 # 题目搜索
 def problem_search(request):
     key_text = request.GET.get('key')
+    tag_text = request.GET.get('tag')
     problem_list = Problem.objects.filter(is_enable=True)
     if key_text is not None:
         problem_list = problem_list.filter(title__contains=key_text)
+    if tag_text is not None:
+        problem_list = problem_list.filter(tags__name=tag_text)
     paginator = Paginator(problem_list, OBJECTS_PER_PAGE)
     page_number = request.GET.get('page')
     try:

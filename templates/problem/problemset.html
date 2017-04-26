@@ -29,7 +29,12 @@
                 {% for problem in page.object_list %}
                 <tr>
                   <td>{{ problem.id }}</td>
-                  <td><a href="{{ url("problem", problem.id) }}">{{ problem.title }}</a></td>
+                  <td>
+                    <a href="{{ url("problem", problem.id) }}">{{ problem.title }}</a>
+                    {% for tag in problem.tags.all() %}
+                      <span class="uk-text-meta" style="font-size: 11px">{{ tag.name }}</span>
+                    {% endfor %}
+                  </td>
                   <td>{{ problem.source }}</td>
                   <td>{{ problem.difficulty | difficulty_to_text }}</td>
                   <td>{{ problem.acrate | round(2, 'common') }} %</td>
@@ -67,7 +72,7 @@
           <div class="uk-card uk-card-default uk-card-small uk-card-body">
             <h3 class="uk-panel-title">标签</h3>
             {% for tag in tags %}
-            {{ tag.name }}<br />
+            <a href="{{ url("problem_search") }}?tag={{ tag.name }}">{{ tag.name }}</a><br />
             {% endfor %}
           </div>
         </div>
