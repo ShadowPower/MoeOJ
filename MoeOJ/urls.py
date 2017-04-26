@@ -23,6 +23,7 @@ from OJ.admin import admin_site
 
 oj_urls = [
     url(r'^problem/(\d+)/$', oj_views.problem, name='problem'),
+    url(r'^problem-search/$', oj_views.problem_search, name='problem_search'),
     url(r'^problem-status/(\d+)/$', oj_views.problem_status, name='problem_status'),
     url(r'^problemset/$', oj_views.problemset, name='problemset'),
     url(r'^status/$', oj_views.status, name='status'),

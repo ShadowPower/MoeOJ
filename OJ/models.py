@@ -69,6 +69,13 @@ GENDER_CHOICES = (
     ('futa', '其他')
 )
 
+DIFFICULTY_CHOICES = (
+    (0, '入门'),
+    (1, '简单'),
+    (2, '中等'),
+    (3, '困难'),
+)
+
 class UserManager(BaseUserManager):
     def create_user(self, name, email, password=None, school=None, student_id=None, gender='boy'):
         if not email:
@@ -244,7 +251,7 @@ class Problem(AbstractProblem):
     # 题目标签
     tags = models.ManyToManyField(ProblemTag, verbose_name='标签')
     # 题目难度 ( 0 ~ n )
-    difficulty = models.IntegerField('难度')
+    difficulty = models.IntegerField('难度', choices=DIFFICULTY_CHOICES)
 
     class Meta:
         verbose_name = '题目'

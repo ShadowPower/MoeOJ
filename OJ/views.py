@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Count
+from django.db.models import Count, Q
 
 from OJ.models import *
 
@@ -41,6 +41,34 @@ def problemset(request):
         "pages": pages,
         "rank_list": rank_list,
         "tags": tag_list
+    })
+
+# 题目搜索
+def problem_search(request):
+    key_text = request.GET.get('key')
+    problem_list = Problem.objects.filter(is_enable=True)
+    if key_text is not None:
+        problem_list = problem_list.filter(title__contains=key_text)
+    paginator = Paginator(problem_list, OBJECTS_PER_PAGE)
+    page_number = request.GET.get('page')
+    try:
+        problems = paginator.page(page_number)
+    except PageNotAnInteger:
+        problems = paginator.page(1)
+    except EmptyPage:
+        problems = paginator.page(paginator.num_pages)
+    pages = paginator.num_pages
+
+    for problem in problems.object_list:
+        # 计算AC比例
+        try:
+            problem.acrate = problem.accepted / problem.submit * 100
+        except ZeroDivisionError:
+            problem.acrate = 0
+
+    return render(request, "problem/problemsearch.html", {
+        "page": problems,
+        "pages": pages,
     })
 
 def status(request):
