@@ -128,7 +128,7 @@ def problem_status(request, problem_id):
 # contest
 def contest_overview(request, contest_id):
     contest_object = Contest.objects.get(id=contest_id)
-    overview_text = codecs.escape_decode(bytes(contest_object.description, "utf-8"))[0].decode("utf-8")
+    overview_text = contest_object.description
     return render(request, "contest/contest-overview.html", {
         'contest': contest_object,
         'overview_text': markdown(overview_text)

@@ -208,13 +208,13 @@ class AbstractProblem(models.Model):
     # 样例输出
     sample_output = models.TextField('样例输出', null=True, blank=True)
     # 是否特判
-    spj = models.BooleanField('是否为特判题目', default=False)
+    spj = models.BooleanField('是否为特殊判题题目（使用代码判题）', default=False)
     # 特判代码
     spj_code = models.TextField('特判代码', null=True, blank=True)
     # 补充说明
     supplemental = models.TextField('补充说明', null=True, blank=True)
     # 题目创建者
-    created_by = models.ForeignKey(User, verbose_name='创建者')
+    created_by = models.ForeignKey(User, verbose_name='创建者', null=True, blank=True)
     # 添加时间
     create_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     # 时间限制
@@ -266,7 +266,7 @@ class Contest(models.Model):
     # 是否实时排名
     real_time_rank = models.BooleanField('开启实时排名')
     # 比赛类型（公开、私有）
-    contest_type = models.IntegerField('类型（公开或非公开）', default=PUBLIC_CONTEST)
+    contest_type = models.IntegerField('类型', default=PUBLIC_CONTEST, choices=CONTEST_TYPE_CHOICES)
     # 比赛密码
     password = models.CharField('密码', max_length=30, blank=True, null=True)
     # 创建者
@@ -299,7 +299,7 @@ class ContestProblem(AbstractProblem):
     # 题目所属比赛
     contest = models.ForeignKey(Contest, verbose_name='所属比赛')
     # 题目序号，用于排序，例如：0 1 2 3 4
-    index = models.IntegerField('题目序号', default=0)
+    index = models.IntegerField('题目序号（从0开始，不能跳跃）', default=0)
 
     class Meta:
         verbose_name = '比赛题目'

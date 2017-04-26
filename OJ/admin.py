@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.conf import settings
+from django.forms.models import BaseInlineFormSet
 from OJ.models import *
 
 
@@ -64,7 +65,8 @@ class ProblemAdmin(admin.ModelAdmin):
     list_display = ('title',)
     fieldsets = (
         (None, {
-            'fields': ('title', 'description', 'supplemental', 'is_enable', 'judge_example')
+            'fields': ('title', 'description', 'supplemental', 'is_enable', 'judge_example', 'source',
+                       'tags', 'difficulty')
         }),
         ('输入和输出', {
             'fields': ('input_desc', 'output_desc', 'sample_input', 'sample_output')
@@ -85,3 +87,78 @@ class ProblemAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.created_by = request.user
         obj.save()
+
+
+# 提交记录
+@admin.register(Solution, site=admin_site)
+class SolutionAdmin(admin.ModelAdmin):
+    pass
+
+
+# 比赛题目
+class ContestProblemInline(admin.StackedInline):
+    model = ContestProblem
+    min_num = 0
+    extra = 0
+    list_display = ('title',)
+    fieldsets = (
+        ('基本信息', {
+            'classes': ('collapse',),
+            'fields': ('title', 'description', 'supplemental', 'is_enable', 'judge_example', 'contest', 'index')
+        }),
+        ('输入和输出', {
+            'classes': ('collapse',),
+            'fields': ('input_desc', 'output_desc', 'sample_input', 'sample_output')
+        }),
+        ('限制', {
+            'classes': ('collapse',),
+            'fields': ('time_limit', 'memory_limit')
+        }),
+        ('高级选项', {
+            'classes': ('collapse',),
+            'fields': ('spj', 'spj_code')
+        }),
+        ('特殊选项', {
+            'classes': ('collapse',),
+            'fields': ('accepted', 'submit')
+        })
+    )
+
+
+# 比赛
+@admin.register(Contest, site=admin_site)
+class ContestAdmin(admin.ModelAdmin):
+    inlines = (ContestProblemInline,)
+
+    def save_model(self, request, obj, form, change):
+        obj.created_by = request.user
+        obj.save()
+
+    # 提交表单
+    def save_formset(self, request, form, formset, change):
+        instances = formset.save(commit=False)
+        # 如有标记删除则删除
+        for obj in formset.deleted_objects:
+            obj.delete()
+        # 如果没有created by，则写入当前登录用户
+        for instance in instances:
+            if formset.model == ContestProblem and not instance.created_by:
+                instance.created_by = request.user
+            instance.save()
+        formset.save_m2m()
+
+
+# 比赛排名
+@admin.register(ContestRank, site=admin_site)
+class ContestRankAdmin(admin.ModelAdmin):
+    pass
+
+# 比赛提交记录
+@admin.register(ContestSolution, site=admin_site)
+class ContestSolutionAdmin(admin.ModelAdmin):
+    pass
+
+# 评论
+@admin.register(Comment, site=admin_site)
+class CommentAdmin(admin.ModelAdmin):
+    pass
