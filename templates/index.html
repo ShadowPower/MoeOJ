@@ -11,7 +11,7 @@
       <div class="uk-card uk-card-default uk-card-small uk-card-body">
         <h3 class="uk-panel-title uk-margin-remove">{{ notice.title }}</h3>
         <p class="uk-text-meta uk-margin-remove-top uk-margin-small-bottom">{{ notice.author.username }} {{ notice.created_at|localtime|date("Y/m/d H:i") }}</p>
-        {{ notice.body }}
+        {{ markdown(notice.body)|safe }}
       </div>
     </div>
     {% endfor %}

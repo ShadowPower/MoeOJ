@@ -66,9 +66,9 @@
         <div>
           <div class="uk-card uk-card-default uk-card-small uk-card-body">
             <h3 class="uk-panel-title">标签</h3>
-            排序<br />
-            查找<br />
-            二叉树<br />
+            {% for tag in tags %}
+            {{ tag.name }}<br />
+            {% endfor %}
           </div>
         </div>
       </div>

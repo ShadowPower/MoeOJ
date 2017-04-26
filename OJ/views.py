@@ -13,10 +13,11 @@ OBJECTS_PER_PAGE = 25
 # Create your views here.
 def index(request):
     notices = Notice.objects.all().order_by("-created_at")
-    return render(request, "index.html", {'notices': notices})
+    return render(request, "index.html", {'notices': notices, 'markdown': markdown})
 
 def problemset(request):
     rank_list = User.objects.filter(submission_number__gt=0).order_by("-accepted_problem_number", "-submission_number")[:15]
+    tag_list = ProblemTag.objects.all()
     problem_list = Problem.objects.filter(is_enable=True)
     paginator = Paginator(problem_list, OBJECTS_PER_PAGE)
     page_number = request.GET.get('page')
@@ -35,7 +36,12 @@ def problemset(request):
         except ZeroDivisionError:
             problem.acrate = 0
 
-    return render(request, "problem/problemset.html", {"page": problems, "pages": pages, "rank_list":rank_list})
+    return render(request, "problem/problemset.html", {
+        "page": problems,
+        "pages": pages,
+        "rank_list": rank_list,
+        "tags": tag_list
+    })
 
 def status(request):
     solution_list = Solution.objects.all()
