@@ -26,7 +26,7 @@
   <div style="height: 50px">
     <div class="uk-float-left">
       <div uk-form-custom="target: > * > span:first">
-        <select onchange="changeLanguage(this.options[this.options.selectedIndex].value)">
+        <select id="language-select"">
           <option value="cpp">C++</option>
           <option value="java">Java</option>
           <option value="python">Python</option>
@@ -61,11 +61,15 @@
       editor.getSession().setTabSize(4);
       editor.getSession().setUseSoftTabs(true);
       document.getElementById('editor').style.fontSize='14px';
+      var laguageSelect = document.getElementById("language-select");
       function changeLanguage(language) {
           if (language == "c" || language == "cpp")
               editor.getSession().setMode("ace/mode/c_cpp");
           else
               editor.getSession().setMode("ace/mode/" + language);
       }
+      laguageSelect.addEventListener("change", function () {
+          changeLanguage(laguageSelect.options[laguageSelect.options.selectedIndex].value)
+      })
   </script>
 {% endblock %}
