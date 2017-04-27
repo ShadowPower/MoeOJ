@@ -319,7 +319,7 @@ class ContestRank(models.Model):
     # 用户
     user = models.ForeignKey(User, verbose_name='用户')
     # 比赛
-    contest = models.ForeignKey(Contest, verbose_name='比赛')
+    contest = models.ForeignKey(Contest, verbose_name='比赛', db_index=True)
     # 总提交
     submit = models.IntegerField('总提交', default=0)
     # 总AC
@@ -333,6 +333,28 @@ class ContestRank(models.Model):
 
     def __str__(self):
         return '用户：' + self.user.username + ' 比赛：' + self.contest.title
+
+
+# 比赛题目成绩表
+class ContestResult(models.Model):
+    '''
+    用来存放比赛中对应题目的成绩
+    记录每一题的耗时（从比赛开始到第一次AC的时间）
+    和罚时（AC之前答案错误的次数）
+    当答案错误时，如果没有耗时记录，则罚时+1
+    当AC时，如果没有耗时记录，则记录耗时
+    如果存在耗时记录，此数据不再变更
+    '''
+    # 用户
+    user = models.ForeignKey(User, verbose_name='用户', db_index=True)
+    # 比赛
+    contest = models.ForeignKey(Contest, verbose_name='比赛', db_index=True)
+    # 题目
+    problem = models.ForeignKey(Problem, verbose_name='题目', db_index=True)
+    # 罚时
+    penalty = models.IntegerField('罚时', default=0)
+    # 首次AC时间
+    ac_time = models.DateTimeField('首次AC时间', null=True, blank=True)
 
 
 # 提交记录抽象表
@@ -392,7 +414,7 @@ class ContestSolution(AbstractSolution):
 # 评论
 class Comment(models.Model):
     author = models.ForeignKey(User, verbose_name='用户')
-    problem = models.ForeignKey(Problem, verbose_name='题目')
+    problem = models.ForeignKey(Problem, verbose_name='题目', db_index=True)
     date = models.DateTimeField('评论日期', auto_now_add=True)
     body = models.TextField('正文', null=True, blank=True)
 
