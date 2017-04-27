@@ -94,7 +94,7 @@ class UserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_super_user(self, name, email, password=None, school=None, student_id=None, gender='boy'):
+    def create_superuser(self, email, password, name='超级管理员', school=None, student_id=None, gender='boy'):
         user = self.create_user(name, email, password, school, student_id, gender)
         user.user_type = SUPER_ADMIN
         user.save(using=self._db)
@@ -109,7 +109,7 @@ class User(AbstractBaseUser):
     # 用户名
     username = models.CharField('用户名', max_length=30)
     # 用户邮箱
-    email = models.EmailField('邮箱', max_length=50, unique=True)
+    email = models.EmailField('E-mail', max_length=50, unique=True)
     # 用户类型
     user_type = models.IntegerField('权限级别', default=0, choices=USER_TYPE_CHOICES)
     # 学校

@@ -26,7 +26,7 @@ rejudge.short_description = '重判所选的 提交'
 class UserAdmin(admin.ModelAdmin):
     fields = ('username', 'email', 'password', 'created_at', 'school', 'student_id', 'gender',
               'user_type', 'submission_number', 'accepted_problem_number', 'about')
-    readonly_fields = ('created_at', 'email')
+    readonly_fields = ('created_at',)
     search_fields = ('username', 'email')
     list_display = ('username', 'email', 'school', 'student_id', 'gender', 'created_at', 'about')
 
