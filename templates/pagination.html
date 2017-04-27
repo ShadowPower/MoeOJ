@@ -4,8 +4,8 @@
 {% set start_from = page.number - 3 %}
 {% endif %}
 {# 后方省略号起始页码 #}
-{% set end_to = pages %}
-{% if pages - page.number > 3 %}
+{% set end_to = num_pages %}
+{% if num_pages - page.number > 3 %}
 {% set end_to = page.number + 4 %}
 {% endif %}
 
@@ -26,11 +26,11 @@
 {% for i in range(page.number + 1 , end_to) %}
   <li class="uk-visible@m"><a href="{{ gets_no_page }}page={{ i }}">{{ i }}</a></li>
 {% endfor %}
-{% if pages - page.number > 4 %}
+{% if num_pages - page.number > 4 %}
   <li class="uk-disabled uk-visible@m"><span>...</span></li>
 {% endif %}
-{% if page.number != pages %}
-  <li class="uk-visible@m"><a href="{{ gets_no_page }}page={{ pages }}">{{ pages }}</a></li>
+{% if page.number != num_pages %}
+  <li class="uk-visible@m"><a href="{{ gets_no_page }}page={{ num_pages }}">{{ num_pages }}</a></li>
 {% endif %}
 {% if page.has_next() %}
   <li><a href="{{ gets_no_page }}page={{ page.next_page_number() }}"><span uk-pagination-next></span></a></li>

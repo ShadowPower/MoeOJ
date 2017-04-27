@@ -10,7 +10,21 @@ import codecs
 
 OBJECTS_PER_PAGE = 25
 
-# Create your views here.
+
+# 创建分页
+def make_pagination(queryset, request):
+    paginator = Paginator(queryset, OBJECTS_PER_PAGE)
+    page_number = request.GET.get('page')
+    try:
+        page_objects = paginator.page(page_number)
+    except PageNotAnInteger:
+        page_objects = paginator.page(1)
+    except EmptyPage:
+        page_objects = paginator.page(paginator.num_pages)
+    num_pages = paginator.num_pages
+    return page_objects, num_pages
+
+
 def index(request):
     notices = Notice.objects.all().order_by("-created_at")
     return render(request, "index.html", {'notices': notices, 'markdown': markdown})
@@ -19,16 +33,7 @@ def problemset(request):
     rank_list = User.objects.filter(submission_number__gt=0).order_by("-accepted_problem_number", "-submission_number")[:15]
     tag_list = ProblemTag.objects.all()
     problem_list = Problem.objects.filter(is_enable=True)
-    paginator = Paginator(problem_list, OBJECTS_PER_PAGE)
-    page_number = request.GET.get('page')
-    try:
-        problems = paginator.page(page_number)
-    except PageNotAnInteger:
-        problems = paginator.page(1)
-    except EmptyPage:
-        problems = paginator.page(paginator.num_pages)
-    pages = paginator.num_pages
-
+    problems, num_pages = make_pagination(problem_list, request)
     for problem in problems.object_list:
         # 计算AC比例
         try:
@@ -38,7 +43,7 @@ def problemset(request):
 
     return render(request, "problem/problemset.html", {
         "page": problems,
-        "pages": pages,
+        "num_pages": num_pages,
         "rank_list": rank_list,
         "tags": tag_list
     })
@@ -52,15 +57,7 @@ def problem_search(request):
         problem_list = problem_list.filter(title__contains=key_text)
     if tag_text is not None:
         problem_list = problem_list.filter(tags__name=tag_text)
-    paginator = Paginator(problem_list, OBJECTS_PER_PAGE)
-    page_number = request.GET.get('page')
-    try:
-        problems = paginator.page(page_number)
-    except PageNotAnInteger:
-        problems = paginator.page(1)
-    except EmptyPage:
-        problems = paginator.page(paginator.num_pages)
-    pages = paginator.num_pages
+    problems, num_pages = make_pagination(problem_list, request)
 
     for problem in problems.object_list:
         # 计算AC比例
@@ -71,48 +68,23 @@ def problem_search(request):
 
     return render(request, "problem/problemsearch.html", {
         "page": problems,
-        "pages": pages,
+        "num_pages": num_pages,
     })
 
 def status(request):
     solution_list = Solution.objects.all()
-    paginator = Paginator(solution_list, OBJECTS_PER_PAGE)
-    page_number = request.GET.get('page')
-    try:
-        solution = paginator.page(page_number)
-    except PageNotAnInteger:
-        solution = paginator.page(1)
-    except EmptyPage:
-        solution = paginator.page(paginator.num_pages)
-    pages = paginator.num_pages
-
-    return render(request, "status.html", {"page": solution, "pages":pages})
+    solution, num_pages = make_pagination(solution_list, request)
+    return render(request, "status.html", {"page": solution, "num_pages": num_pages})
 
 def rank(request):
     rank_list = User.objects.filter(submission_number__gt=0).order_by("-accepted_problem_number", "-submission_number")
-    paginator = Paginator(rank_list, OBJECTS_PER_PAGE)
-    page_number = request.GET.get('page')
-    try:
-        ranks = paginator.page(page_number)
-    except PageNotAnInteger:
-        ranks = paginator.page(1)
-    except EmptyPage:
-        ranks = paginator.page(paginator.num_pages)
-    pages = paginator.num_pages
-    return render(request, "rank.html", {"page": ranks, "pages":pages, "objects_per_page": OBJECTS_PER_PAGE})
+    ranks, num_pages = make_pagination(rank_list, request)
+    return render(request, "rank.html", {"page": ranks, "num_pages": num_pages, "objects_per_page": OBJECTS_PER_PAGE})
 
 def contest(request):
     contest_list = Contest.objects.filter(visible=True)
-    paginator = Paginator(contest_list, OBJECTS_PER_PAGE)
-    page_number = request.GET.get('page')
-    try:
-        contests = paginator.page(page_number)
-    except PageNotAnInteger:
-        contests = paginator.page(1)
-    except EmptyPage:
-        contests = paginator.page(paginator.num_pages)
-    pages = paginator.num_pages
-    return render(request, "contest/contest.html", {"page": contests, "pages":pages})
+    contests, num_pages = make_pagination(contest_list, request)
+    return render(request, "contest/contest.html", {"page": contests, "num_pages": num_pages})
 
 def register(request):
     return render(request, "user/register.html")
@@ -137,20 +109,11 @@ def problem_status(request, problem_id):
     result_count = [0] * 9
     for i in statistics:
         result_count[i['result']] = i['count']
-
-    paginator = Paginator(solution_list, OBJECTS_PER_PAGE)
-    page_number = request.GET.get('page')
-    try:
-        solution = paginator.page(page_number)
-    except PageNotAnInteger:
-        solution = paginator.page(1)
-    except EmptyPage:
-        solution = paginator.page(paginator.num_pages)
-    pages = paginator.num_pages
+    solutions, num_pages = make_pagination(solution_list, request)
     return render(request, "problem/problem-status.html", {
         'problem': problem_object,
-        'page': solution,
-        'pages': pages,
+        'page': solutions,
+        'num_pages': num_pages,
         'submit_count': submit_count,
         'result_count':result_count,
         'is_contest': False
@@ -204,19 +167,11 @@ def contest_problem_status(request, problem_id):
     for i in statistics:
         result_count[i['result']] = i['count']
 
-    paginator = Paginator(solution_list, OBJECTS_PER_PAGE)
-    page_number = request.GET.get('page')
-    try:
-        solution = paginator.page(page_number)
-    except PageNotAnInteger:
-        solution = paginator.page(1)
-    except EmptyPage:
-        solution = paginator.page(paginator.num_pages)
-    pages = paginator.num_pages
+    solutions, num_pages = make_pagination(solution_list, request)
     return render(request, "problem/problem-status.html", {
         'problem': problem_object,
-        'page': solution,
-        'pages': pages,
+        'page': solutions,
+        'num_pages': num_pages,
         'submit_count': submit_count,
         'result_count':result_count,
         'is_contest': True
@@ -249,20 +204,11 @@ def contest_statistics(request, contest_id):
 def contest_status(request, contest_id):
     contest_object = Contest.objects.get(id=contest_id)
     solution_list = ContestSolution.objects.filter(contest_id=contest_id)
-    paginator = Paginator(solution_list, OBJECTS_PER_PAGE)
-    page_number = request.GET.get('page')
-    try:
-        solution = paginator.page(page_number)
-    except PageNotAnInteger:
-        solution = paginator.page(1)
-    except EmptyPage:
-        solution = paginator.page(paginator.num_pages)
-    pages = paginator.num_pages
-
+    solutions, num_pages = make_pagination(solution_list, request)
     return render(request, "contest/contest-status.html", {
         'contest': contest_object,
-        'page': solution,
-        'pages': pages
+        'page': solutions,
+        'num_pages': num_pages
     })
 
 @login_required(redirect_field_name='login', login_url=None)
