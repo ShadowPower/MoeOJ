@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout, hashers
 from OJ.forms import *
 from OJ.models import User
 
+
 # 注册表单提交
 def register_post(request):
     if request.method == 'POST':
@@ -37,6 +38,7 @@ def register_post(request):
     else:
         return HttpResponseRedirect(reverse('index'))
 
+
 # 登录表单提交
 def login_post(request):
     if request.method == 'POST':
@@ -55,6 +57,7 @@ def login_post(request):
     else:
         return HttpResponseRedirect(reverse('index'))
 
+
 # 注销
 def logout_get(request):
     logout(request)
@@ -62,6 +65,7 @@ def logout_get(request):
         return HttpResponseRedirect(request.GET['from'])
     else:
         return HttpResponseRedirect(reverse('index'))
+
 
 # 修改用户信息
 def modify_user_info_post(request):

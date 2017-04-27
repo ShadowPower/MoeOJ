@@ -18,7 +18,6 @@ from django.contrib import admin
 
 from OJ import views as oj_views
 from OJ import form_views as oj_form_views
-from OJ import admin_views as admin_views
 from OJ.admin import admin_site
 
 oj_urls = [

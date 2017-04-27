@@ -1,1 +1,1 @@
-VERBOSE_APP_NAME = '在线评测系统'
+default_app_config = 'OJ.apps.OjConfig'

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Count, Q
+from django.db.models import Count
 
 from OJ.models import *
 
@@ -29,8 +29,10 @@ def index(request):
     notices = Notice.objects.all().order_by("-created_at")
     return render(request, "index.html", {'notices': notices, 'markdown': markdown})
 
+
 def problemset(request):
-    rank_list = User.objects.filter(submission_number__gt=0).order_by("-accepted_problem_number", "-submission_number")[:15]
+    rank_list = User.objects.filter(submission_number__gt=0).order_by("-accepted_problem_number", "-submission_number")[
+                :15]
     tag_list = ProblemTag.objects.all()
     problem_list = Problem.objects.filter(is_enable=True)
     problems, num_pages = make_pagination(problem_list, request)
@@ -47,6 +49,7 @@ def problemset(request):
         "rank_list": rank_list,
         "tags": tag_list
     })
+
 
 # 题目搜索
 def problem_search(request):
@@ -71,26 +74,32 @@ def problem_search(request):
         "num_pages": num_pages,
     })
 
+
 def status(request):
     solution_list = Solution.objects.all()
     solution, num_pages = make_pagination(solution_list, request)
     return render(request, "status.html", {"page": solution, "num_pages": num_pages})
+
 
 def rank(request):
     rank_list = User.objects.filter(submission_number__gt=0).order_by("-accepted_problem_number", "-submission_number")
     ranks, num_pages = make_pagination(rank_list, request)
     return render(request, "rank.html", {"page": ranks, "num_pages": num_pages, "objects_per_page": OBJECTS_PER_PAGE})
 
+
 def contest(request):
     contest_list = Contest.objects.filter(visible=True)
     contests, num_pages = make_pagination(contest_list, request)
     return render(request, "contest/contest.html", {"page": contests, "num_pages": num_pages})
 
+
 def register(request):
     return render(request, "user/register.html")
 
+
 def login(request):
     return render(request, "user/login.html")
+
 
 def problem(request, problem_id):
     problem_object = Problem.objects.get(id=problem_id)
@@ -98,6 +107,7 @@ def problem(request, problem_id):
         'problem': problem_object,
         'is_contest': False
     })
+
 
 def problem_status(request, problem_id):
     problem_object = Problem.objects.get(id=problem_id)
@@ -115,9 +125,10 @@ def problem_status(request, problem_id):
         'page': solutions,
         'num_pages': num_pages,
         'submit_count': submit_count,
-        'result_count':result_count,
+        'result_count': result_count,
         'is_contest': False
     })
+
 
 # contest
 def contest_overview(request, contest_id):
@@ -128,6 +139,7 @@ def contest_overview(request, contest_id):
         'overview_text': markdown(overview_text)
     })
 
+
 def contest_problemset(request, contest_id):
     contest_object = Contest.objects.get(id=contest_id)
     # 题目列表
@@ -136,8 +148,8 @@ def contest_problemset(request, contest_id):
     accepted_count = [0] * contest_problem_list.count()
     # 查询本比赛，本用户的提交记录中所有AC的记录，然后Group By题目id，统计数量（AC次数）
     if request.user.is_authenticated():
-        statistics = ContestSolution.objects.values('problem__index')\
-            .filter(contest_id=contest_id, problem__is_enable=True, user=request.user, result=0)\
+        statistics = ContestSolution.objects.values('problem__index') \
+            .filter(contest_id=contest_id, problem__is_enable=True, user=request.user, result=0) \
             .annotate(count=Count('problem'))
         # 记录AC次数到accepted_count数组中
         for i in statistics:
@@ -149,12 +161,14 @@ def contest_problemset(request, contest_id):
         'accepted_count': accepted_count
     })
 
+
 def contest_problem(request, problem_id):
     problem_object = ContestProblem.objects.get(id=problem_id)
     return render(request, "problem/problem-description.html", {
         'problem': problem_object,
         'is_contest': True
     })
+
 
 def contest_problem_status(request, problem_id):
     problem_object = ContestProblem.objects.get(id=problem_id)
@@ -173,15 +187,17 @@ def contest_problem_status(request, problem_id):
         'page': solutions,
         'num_pages': num_pages,
         'submit_count': submit_count,
-        'result_count':result_count,
+        'result_count': result_count,
         'is_contest': True
     })
+
 
 def contest_ranklist(request, contest_id):
     contest_object = Contest.objects.get(id=contest_id)
     return render(request, "contest/contest-ranklist.html", {
         'contest': contest_object,
     })
+
 
 def contest_statistics(request, contest_id):
     contest_object = Contest.objects.get(id=contest_id)
@@ -191,7 +207,7 @@ def contest_statistics(request, contest_id):
     # data[题号 p_index][结果类型 result] = 数量
     data = [[0] * 9] * problem_count
     # select count(ContestSolution.result) ...... group by Problem.index ContestSolution.result
-    statistics = ContestSolution.objects.filter(contest_id=contest_id).values('problem__index', 'result')\
+    statistics = ContestSolution.objects.filter(contest_id=contest_id).values('problem__index', 'result') \
         .annotate(count=Count('result'))
     # 写入二维数组
     for i in statistics:
@@ -200,6 +216,7 @@ def contest_statistics(request, contest_id):
         'contest': contest_object,
         'data': data
     })
+
 
 def contest_status(request, contest_id):
     contest_object = Contest.objects.get(id=contest_id)
@@ -211,10 +228,10 @@ def contest_status(request, contest_id):
         'num_pages': num_pages
     })
 
+
 @login_required(redirect_field_name='login', login_url=None)
 def modify_user_info(request):
     user = request.user
     return render(request, "user/modify-user-info.html", {
         'user': user
     })
-

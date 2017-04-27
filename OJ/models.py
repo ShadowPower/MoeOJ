@@ -28,15 +28,15 @@ CONTEST_TYPE_CHOICES = (
 )
 
 # 运行结果
-AC = 0    # Accepted
-CE = 1    # Compile Error
-WA = 2    # Wrong Answer
-RE = 3    # Runtime Error
-TLE = 4   # Time Limit Exceeded
-OLE = 5   # Output Limit Exceeded
-MLE = 6   # Memory Limit Exceeded
-RF = 7    # Restricted Function
-PE = 8    # Presentation Error
+AC = 0  # Accepted
+CE = 1  # Compile Error
+WA = 2  # Wrong Answer
+RE = 3  # Runtime Error
+TLE = 4  # Time Limit Exceeded
+OLE = 5  # Output Limit Exceeded
+MLE = 6  # Memory Limit Exceeded
+RF = 7  # Restricted Function
+PE = 8  # Presentation Error
 
 RESULT_CHOICES = (
     (AC, '答案正确'),
@@ -76,17 +76,18 @@ DIFFICULTY_CHOICES = (
     (3, '困难'),
 )
 
+
 class UserManager(BaseUserManager):
     def create_user(self, name, email, password=None, school=None, student_id=None, gender='boy'):
         if not email:
             raise ValueError('Users must have an email address')
 
         user = self.model(
-            username = name,
-            email = UserManager.normalize_email(email),
-            school = school,
-            student_id = student_id,
-            gender = gender
+            username=name,
+            email=UserManager.normalize_email(email),
+            school=school,
+            student_id=student_id,
+            gender=gender
         )
 
         user.set_password(password)
@@ -261,7 +262,7 @@ class Problem(AbstractProblem):
 # 比赛表
 class Contest(models.Model):
     # 比赛标题
-    title = models.CharField('标题', max_length= 255)
+    title = models.CharField('标题', max_length=255)
     # 描述
     description = models.TextField('描述')
     # 开始时间

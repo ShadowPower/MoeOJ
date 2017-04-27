@@ -16,6 +16,8 @@ admin_site = MoeOJAdmin()
 # 重判提交记录
 def rejudge(modeladmin, request, queryset):
     pass
+
+
 rejudge.short_description = '重判所选的 提交'
 
 
