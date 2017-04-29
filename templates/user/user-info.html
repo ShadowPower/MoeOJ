@@ -57,7 +57,11 @@
             <h3 class="uk-card-title uk-margin-remove-bottom">已通过题目</h3>
           </div>
           <div class="uk-card-body">
-            <p class="uk-text-center" style="font-size: 80pt">已经通过的题目列表</p>
+            {% for problem in accepted_problem %}
+              <div class="uk-badge uk-label">
+                <a class="text-white" href="{{ url("problem", problem.id) }}">{{ problem.id }}</a>
+              </div>
+            {% endfor %}
           </div>
         </div>
       </div>

@@ -238,6 +238,8 @@ def modify_user_info(request):
 
 def user_info(request, user_id):
     user = User.objects.get(id=user_id)
+    accepted_problem = Problem.objects.filter(solution__user_id=user_id, solution__result=AC).order_by('id')
     return render(request, "user/user-info.html", {
-        'the_user': user
+        'the_user': user,
+        'accepted_problem': accepted_problem
     })

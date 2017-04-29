@@ -112,3 +112,7 @@ body {
 .badge-align {
     transform: translateY(-2px);
 }
+
+.text-white {
+    color: white!important;
+}
