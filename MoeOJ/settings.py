@@ -80,6 +80,7 @@ TEMPLATES = [
                 'difficulty_to_text': 'MoeOJ.filter.difficulty_to_text',
                 'language_to_text': 'MoeOJ.filter.language_to_text',
                 'result_to_text': 'MoeOJ.filter.result_to_text',
+                'gender_to_text': 'MoeOJ.filter.gender_to_text',
                 'num_to_abc': 'MoeOJ.filter.num_to_abc',
                 'abc_to_num': 'MoeOJ.filter.abc_to_num',
             },

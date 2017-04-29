@@ -235,3 +235,9 @@ def modify_user_info(request):
     return render(request, "user/modify-user-info.html", {
         'user': user
     })
+
+def user_info(request, user_id):
+    user = User.objects.get(id=user_id)
+    return render(request, "user/user-info.html", {
+        'the_user': user
+    })

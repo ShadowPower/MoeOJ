@@ -30,6 +30,7 @@ oj_urls = [
     url(r'^register/$', oj_views.register, name='register'),
     url(r'^login/$', oj_views.login, name='login'),
     url(r'^modify-user-info/$', oj_views.modify_user_info, name='modify_user_info'),
+    url(r'^user-info/(\d+)/$', oj_views.user_info, name='user_info'),
 ]
 
 contest_urls = [
