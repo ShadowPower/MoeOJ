@@ -28,7 +28,7 @@
         {% for status in page.object_list %}
         <tr>
           <td>{{ status.id }}</td>
-          <td noWrap>{{ status.user.username }}</td>
+          <td noWrap><a href="{{ url('user_info', status.user.id) }}">{{ status.user.username }}</a></td>
           <td>{{ status.problem.id }}</td>
           <td>{{ status.language|language_to_text }}</td>
           <td>

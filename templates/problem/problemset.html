@@ -64,7 +64,7 @@
           <div class="uk-card uk-card-default uk-card-small uk-card-body">
             <h3 class="uk-panel-title">排行</h3>
             {% for rank in rank_list %}
-            {{ rank.username }}<br />
+              <a href="{{ url('user_info', rank.id) }}">{{ rank.username }}</a><br />
             {% endfor %}
           </div>
         </div>

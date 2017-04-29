@@ -26,7 +26,7 @@
         {% for rank in page %}
         <tr>
           <td noWrap>{{ loop.index + (page.number - 1) * objects_per_page }}</td>
-          <td noWrap>{{ rank.username }}</td>
+          <td noWrap><a href="{{ url('user_info', rank.id) }}">{{ rank.username }}</a></td>
           <td>{{ rank.about }}</td>
           <td noWrap>{{ rank.accepted_problem_number }}</td>
           <td noWrap>{{ rank.submission_number }}</td>

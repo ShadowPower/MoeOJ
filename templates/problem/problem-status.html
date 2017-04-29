@@ -75,7 +75,7 @@
         {% for status in page %}
         <tr>
           <td>{{ status.id }}</td>
-          <td>{{ status.user.username }}</td>
+          <td><a href="{{ url('user_info', status.user.id) }}">{{ status.user.username }}</a></td>
           <td>{{ status.language|language_to_text }}</td>
           <td>
             {% if status.time != None %}
