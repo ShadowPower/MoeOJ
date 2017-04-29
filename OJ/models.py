@@ -423,4 +423,4 @@ class Comment(models.Model):
         verbose_name_plural = '评论'
 
     def __str__(self):
-        return self.author.username + '|' + self.problem.title + '|' + self.date.strftime('%Y-%m-%d %H:%M:%S')
+        return self.author.username + ' | ' + self.problem.title + ' | ' + self.date.strftime('%Y-%m-%d %H:%M:%S')
