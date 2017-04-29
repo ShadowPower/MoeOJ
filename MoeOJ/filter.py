@@ -13,7 +13,7 @@ def result_to_text(result):
     return RESULT_DESC[result]
 
 def gender_to_text(gender):
-    GENDER_DESC = {'boy': '男孩子', 'girl': '女孩子', 'futa': '混合性别'}
+    GENDER_DESC = {'boy': '男孩子', 'girl': '女孩子', 'futa': '其他'}
     return GENDER_DESC[gender]
 
 # 序号格式转换

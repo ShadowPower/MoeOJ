@@ -1,3 +1,11 @@
+{% if the_user.gender == 'boy' %}
+  {% set text_color = 'text-boy' %}
+{% elif the_user.gender == 'girl' %}
+  {% set text_color = 'text-girl' %}
+{% else %}
+  {% set text_color = 'text-futa' %}
+{% endif %}
+
 {% extends 'base.html' %}
 {% block title %} 用户 - {{ the_user.username }} {% endblock %}
 {% block content %}
@@ -16,7 +24,7 @@
               <div class="uk-width-expand">
                 <h3 class="uk-card-title uk-margin-remove-bottom">
                   {{ the_user.username }}
-                  <span class="uk-text-meta uk-margin-remove-vertical">{{ the_user.gender|gender_to_text }}</span>
+                  <span class="uk-text-meta uk-margin-remove-vertical {{ text_color }}">{{ the_user.gender|gender_to_text }}</span>
                 </h3>
                 <p class="uk-margin-remove-vertical">{{ the_user.email }}</p>
                 <p class="uk-margin-remove-top">{{ the_user.school }}</p>
@@ -33,7 +41,7 @@
             <h3 class="uk-card-title uk-margin-remove-bottom uk-text-center">已解决</h3>
           </div>
           <div class="uk-card-body uk-padding-remove">
-            <p class="uk-text-center" style="font-size: 70pt">{{ the_user.accepted_problem_number }}</p>
+            <p class="uk-text-center {{ text_color }}" style="font-size: 70pt">{{ the_user.accepted_problem_number }}</p>
           </div>
         </div>
       </div>
@@ -45,7 +53,7 @@
             <h3 class="uk-card-title uk-margin-remove-bottom uk-text-center">总提交</h3>
           </div>
           <div class="uk-card-body uk-padding-remove">
-            <p class="uk-text-center" style="font-size: 70pt">{{ the_user.submission_number }}</p>
+            <p class="uk-text-center {{ text_color }}" style="font-size: 70pt">{{ the_user.submission_number }}</p>
           </div>
         </div>
       </div>
