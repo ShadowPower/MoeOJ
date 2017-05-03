@@ -28,6 +28,16 @@ DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 
+# Celery setting
+
+CELERY_BROKER_URL = 'redis://localhost:6379/0'
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Asia/Shanghai'
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'OJ',
     'django_jinja',
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -175,3 +186,8 @@ AUTH_USER_MODEL = 'OJ.User'
 OJ_TITLE = 'Moe OJ'
 
 LOGIN_URL = '/login/'
+
+
+MEDIA_ROOT = 'upload/'
+
+MEDIA_URL = '/upload/'

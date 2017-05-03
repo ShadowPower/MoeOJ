@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager)
 from django.utils.timezone import now
+from django.dispatch import receiver
+
+import os
 
 # 用户权限
 REGULAR_USER = 0
@@ -75,6 +78,20 @@ DIFFICULTY_CHOICES = (
     (2, '中等'),
     (3, '困难'),
 )
+
+
+# 题目测试用例上传路径
+def test_case_upload_path_handler(instance, filename):
+    return "testcase/{file}".format(file=str(instance.id) + ".zip")
+
+
+def validate_file_extension(value):
+    import os
+    from django.core.exceptions import ValidationError
+    ext = os.path.splitext(value.name)[1]
+    valid_extensions = ['.zip']
+    if not ext.lower() in valid_extensions:
+        raise ValidationError('Unsupported file extension.')
 
 
 class UserManager(BaseUserManager):
@@ -236,7 +253,8 @@ class AbstractProblem(models.Model):
     # 总提交数
     submit = models.IntegerField('总提交数', default=0, null=True, blank=True)
     # 输入输出样例文件
-    judge_example = models.FileField('样例文件（ZIP压缩包）', null=True, blank=True)
+    judge_example = models.FileField('样例文件（ZIP压缩包）', null=True, blank=True,
+                                     upload_to=test_case_upload_path_handler, validators=[validate_file_extension])
 
     class Meta:
         abstract = True
@@ -424,3 +442,55 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.author.username + ' | ' + self.problem.title + ' | ' + self.date.strftime('%Y-%m-%d %H:%M:%S')
+
+
+# 题目删除之后，删除判题用例文件
+@receiver(models.signals.post_delete, sender=Problem)
+@receiver(models.signals.post_delete, sender=ContestProblem)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    if instance.judge_example:
+        try:
+            if os.path.isfile(instance.judge_example.path):
+                os.remove(instance.judge_example.path)
+        except Exception:
+            return False
+
+
+# 题目修改之前，删除已经存在的判题用例文件
+@receiver(models.signals.pre_save, sender=Problem)
+def auto_delete_testcase_file_on_change(sender, instance, **kwargs):
+    if not instance.pk:
+        return False
+
+    try:
+        old_file = Problem.objects.get(pk=instance.pk).judge_example
+    except Problem.DoesNotExist:
+        return False
+
+    new_file = instance.judge_example
+    if not old_file == new_file:
+        try:
+            if os.path.isfile(old_file.path):
+                os.remove(old_file.path)
+        except ValueError:
+            return False
+
+
+# 比赛题目修改之前，删除已经存在的判题用例文件
+@receiver(models.signals.pre_save, sender=ContestProblem)
+def auto_delete_contest_testcase_file_on_change(sender, instance, **kwargs):
+    if not instance.pk:
+        return False
+
+    try:
+        old_file = ContestProblem.objects.get(pk=instance.pk).judge_example
+    except Problem.DoesNotExist:
+        return False
+
+    new_file = instance.judge_example
+    if not old_file == new_file:
+        try:
+            if os.path.isfile(old_file.path):
+                os.remove(old_file.path)
+        except ValueError:
+            return False

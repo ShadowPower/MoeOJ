@@ -4,9 +4,9 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count
 
 from OJ.models import *
+from OJ.tasks import *
 
 from markdown import markdown
-import codecs
 
 OBJECTS_PER_PAGE = 25
 

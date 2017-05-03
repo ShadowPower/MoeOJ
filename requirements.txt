@@ -1,6 +1,9 @@
+celery==4.0.2
 Django==1.10.4
+django-celery-results==1.0.1
 django-jinja==2.2.2
 Jinja2==2.8.1
 Markdown==2.6.8
 MarkupSafe==0.23
 PyMySQL==0.7.9
+redis==2.10.5
