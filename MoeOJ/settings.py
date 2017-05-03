@@ -191,3 +191,5 @@ LOGIN_URL = '/login/'
 MEDIA_ROOT = 'upload/'
 
 MEDIA_URL = '/upload/'
+
+TESTCASE_ROOT = 'testcase/'

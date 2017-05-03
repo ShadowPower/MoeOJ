@@ -13,3 +13,6 @@ build
 
 #JetBrains
 .idea
+
+# MoeOJ
+/upload

@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager)
 from django.utils.timezone import now
 from django.dispatch import receiver
+from django.conf import settings
+
+from OJ.tasks import *
 
 import os
 
@@ -496,3 +499,22 @@ def auto_delete_contest_testcase_file_on_change(sender, instance, **kwargs):
                 os.remove(old_file.path)
         except ValueError:
             return False
+
+
+# 测试用例上传后自动解压
+@receiver(models.signals.post_save, sender=Problem)
+@receiver(models.signals.post_save, sender=ContestProblem)
+def unzip_testcase_on_change(sender, instance, **kwargs):
+    if not instance.pk:
+        return False
+
+    zip_file = instance.judge_example
+    if os.path.isfile(zip_file.path):
+        output_path = getattr(settings, 'TESTCASE_ROOT', 'testcase/')
+        # 解压文件到题目ID对应的目录
+        unzip.delay(zip_file.path, output_path + str(instance.id) + '/')
+        print("hello")
+    try:
+        pass
+    except Exception:
+        return False
