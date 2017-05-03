@@ -509,12 +509,10 @@ def unzip_testcase_on_change(sender, instance, **kwargs):
         return False
 
     zip_file = instance.judge_example
-    if os.path.isfile(zip_file.path):
-        output_path = getattr(settings, 'TESTCASE_ROOT', 'testcase/')
-        # 解压文件到题目ID对应的目录
-        unzip.delay(zip_file.path, output_path + str(instance.id) + '/')
-        print("hello")
     try:
-        pass
+        if os.path.isfile(zip_file.path):
+            output_path = getattr(settings, 'TESTCASE_ROOT', 'testcase/')
+            # 解压文件到题目ID对应的目录
+            unzip.delay(zip_file.path, output_path + str(instance.id) + '/')
     except Exception:
         return False
