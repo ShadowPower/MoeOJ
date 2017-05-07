@@ -299,6 +299,8 @@ class Contest(models.Model):
     created_by = models.ForeignKey(User, verbose_name='比赛创建者')
     # 是否可见
     visible = models.BooleanField('是否在比赛列表显示', default=True)
+    # 非公开比赛参赛选手
+    contestant = models.ManyToManyField(User, verbose_name='参赛选手（用于非公开比赛）', related_name='contestants', blank=True)
 
     @property
     def status(self):
@@ -368,7 +370,7 @@ class ContestResult(models.Model):
     # 比赛
     contest = models.ForeignKey(Contest, verbose_name='比赛', db_index=True)
     # 题目
-    problem = models.ForeignKey(Problem, verbose_name='题目', db_index=True)
+    problem = models.ForeignKey(ContestProblem, verbose_name='题目', db_index=True)
     # 罚时
     penalty = models.IntegerField('罚时', default=0)
     # 首次AC时间

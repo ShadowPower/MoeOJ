@@ -77,6 +77,12 @@ def problem_search(request):
 
 def status(request):
     solution_list = Solution.objects.all()
+
+    # 如果指定用户，则过滤结果
+    user_id = request.GET.get('user')
+    if user_id is not None:
+        solution_list = solution_list.filter(user_id=user_id)
+
     solution, num_pages = make_pagination(solution_list, request)
     return render(request, "status.html", {"page": solution, "num_pages": num_pages})
 
@@ -114,8 +120,18 @@ def problem_status(request, problem_id):
     solution_list = Solution.objects.filter(problem_id=problem_id)
     submit_count = solution_list.count()
 
+    # 如果指定用户，则过滤结果
+    user_id = request.GET.get('user')
+    if user_id is not None:
+        solution_list = solution_list.filter(user_id=user_id)
+        submit_count = solution_list.count()
+
     # 取得各结果的统计
-    statistics = Solution.objects.values('result').filter(problem_id=problem_id).annotate(count=Count('result'))
+    if user_id is None:
+        statistics = Solution.objects.values('result').filter(problem_id=problem_id).annotate(count=Count('result'))
+    else:
+        statistics = Solution.objects.values('result').filter(problem_id=problem_id, user_id=user_id).annotate(count=Count('result'))
+
     result_count = [0] * 9
     for i in statistics:
         result_count[i['result']] = i['count']
