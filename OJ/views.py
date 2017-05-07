@@ -117,7 +117,7 @@ def problem(request, problem_id):
 
 def problem_status(request, problem_id):
     problem_object = Problem.objects.get(id=problem_id)
-    solution_list = Solution.objects.filter(problem_id=problem_id)
+    solution_list = Solution.objects.filter(problem_id=problem_id).order_by("-submit_date")
     submit_count = solution_list.count()
 
     # 如果指定用户，则过滤结果
@@ -188,7 +188,7 @@ def contest_problem(request, problem_id):
 
 def contest_problem_status(request, problem_id):
     problem_object = ContestProblem.objects.get(id=problem_id)
-    solution_list = ContestSolution.objects.filter(problem_id=problem_id)
+    solution_list = ContestSolution.objects.filter(problem_id=problem_id).order_by("-submit_date")
     submit_count = solution_list.count()
 
     # 取得各结果的统计
@@ -236,7 +236,7 @@ def contest_statistics(request, contest_id):
 
 def contest_status(request, contest_id):
     contest_object = Contest.objects.get(id=contest_id)
-    solution_list = ContestSolution.objects.filter(contest_id=contest_id)
+    solution_list = ContestSolution.objects.filter(contest_id=contest_id).order_by("-submit_date")
     solutions, num_pages = make_pagination(solution_list, request)
     return render(request, "contest/contest-status.html", {
         'contest': contest_object,
