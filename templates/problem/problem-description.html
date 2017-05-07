@@ -12,11 +12,15 @@
   <h3 class="uk-margin-small-top">样例</h3>
   <h4 class="uk-margin-small-top">输入</h4>
   <div class="sample">
-    {{ problem.sample_input }}
+    {% for line in problem.sample_input.split('\n') %}
+      {{ line }}<br />
+    {% endfor %}
   </div>
   <h4 class="uk-margin-small-top">输出</h4>
   <div class="sample">
-    {{ problem.sample_output }}
+    {% for line in problem.sample_output.split('\n') %}
+      {{ line }}<br />
+    {% endfor %}
   </div>
   <hr>
   <h3 class="uk-margin-remove-top">补充说明</h3>

@@ -19,7 +19,6 @@ def register_post(request):
             school = form.cleaned_data['school']
             student_id = form.cleaned_data['student_id']
             gender = form.cleaned_data['gender']
-
             if password == confirm:
                 try:
                     User.objects.create_user(username, email, password, school, student_id, gender)

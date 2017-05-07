@@ -76,7 +76,7 @@ def problem_search(request):
 
 
 def status(request):
-    solution_list = Solution.objects.all()
+    solution_list = Solution.objects.all().order_by("-submit_date")
 
     # 如果指定用户，则过滤结果
     user_id = request.GET.get('user')

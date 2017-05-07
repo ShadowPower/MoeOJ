@@ -183,7 +183,7 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'OJ.User'
 
-OJ_TITLE = 'Moe OJ'
+OJ_TITLE = '海南大学OJ'
 
 LOGIN_URL = '/login/'
 
