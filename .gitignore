@@ -16,3 +16,7 @@ build
 
 # MoeOJ
 /upload
+/testcase
+/log
+/spj
+/judger_run
