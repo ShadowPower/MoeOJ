@@ -205,7 +205,7 @@ def contest_statistics(request, contest_id):
     # 取得题目数量
     problem_count = ContestProblem.objects.filter(contest_id=contest_id).count()
     # data[题号 p_index][结果类型 result] = 数量
-    data = [[0] * 9] * problem_count
+    data = [[0] * 9 for num in range(problem_count)]
     # select count(ContestSolution.result) ...... group by Problem.index ContestSolution.result
     statistics = ContestSolution.objects.filter(contest_id=contest_id).values('problem__index', 'result') \
         .annotate(count=Count('result'))
